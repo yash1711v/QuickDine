@@ -1,0 +1,1 @@
+class Listrectanglefiftyfive3ItemModel {}
