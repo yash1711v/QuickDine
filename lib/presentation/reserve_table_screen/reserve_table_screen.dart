@@ -382,7 +382,7 @@ class ReserveTableScreen extends GetWidget<ReserveTableController> {
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
                 activeColor: Colors.white,
-
+                selectedIndex: 3,
                 tabs: [
                   GButton(
                     gap: 8,

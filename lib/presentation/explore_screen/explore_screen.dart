@@ -1,5 +1,8 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../widgets/app_bar/appbar_dropdown.dart';
+import '../DrawerWidget/DrawerItem.dart';
+import '../DrawerWidget/DrawerWidget.dart';
 import '../explore_screen/widgets/restaurantnear1_item_widget.dart';
 import 'controller/explore_controller.dart';
 import 'models/restaurantnear1_item_model.dart';
@@ -13,6 +16,7 @@ import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
 
 class ExploreScreen extends GetWidget<ExploreController> {
+  int _currentIndex=1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,20 +25,41 @@ class ExploreScreen extends GetWidget<ExploreController> {
         child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
-            appBar: CustomAppBar(
-                height: getVerticalSize(37.00),
-                title: AppbarDropdown1(
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                centerTitle: true,
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(
+                        Icons.menu_rounded,
+                        color: Colors.black,
+                        size: 50, // Changing Drawer Icon Size
+                      ),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+
+                    );
+                  },
+                ),
+                title: AppbarDropdown(
                     hintText: "lbl_delhi".tr,
+                    margin: getMargin(top: 10),
                     items: controller.exploreModelObj.value.dropdownItemList,
                     onTap: (value) {
                       controller.onSelected(value);
-                    },
-                    margin: getMargin(left: 18)),
+                    }
+                ),
                 actions: [
                   AppbarStack(
-                      margin: getMargin(left: 19, top: 3, right: 19),
-                      onTap: onTapProfileIcon1)
-                ]),
+                      margin: getMargin(left: 20, right: 20,top: 12),
+                      onTap: onTapProfileIcon
+                  )
+                ]
+            ),
             body: SizedBox(
                 width: size.width,
                 child: SingleChildScrollView(
@@ -762,12 +787,14 @@ class ExploreScreen extends GetWidget<ExploreController> {
                                                     ]))))
                                       ]))
                             ])))),
+            drawer: buildDrawer(),
             bottomNavigationBar:
             SizedBox(height: 90.50, width: 10,
               child: GNav(
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
                 activeColor: Colors.white,
+                selectedIndex: _currentIndex,
                 tabs: [
                   GButton(
                     gap: 8,
@@ -780,11 +807,13 @@ class ExploreScreen extends GetWidget<ExploreController> {
                     gap: 8,
                     icon: Icons.search,
                     text: "Search",
+                    onPressed: ()=>onTapBottomSearchButton(),
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.access_time,
-                    text: "Pre-Order",),
+                    text: "Pre-Order",
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.bookmark_border,
@@ -795,7 +824,23 @@ class ExploreScreen extends GetWidget<ExploreController> {
         )
     );
   }
+  Widget buildDrawer()=> DrawerWidget(
+    onSelectedItem: (item) {
+      switch(item){
+        case DrawerItems.Info:
+          return onTapInfo();
+        case DrawerItems.profile:
+          return onTapProfile();
+        case DrawerItems.Pre_Order:
+          return onTapPreOrder();
+        case DrawerItems.Offers:
+          return onTapOffersandPromo();
+        case DrawerItems.Logout:
+          return onTaplogout();
 
+      }
+    },
+  );
   onTapProfileIcon1() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
@@ -811,4 +856,21 @@ class ExploreScreen extends GetWidget<ExploreController> {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+  onTapProfileIcon() {
+    Get.toNamed(AppRoutes.profileSettingScreen);
+  }
+
+  onTapInfo() {
+    Get.toNamed(AppRoutes.aboutUsScreen);
+  }
+  onTapProfile() {
+    Get.toNamed(AppRoutes.profileSettingScreen);
+  }
+  onTapPreOrder() {
+    Get.toNamed(AppRoutes.exploreScreen);
+  }
+  onTapOffersandPromo() {
+    Get.toNamed(AppRoutes.promoScreen);
+  }
+  onTaplogout() {}
 }
