@@ -3,7 +3,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'controller/profile_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
-import 'package:quickdine/widgets/custom_bottom_bar.dart';
 
 class ProfileSettingScreen extends GetWidget<ProfileSettingController> {
   @override
