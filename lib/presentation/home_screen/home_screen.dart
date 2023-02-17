@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
@@ -19,118 +22,209 @@ import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class HomeScreen extends GetWidget<HomeController> {
-  int _currentIndex=0;
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int  _currentIndex=0;
+  get controller => HomeController();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        top: false,
-        bottom: false,
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: ColorConstant.whiteA700,
-             appBar: AppBar(
-               backgroundColor: Colors.white,
-               elevation: 0,
-               centerTitle: true,
-                 leading: Builder(
-                   builder: (BuildContext context) {
-                     return IconButton(
-                       icon: const Icon(
-                         Icons.menu_rounded,
-                         color: Colors.black,
-                         size: 50, // Changing Drawer Icon Size
-                       ),
-                       onPressed: () {
-                         Scaffold.of(context).openDrawer();
-                       },
-                       tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-
-                     );
-                   },
-                 ),
-               title: AppbarDropdown(
-                     hintText: "lbl_delhi".tr,
-                     margin: getMargin(top: 10),
-                     items: controller.homeModelObj.value.dropdownItemList,
-                     onTap: (value) {
-                       controller.onSelected(value);
-                     }
-                     ),
-                 actions: [
-                     AppbarStack(
-                         margin: getMargin(left: 20, right: 20,top: 12),
-                         onTap: onTapProfileIcon
-                     )
-                   ]
-             ),
-             //CustomAppBar(
-            //     height: getVerticalSize(50.00),
-            //     leadingWidth: 60,
-            //     // leading: AppbarImage(
-            //     //     height: getSize(24.00),
-            //     //     width: getSize(24.00),
-            //     //     svgPath: ImageConstant.imgMenu,
-            //     //     margin: getMargin(left: 18, top: 7, bottom: 0),
-            //     //   onTap: (){
-            //     //       onTapMenuIconButtonInTopAppBar();
-            //     //   },
-            //     // ),
-            //     centerTitle: true,
-            //     title: AppbarDropdown(
-            //         hintText: "lbl_delhi".tr,
-            //         margin: getMargin(top: 10),
-            //         items: controller.homeModelObj.value.dropdownItemList,
-            //         onTap: (value) {
-            //           controller.onSelected(value);
-            //         }),
-            //     actions: [
-            //       AppbarStack(
-            //           margin: getMargin(left: 20, right: 20,top: 5),
-            //           onTap: onTapProfileIcon
-            //       )
-            //     ]),
-            body: Stack(
-              children: [
-                buildDrawer(),
-                buildPAge(),
-              ],
-            ),
-          drawer: buildDrawer(),
-          bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
-            child: GNav(
-              duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-              activeColor: Colors.white,
-              selectedIndex: _currentIndex,
-              tabs: [
-                GButton(
-                  gap: 8,
-                  icon: Icons.home,
-                  text: "Home",
-                  onPressed: (){onTapBottomHomeButton();
+    return  Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: ColorConstant.whiteA700,
+        appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            leading: Builder(
+              builder: (BuildContext context) {
+                return IconButton(
+                  icon: const Icon(
+                    Icons.menu_rounded,
+                    color: Colors.black,
+                    size: 50, // Changing Drawer Icon Size
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
                   },
-                ),
-                GButton(
-                  gap: 8,
-                  icon: Icons.search,
-                  text: "Search",
-                  onPressed: (){onTapBottomSearchButton();},
-                ),
-                GButton(
-                  gap: 8,
-                  icon: Icons.access_time,
-                  text: "Pre-Order",),
-                GButton(
-                    gap: 8,
-                    icon: Icons.bookmark_border,
-                    text: "Reservation",
-                    onPressed: (){onTapBottomReservationButton();}),
-              ],
-            ),)
+                  tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+
+                );
+              },
+            ),
+            title: AppbarDropdown(
+                hintText: "lbl_delhi".tr,
+                margin: getMargin(top: 10),
+                items: controller.homeModelObj.value.dropdownItemList,
+                onTap: (value) {
+                  controller.onSelected(value);
+                }
+            ),
+            actions: [
+              AppbarStack(
+                  margin: getMargin(left: 20, right: 20,top: 12),
+                  onTap: onTapProfileIcon
+              )
+            ]
         ),
+        body: Stack(
+          children: [
+            buildDrawer(),
+            buildPAge(),
+          ],
+        ),
+        drawer: buildDrawer(),
+        bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
+          child: GNav(
+            duration: Duration(milliseconds: 400),
+            tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+            activeColor: Colors.white,
+            selectedIndex: _currentIndex,
+            tabs: [
+              GButton(
+                gap: 8,
+                icon: Icons.home,
+                text: "Home",
+                onPressed: (){onTapBottomHomeButton();
+                },
+              ),
+              GButton(
+                gap: 8,
+                icon: Icons.search,
+                text: "Search",
+                onPressed: (){onTapBottomSearchButton();},
+              ),
+              GButton(
+                gap: 8,
+                icon: Icons.access_time,
+                text: "Pre-Order",),
+              GButton(
+                  gap: 8,
+                  icon: Icons.bookmark_border,
+                  text: "Reservation",
+                  onPressed: (){onTapBottomReservationButton();}),
+            ],
+          ),)
     );
   }
+
+// class HomeScreen extends GetWidget<HomeController> {
+//   int _currentIndex=0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         top: false,
+//         bottom: false,
+//         child: Scaffold(
+//             resizeToAvoidBottomInset: false,
+//             backgroundColor: ColorConstant.whiteA700,
+//              appBar: AppBar(
+//                backgroundColor: Colors.white,
+//                elevation: 0,
+//                centerTitle: true,
+//                  leading: Builder(
+//                    builder: (BuildContext context) {
+//                      return IconButton(
+//                        icon: const Icon(
+//                          Icons.menu_rounded,
+//                          color: Colors.black,
+//                          size: 50, // Changing Drawer Icon Size
+//                        ),
+//                        onPressed: () {
+//                          Scaffold.of(context).openDrawer();
+//                        },
+//                        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+//
+//                      );
+//                    },
+//                  ),
+//                title: AppbarDropdown(
+//                      hintText: "lbl_delhi".tr,
+//                      margin: getMargin(top: 10),
+//                      items: controller.homeModelObj.value.dropdownItemList,
+//                      onTap: (value) {
+//                        controller.onSelected(value);
+//                      }
+//                      ),
+//                  actions: [
+//                      AppbarStack(
+//                          margin: getMargin(left: 20, right: 20,top: 12),
+//                          onTap: onTapProfileIcon
+//                      )
+//                    ]
+//              ),
+//              //CustomAppBar(
+//             //     height: getVerticalSize(50.00),
+//             //     leadingWidth: 60,
+//             //     // leading: AppbarImage(
+//             //     //     height: getSize(24.00),
+//             //     //     width: getSize(24.00),
+//             //     //     svgPath: ImageConstant.imgMenu,
+//             //     //     margin: getMargin(left: 18, top: 7, bottom: 0),
+//             //     //   onTap: (){
+//             //     //       onTapMenuIconButtonInTopAppBar();
+//             //     //   },
+//             //     // ),
+//             //     centerTitle: true,
+//             //     title: AppbarDropdown(
+//             //         hintText: "lbl_delhi".tr,
+//             //         margin: getMargin(top: 10),
+//             //         items: controller.homeModelObj.value.dropdownItemList,
+//             //         onTap: (value) {
+//             //           controller.onSelected(value);
+//             //         }),
+//             //     actions: [
+//             //       AppbarStack(
+//             //           margin: getMargin(left: 20, right: 20,top: 5),
+//             //           onTap: onTapProfileIcon
+//             //       )
+//             //     ]),
+//             body: Stack(
+//               children: [
+//                 buildDrawer(),
+//                 buildPAge(),
+//               ],
+//             ),
+//           drawer: buildDrawer(),
+//           bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
+//             child: GNav(
+//               duration: Duration(milliseconds: 400),
+//               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+//               activeColor: Colors.white,
+//               selectedIndex: _currentIndex,
+//               tabs: [
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.home,
+//                   text: "Home",
+//                   onPressed: (){onTapBottomHomeButton();
+//                   },
+//                 ),
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.search,
+//                   text: "Search",
+//                   onPressed: (){onTapBottomSearchButton();},
+//                 ),
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.access_time,
+//                   text: "Pre-Order",),
+//                 GButton(
+//                     gap: 8,
+//                     icon: Icons.bookmark_border,
+//                     text: "Reservation",
+//                     onPressed: (){onTapBottomReservationButton();}),
+//               ],
+//             ),)
+//         ),
+//     );
+//   }
 
  Widget buildDrawer()=> DrawerWidget(
    onSelectedItem: (item) {

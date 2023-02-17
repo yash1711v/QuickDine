@@ -257,7 +257,7 @@ class AppRoutes {
     ),
     GetPage(
       name: addToOrderScreen,
-      page: () => AddToOrderScreen(),
+      page: () => AddToOrderScree(),
       bindings: [
         AddToOrderBinding(),
       ],
@@ -320,9 +320,9 @@ class AppRoutes {
     ),
     GetPage(
       name: initialRoute,
-      page: () => SplashScreen(),
+      page: () => SigninScreen(),
       bindings: [
-        SplashBinding(),
+        SigninBinding(),
       ],
     )
   ];
