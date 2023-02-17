@@ -5,7 +5,6 @@ import 'package:quickdine/core/utils/validation_functions.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
 
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -15,7 +14,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   get controller => ProfileController(); // Agar Undefined Controller ae to ye aega get controller=>"Os class ka Controler"
-   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SafeArea(

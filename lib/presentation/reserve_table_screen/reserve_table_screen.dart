@@ -6,7 +6,7 @@ import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_drop_down.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
-//NEw Code
+// New Code
 class ReserveTableScreen extends StatefulWidget {
   const ReserveTableScreen({Key? key}) : super(key: key);
 
