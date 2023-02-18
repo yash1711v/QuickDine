@@ -346,11 +346,16 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                     Padding(
                                         padding: getPadding(
                                             left: 30, right: 167, bottom: 3),
-                                        child: Text("lbl_pre_order2".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style:
-                                            AppStyle.txtPoppinsRegular15))
+                                        child: GestureDetector(
+                                          onTap: (){onTapPreORder();},
+                                          child: Text("lbl_pre_order2".tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              style:
+                                              AppStyle.txtPoppinsRegular15,
+                                          ),
+                                        )
+                                    )
                                   ]))),
                       Align(
                           alignment: Alignment.centerRight,
@@ -360,19 +365,19 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               },
                               child: Container(
                                   margin: getMargin(
-                                      left: 262, top: 47, right: 37, bottom: 5),
+                                      left: 262, top: 47, right: 37-2.3, bottom: 2),
                                   padding: getPadding(
-                                      left: 11, top: 8, right: 11, bottom: 0),
+                                      left: 11, top: 7, right: 11, bottom: 10),
                                   decoration: AppDecoration.outlineGreen5001
                                       .copyWith(
                                       borderRadius: BorderRadiusStyle
-                                          .roundedBorder23),
+                                          .roundedBorder51),
                                   child: Row(children: [
                                     CustomImageView(
                                         imagePath: ImageConstant.imgCallmale,
-                                        height: getSize(30.00),
-                                        width: getSize(30.00),
-                                        margin: getMargin(top: 1)),
+                                        height: getSize(40.00),
+                                        width: getSize(40.00),
+                                        ),
                                     Padding(
                                         padding: getPadding(
                                             left: 9,
@@ -411,7 +416,8 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                   GButton(
                     gap: 8,
                     icon: Icons.access_time,
-                    text: "Pre-Order",),
+                    text: "Pre-Order",
+                  onPressed: ()=>onTapPreORder(),),
                   GButton(
                     gap: 8,
                     icon: Icons.bookmark_border,
@@ -438,9 +444,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapBottomPre_OrderButton() {
-    // Get.toNamed(AppRoutes.);
-  }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }

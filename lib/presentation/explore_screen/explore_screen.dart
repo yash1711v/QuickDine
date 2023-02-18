@@ -820,6 +820,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     gap: 8,
                     icon: Icons.access_time,
                     text: "Pre-Order",
+                    onPressed: (){onTapBottomPre_OrderButton();},
                   ),
                   GButton(
                     gap: 8,
@@ -839,7 +840,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
         case DrawerItems.profile:
           return onTapProfile();
         case DrawerItems.Pre_Order:
-          return onTapPreOrder();
+          return onTapBottomPre_OrderButton();
         case DrawerItems.Offers:
           return onTapOffersandPromo();
         case DrawerItems.Logout:
@@ -858,7 +859,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     Get.toNamed(AppRoutes.homeScreen);
   }
   onTapBottomPre_OrderButton() {
-    // Get.toNamed(AppRoutes.);
+    Get.toNamed(AppRoutes.orderpreScreen);
   }
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
@@ -872,9 +873,6 @@ class _ExploreScreenState extends State<ExploreScreen> {
   }
   onTapProfile() {
     Get.toNamed(AppRoutes.profileSettingScreen);
-  }
-  onTapPreOrder() {
-    Get.toNamed(AppRoutes.exploreScreen);
   }
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);

@@ -201,7 +201,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: (){onTapPreORder();},),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -224,6 +225,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
 }
 
 //Old Code

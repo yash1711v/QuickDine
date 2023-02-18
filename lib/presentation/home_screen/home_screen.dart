@@ -102,7 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
               GButton(
                 gap: 8,
                 icon: Icons.access_time,
-                text: "Pre-Order",),
+                text: "Pre-Order",
+              onPressed: ()=>onTapPreORder(),),
               GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -234,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
         case DrawerItems.profile:
           return onTapProfile();
         case DrawerItems.Pre_Order:
-            return onTapPreOrder();
+            return onTapPreORder();
         case DrawerItems.Offers:
               return onTapOffersandPromo();
         case DrawerItems.Logout:
@@ -885,9 +886,7 @@ class _HomeScreenState extends State<HomeScreen> {
   onTapProfile() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
-  onTapPreOrder() {
-    Get.toNamed(AppRoutes.exploreScreen);
-  }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);
   }

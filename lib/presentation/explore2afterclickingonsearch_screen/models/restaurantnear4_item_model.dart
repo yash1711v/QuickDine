@@ -1,1 +1,0 @@
-class Restaurantnear4ItemModel {}

@@ -69,7 +69,8 @@ class AboutUsScreen extends StatelessWidget {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: (){ Get.toNamed(AppRoutes.orderpreScreen);},),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -92,6 +93,7 @@ class AboutUsScreen extends StatelessWidget {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
 }
 
 //Old One

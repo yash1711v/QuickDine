@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       fallbackLocale: Locale('en', 'US'),
       title: 'Quickdine',
       initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.initialRoute,
+      initialRoute: AppRoutes.signinScreen,
       getPages: AppRoutes.pages,
     );
   }

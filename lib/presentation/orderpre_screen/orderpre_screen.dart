@@ -1,3 +1,5 @@
+import 'package:google_nav_bar/google_nav_bar.dart';
+
 import 'controller/orderpre_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -493,16 +495,39 @@ class _OrderpreScreenState extends State<OrderpreScreen> {
                                             ])))
                               ]))
                     ])),
-            bottomNavigationBar: Padding(
-                padding: getPadding(left: 71, right: 77, bottom: 43),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomButton(
-                          height: 45,
-                          width: 266,
-                          text: "msg_checkout_2_products".tr)
-                    ]))));
+            bottomNavigationBar: SizedBox(height: 80.50, width: 10,
+              child: GNav(
+                duration: Duration(milliseconds: 400),
+                tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+                activeColor: Colors.white,
+                selectedIndex: 2,
+                tabs: [
+                  GButton(
+                    gap: 8,
+                    icon: Icons.home,
+                    text: "Home",
+                    onPressed: ()=>onTapBottomHomeButton(),),
+                  GButton(
+                    gap: 8,
+                    icon: Icons.search,
+                    text: "Search",
+                    onPressed: ()=>onTapBottomSearchButton(),
+                  ),
+                  GButton(
+                    gap: 8,
+                    icon: Icons.access_time,
+                    text: "Pre-Order",
+                    onPressed: ()=>onTapPreORder(),),
+                  GButton(
+                    gap: 8,
+                    icon: Icons.bookmark_border,
+                    text: "Reservation",
+                    onPressed: ()=>onTapBottomReservationButton(),),
+                ],
+              ),),
+
+
+        ));
   }
 
   onTapColumnellipsefortynine() {
@@ -511,6 +536,16 @@ class _OrderpreScreenState extends State<OrderpreScreen> {
 
   onTapColumnellipsefifty() {
     Get.toNamed(AppRoutes.addToOrderScreen);
+  }
+  onTapBottomSearchButton() {
+    Get.toNamed(AppRoutes.exploreScreen);
+  }
+  onTapBottomHomeButton() {
+    Get.toNamed(AppRoutes.homeScreen);
+  }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+  onTapBottomReservationButton() {
+    Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
 

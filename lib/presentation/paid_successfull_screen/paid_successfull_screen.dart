@@ -67,11 +67,14 @@ class _PaidSuccessFullScreenState extends State<PaidSuccessfullScreen> {
                   decoration: AppDecoration.txtFillRed500.copyWith(
                     borderRadius: BorderRadiusStyle.txtRoundedBorder5,
                   ),
-                  child: Text(
-                    "msg_go_to_my_reservations".tr,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtPoppinsSemiBold15WhiteA700,
+                  child: Container(
+                    margin: getMargin(left: 10),
+                    child: Text(
+                      "msg_go_to_my_reservations".tr,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: AppStyle.txtPoppinsSemiBold15WhiteA700,
+                    ),
                   ),
                 ),
               ],
@@ -97,7 +100,8 @@ class _PaidSuccessFullScreenState extends State<PaidSuccessfullScreen> {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: (){onTapPreORder();},),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -120,6 +124,7 @@ class _PaidSuccessFullScreenState extends State<PaidSuccessfullScreen> {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
 }
 
 

@@ -164,7 +164,8 @@ class _PromoScreenState extends State<PromoScreen> {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: ()=>onTapPreORder(),),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -181,9 +182,7 @@ class _PromoScreenState extends State<PromoScreen> {
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapBottomPre_OrderButton() {
-    // Get.toNamed(AppRoutes.);
-  }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }

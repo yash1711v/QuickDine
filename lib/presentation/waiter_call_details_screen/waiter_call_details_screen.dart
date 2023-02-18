@@ -371,7 +371,8 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: (){onTapBottomPre_OrderButton();},),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -389,7 +390,7 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
     Get.toNamed(AppRoutes.homeScreen);
   }
   onTapBottomPre_OrderButton() {
-    // Get.toNamed(AppRoutes.);
+    Get.toNamed(AppRoutes.orderpreScreen);
   }
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);

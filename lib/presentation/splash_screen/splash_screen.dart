@@ -1,7 +1,10 @@
-import 'controller/splash_controller.dart';
-import 'package:flutter/material.dart';
+
 import 'package:quickdine/core/app_export.dart';
 
+import '../../routes/app_routes.dart';
+import 'controller/splash_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -11,9 +14,40 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+ void  initState()
+  {
+    Future.delayed(Duration(seconds: 10),(){
+      Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
+    });
+    super.initState();
+  }
+  get controller=>SplashController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.red,
+      // backgroundColor: Colors.deepOrangeAccent,
+     body: Container(
+       alignment: Alignment.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 300,
+            width: 300,
+             child: 
+             //Lottie.asset("assets/images/56866-your-food-order-have-been-scheduled.zip"),
+             CustomImageView(
+              imagePath: "assets/images/Logo.png",
+             )
+            //Lottie.network("https://assets7.lottiefiles.com/packages/lf20_vkqybeu5/data.json"),
+          ),
+          SizedBox(height: 20,),
+          // Text("QuickDine"),
+        ],
+      ),
+
+     ),
     );
   }
 }

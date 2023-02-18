@@ -94,7 +94,8 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
-                  text: "Pre-Order",),
+                  text: "Pre-Order",
+                onPressed: ()=>onTapPreORder(),),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
@@ -117,6 +118,7 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
 }
 //
 // class OrderHistoryScreen extends GetWidget<OrderHistoryController> {

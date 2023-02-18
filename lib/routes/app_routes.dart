@@ -8,10 +8,7 @@ import 'package:quickdine/presentation/home_screen/home_screen.dart';
 import 'package:quickdine/presentation/home_screen/binding/home_binding.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
 import 'package:quickdine/presentation/explore_screen/binding/explore_binding.dart';
-import 'package:quickdine/presentation/sidemenu_screen/sidemenu_screen.dart';
-import 'package:quickdine/presentation/sidemenu_screen/binding/sidemenu_binding.dart'; 
-import 'package:quickdine/presentation/explore2afterclickingonsearch_screen/explore2afterclickingonsearch_screen.dart';
-import 'package:quickdine/presentation/explore2afterclickingonsearch_screen/binding/explore2afterclickingonsearch_binding.dart';
+
 import 'package:quickdine/presentation/about_us_screen/about_us_screen.dart';
 import 'package:quickdine/presentation/about_us_screen/binding/about_us_binding.dart';
 import 'package:quickdine/presentation/profile_setting_screen/profile_setting_screen.dart';
@@ -156,21 +153,22 @@ class AppRoutes {
         ExploreBinding(),
       ],
     ),
-    GetPage(
-      name: sidemenuScreen,
-      page: () => SidemenuScreen(),
-      bindings: [
-        SidemenuBinding(),
-      ],
-    ),
 
-    GetPage(
-      name: explore2afterclickingonsearchScreen,
-      page: () => Explore2afterclickingonsearchScreen(),
-      bindings: [
-        Explore2afterclickingonsearchBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: sidemenuScreen,
+    //   page: () => SidemenuScreen(),
+    //   bindings: [
+    //     SidemenuBinding(),
+    //   ],
+    // ),
+
+    // GetPage(
+    //   name: explore2afterclickingonsearchScreen,
+    //   page: () => Explore2afterclickingonsearchScreen(),
+    //   bindings: [
+    //     Explore2afterclickingonsearchBinding(),
+    //   ],
+    // ),
     GetPage(
       name: aboutUsScreen,
       page: () => AboutUsScreen(),
@@ -318,12 +316,12 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
-    GetPage(
-      name: initialRoute,
-      page: () => SigninScreen(),
-      bindings: [
-        SigninBinding(),
-      ],
-    )
+    // GetPage(
+    //   name: initialRoute,
+    //   page: () => SplashScreen(),
+    //   bindings: [
+    //     SplashBinding(),
+    //   ],
+    // )
   ];
 }
