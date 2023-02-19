@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
  void  initState()
   {
-    Future.delayed(Duration(seconds: 10),(){
+    Future.delayed(Duration(seconds: 2),(){
       Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
     });
     super.initState();
@@ -36,7 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 300,
             width: 300,
              child: 
-             //Lottie.asset("assets/images/56866-your-food-order-have-been-scheduled.zip"),
+             // Lottie.asset("assets/images/ani.mp4.lottie.json",
+             // ),
              CustomImageView(
               imagePath: "assets/images/Logo.png",
              )

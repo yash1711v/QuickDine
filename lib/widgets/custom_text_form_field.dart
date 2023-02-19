@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
 import 'package:quickdine/core/app_export.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -21,7 +22,7 @@ class CustomTextFormField extends StatelessWidget {
       this.prefixConstraints,
       this.suffix,
       this.suffixConstraints,
-      this.validator});
+      this.validator, });
 
   TextFormFieldShape? shape;
 

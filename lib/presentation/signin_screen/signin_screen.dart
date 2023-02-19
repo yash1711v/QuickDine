@@ -1,23 +1,80 @@
+import 'package:flutter/services.dart';
+import 'package:quickdine/Authentication/supabasecredential.dart';
+import 'package:toast/toast.dart';
+
 import 'controller/signin_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/core/utils/validation_functions.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
+import 'package:supabase/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({Key? key}) : super(key: key);
 
   @override
   State<SigninScreen> createState() => _SigninScreenState();
+
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-  get controller => SigninController();
+ TextEditingController _emailControler=TextEditingController();
+ TextEditingController _PassControler=TextEditingController();
+  bool _isVisible = false;
+ bool _isLoading = false;
+  @override
+  void initState(){
+    super.initState();
+    _emailControler=TextEditingController();
+    _PassControler=TextEditingController();
+    _isVisible=true;
+  }
+  bool IsLoading=false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  //Functions That is handling the Login
+  // Future<String?> userLogin({required final String email, required final String password,})
+  // async{
+  //         final response=await client.auth.signInWithPassword(
+  //           email: email,
+  //           password : password
+  //         );
+  //         final user= response.user;
+  //         return user?.id;
+  // }
+ Future<void> _singIn() async {
+   setState(() {
+     _isLoading=true;
+   });
+   final response=await SupabaseCredential.supabaseClient.auth.signInWithPassword(
+       email: _emailControler.text,
+       password: _PassControler.text
+   );
+   final error=response.user;
+   if(error!=null){
+     print(error.email);
+     Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+     Toast.show("Signin SuccessFull ",
+       backgroundColor: Colors.grey,
+       duration: 5
+     );
+   }
+   else{
+     //Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+     Toast.show("Not able to SignIn please Try again latter",
+       backgroundColor: Colors.grey,
+       duration: 5
+     );
+   }
+   setState(() {
+     _isLoading=false;
+   });
+ }
 
   @override
   Widget build(BuildContext context) {
+    ToastContext().init(context);
     return SafeArea(
         top: false,
         bottom: false,
@@ -38,75 +95,74 @@ class _SigninScreenState extends State<SigninScreen> {
                               width: getHorizontalSize(156.00),
                               radius: BorderRadius.circular(
                                   getHorizontalSize(40.00)),
-                              margin: getMargin(top: 35)),
+                              margin: getMargin(top: 35)
+                          ),
                           Container(
-                              margin: getMargin(left: 11, top: 54, right: 1),
-                              padding: getPadding(
-                                  left: 29, top: 11, right: 29, bottom: 11),
-                              decoration: AppDecoration.outlineBlack9000f
-                                  .copyWith(
-                                  borderRadius:
-                                  BorderRadiusStyle.roundedBorder10),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomImageView(
-                                        svgPath: ImageConstant.imgVector,
-                                        height: getVerticalSize(14.00),
-                                        width: getHorizontalSize(17.00),
-                                        margin: getMargin(top: 7, bottom: 8)),
-                                    Padding(
-                                        padding:
-                                        getPadding(left: 18, right: 156),
-                                        child: Text("lbl_user_name".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style:
-                                            AppStyle.txtPoppinsRegular20))
-                                  ])),
-                          Obx(() => CustomTextFormField(
-                              width: 356,
-                              focusNode: FocusNode(),
-                              controller: controller.groupEightController,
-                              hintText: "lbl_password".tr,
-                              margin: getMargin(top: 26),
-                              padding: TextFormFieldPadding.PaddingT11,
-                              textInputAction: TextInputAction.done,
-                              textInputType: TextInputType.visiblePassword,
-                              prefix: Container(
-                                  margin: getMargin(
-                                      left: 28, top: 16, right: 23, bottom: 17),
-                                  child: CustomImageView(
-                                      svgPath: ImageConstant.imgLock)),
-                              prefixConstraints: BoxConstraints(
-                                  maxHeight: getVerticalSize(53.00)),
-                              suffix: InkWell(
-                                  onTap: () {
-                                    controller.isShowPassword.value =
-                                    !controller.isShowPassword.value;
-                                  },
-                                  child: Container(
-                                      margin: getMargin(
-                                          left: 30,
-                                          top: 18,
-                                          right: 25,
-                                          bottom: 15),
-                                      child: CustomImageView(
-                                          svgPath:
-                                          controller.isShowPassword.value
-                                              ? ImageConstant.imgEdit
-                                              : ImageConstant.imgEdit))),
-                              suffixConstraints: BoxConstraints(
-                                  maxHeight: getVerticalSize(53.00)),
-                              validator: (value) {
-                                if (value == null ||
-                                    (!isValidPassword(value,
-                                        isRequired: true))) {
-                                  return "Please enter valid password";
-                                }
-                                return null;
-                              },
-                              isObscureText: !controller.isShowPassword.value)),
+                            margin: getMargin(top: 100),
+                            child: SizedBox(
+                              width: 360,
+                              child: TextField(
+                                //keyboardType: TextInputType.emailAddress,
+                                controller: _emailControler,
+                                obscureText: false,
+                                focusNode: FocusNode(
+                                ),
+                                decoration:  InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(width: 0,), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                    BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  //errorText: "Please enter valid text",
+                                   hintText: 'Enter the Email',
+                                  prefixIcon: Icon(Icons.mail,
+                                  color: Colors.deepOrange,)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: getMargin(top: 25),
+                            child: SizedBox(
+                              width: 360,
+                              child: TextField(
+                                controller: _PassControler,
+                                obscureText: _isVisible,
+                                  keyboardType: TextInputType.visiblePassword,
+                                focusNode: FocusNode(
+                                ),
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(width: 0,), //<-- SEE HERE
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                      BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    //errorText: "Please enter valid text",
+                                     hintText: 'Enter Password',
+                                    prefixIcon: Icon(Icons.lock,
+                                      color: Colors.deepOrange,),
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _isVisible=!_isVisible;
+                                        });
+                                      }, icon: Icon(_isVisible?Icons.visibility:Icons.visibility_off),
+                                      padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
                           CustomButton(
                               height: 53,
                               width: 357,
@@ -116,7 +172,27 @@ class _SigninScreenState extends State<SigninScreen> {
                               shape: ButtonShape.RoundedBorder10,
                               padding: ButtonPadding.PaddingAll13,
                               fontStyle: ButtonFontStyle.PoppinsBold18,
-                              onTap: onTapSignin),
+                              onTap: () async {
+                                _singIn();
+                                // setState(() {
+                                //   IsLoading=true;
+                                // });
+                                // dynamic signinValue=await userLogin(
+                                //     email: _emailControler.text,
+                                //     password: _PassControler.text);
+                                //     if(signinValue!=null){
+                                //       Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                                //     }
+                                //     else{
+                                //           Toast.show("Wrong message",
+                                //           backgroundColor: Colors.grey,
+                                //               gravity:  Toast.bottom
+                                //           );
+                                //     }
+                              }
+
+                          ),
+
                           Padding(
                               padding: getPadding(top: 62),
                               child: Row(
@@ -292,7 +368,9 @@ class _SigninScreenState extends State<SigninScreen> {
                                                                     .center)
                                                           ]))))
                                             ]))
-                                  ])),
+                                  ]
+                              )
+                          ),
                           Padding(
                               padding: getPadding(top: 85),
                               child: Row(
@@ -338,7 +416,12 @@ class _SigninScreenState extends State<SigninScreen> {
                                                 ]),
                                                 textAlign: TextAlign.left)))
                                   ]))
-                        ])))));
+                        ]
+                    )
+                )
+            )
+        )
+    );
   }
 
   onTapSignin() {
@@ -348,8 +431,6 @@ class _SigninScreenState extends State<SigninScreen> {
   onTapTxtRegisternow() {
     Get.toNamed(AppRoutes.signupScreen);
   }
-}
-
 
 // // ignore_for_file: must_be_immutable
 // class SigninScreen extends GetWidget<SigninController> {
@@ -688,3 +769,4 @@ class _SigninScreenState extends State<SigninScreen> {
 //     Get.toNamed(AppRoutes.signupScreen);
 //   }
 // }
+}
