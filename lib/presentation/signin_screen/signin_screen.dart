@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
 
 import 'controller/signin_controller.dart';
@@ -72,6 +73,23 @@ class _SigninScreenState extends State<SigninScreen> {
    });
  }
 
+ Future<void> _singInWithFacebook() async {
+   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+     Provider.facebook,
+   );
+ }
+ Future<void> _singInWithGoogle() async {
+   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+     Provider.google,
+     //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
+   );
+ }
+ Future<void> _singInWithApple() async {
+   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+     Provider.apple,
+     //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
+   );
+ }
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -98,7 +116,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               margin: getMargin(top: 35)
                           ),
                           Container(
-                            margin: getMargin(top: 100),
+                            margin: getMargin(top: 10),
                             child: SizedBox(
                               width: 360,
                               child: TextField(
@@ -192,7 +210,6 @@ class _SigninScreenState extends State<SigninScreen> {
                               }
 
                           ),
-
                           Padding(
                               padding: getPadding(top: 62),
                               child: Row(
@@ -224,76 +241,87 @@ class _SigninScreenState extends State<SigninScreen> {
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Card(
-                                        clipBehavior: Clip.antiAlias,
-                                        elevation: 0,
-                                        margin: EdgeInsets.all(0),
-                                        color: ColorConstant.whiteA700,
-                                        shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                                color: ColorConstant.black9000f,
-                                                width: getHorizontalSize(1.00)),
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder10),
-                                        child: Container(
-                                            height: getVerticalSize(48.00),
-                                            width: getHorizontalSize(57.00),
-                                            padding: getPadding(
-                                                left: 13,
-                                                top: 9,
-                                                right: 13,
-                                                bottom: 9),
-                                            decoration: AppDecoration
-                                                .outlineBlack9000f
-                                                .copyWith(
-                                                borderRadius:
-                                                BorderRadiusStyle
-                                                    .roundedBorder10),
-                                            child: Stack(children: [
-                                              CustomImageView(
-                                                  imagePath: ImageConstant
-                                                      .imgFacebookcircled,
-                                                  height:
-                                                  getVerticalSize(29.00),
-                                                  width:
-                                                  getHorizontalSize(30.00),
-                                                  alignment: Alignment.center)
-                                            ]))),
-                                    Card(
-                                        clipBehavior: Clip.antiAlias,
-                                        elevation: 0,
-                                        margin: getMargin(left: 33),
-                                        color: ColorConstant.whiteA700,
-                                        shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                                color: ColorConstant.black9000f,
-                                                width: getHorizontalSize(1.00)),
-                                            borderRadius: BorderRadiusStyle
-                                                .roundedBorder10),
-                                        child: Container(
-                                            height: getVerticalSize(48.00),
-                                            width: getHorizontalSize(57.00),
-                                            padding: getPadding(
-                                                left: 13,
-                                                top: 9,
-                                                right: 13,
-                                                bottom: 9),
-                                            decoration: AppDecoration
-                                                .outlineBlack9000f
-                                                .copyWith(
-                                                borderRadius:
-                                                BorderRadiusStyle
-                                                    .roundedBorder10),
-                                            child: Stack(children: [
-                                              CustomImageView(
-                                                  imagePath: ImageConstant
-                                                      .imgFacebookcircled29x30,
-                                                  height:
-                                                  getVerticalSize(29.00),
-                                                  width:
-                                                  getHorizontalSize(30.00),
-                                                  alignment: Alignment.center)
-                                            ]))),
+                                    GestureDetector(
+                                      child: Card(
+                                          clipBehavior: Clip.antiAlias,
+                                          elevation: 0,
+                                          margin: EdgeInsets.all(0),
+                                          color: ColorConstant.whiteA700,
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: ColorConstant.black9000f,
+                                                  width: getHorizontalSize(1.00)),
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder10),
+                                          child: Container(
+                                              height: getVerticalSize(48.00),
+                                              width: getHorizontalSize(57.00),
+                                              padding: getPadding(
+                                                  left: 13,
+                                                  top: 9,
+                                                  right: 13,
+                                                  bottom: 9),
+                                              decoration: AppDecoration
+                                                  .outlineBlack9000f
+                                                  .copyWith(
+                                                  borderRadius:
+                                                  BorderRadiusStyle
+                                                      .roundedBorder10),
+                                              child: Stack(children: [
+                                                CustomImageView(
+                                                    imagePath: ImageConstant
+                                                        .imgFacebookcircled,
+                                                    height:
+                                                    getVerticalSize(29.00),
+                                                    width:
+                                                    getHorizontalSize(30.00),
+                                                    alignment: Alignment.center)
+                                              ]
+                                              )
+                                          )
+                                      ),
+                                      onTap: (){
+                                        _singInWithFacebook();
+                                      },
+                                    ),
+                                    GestureDetector(
+                                      onTap: (){_singInWithGoogle();},
+                                        child: Card(
+                                          clipBehavior: Clip.antiAlias,
+                                          elevation: 0,
+                                          margin: getMargin(left: 33),
+                                          color: ColorConstant.whiteA700,
+                                          shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  color: ColorConstant.black9000f,
+                                                  width: getHorizontalSize(1.00)),
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder10),
+                                          child: Container(
+                                              height: getVerticalSize(48.00),
+                                              width: getHorizontalSize(57.00),
+                                              padding: getPadding(
+                                                  left: 13,
+                                                  top: 9,
+                                                  right: 13,
+                                                  bottom: 9),
+                                              decoration: AppDecoration
+                                                  .outlineBlack9000f
+                                                  .copyWith(
+                                                  borderRadius:
+                                                  BorderRadiusStyle
+                                                      .roundedBorder10),
+                                              child: Stack(children: [
+                                                CustomImageView(
+                                                    imagePath: ImageConstant
+                                                        .imgFacebookcircled29x30,
+                                                    height:
+                                                    getVerticalSize(29.00),
+                                                    width:
+                                                    getHorizontalSize(30.00),
+                                                    alignment: Alignment.center)
+                                              ]))),
+                                    ),
                                     Container(
                                         height: getVerticalSize(48.00),
                                         width: getHorizontalSize(57.00),
@@ -316,57 +344,64 @@ class _SigninScreenState extends State<SigninScreen> {
                                                               .whiteA700))),
                                               Align(
                                                   alignment: Alignment.center,
-                                                  child: Card(
-                                                      clipBehavior:
-                                                      Clip.antiAlias,
-                                                      elevation: 0,
-                                                      margin: EdgeInsets.all(0),
-                                                      color: ColorConstant
-                                                          .whiteA700,
-                                                      shape: RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                              color: ColorConstant
-                                                                  .black9000f,
-                                                              width:
-                                                              getHorizontalSize(
-                                                                  1.00)),
-                                                          borderRadius:
-                                                          BorderRadiusStyle
-                                                              .roundedBorder10),
-                                                      child: Container(
-                                                          height:
-                                                          getVerticalSize(
-                                                              48.00),
-                                                          width:
-                                                          getHorizontalSize(
-                                                              57.00),
-                                                          padding: getPadding(
-                                                              left: 13,
-                                                              top: 9,
-                                                              right: 13,
-                                                              bottom: 9),
-                                                          decoration: AppDecoration
-                                                              .outlineBlack9000f
-                                                              .copyWith(
-                                                              borderRadius:
-                                                              BorderRadiusStyle
-                                                                  .roundedBorder10),
-                                                          child:
-                                                          Stack(children: [
-                                                            CustomImageView(
-                                                                imagePath:
-                                                                ImageConstant
-                                                                    .imgMacclient,
-                                                                height:
-                                                                getVerticalSize(
-                                                                    29.00),
+                                                  child: GestureDetector(
+                                                    onTap: (){
+                                                      _singInWithApple();
+                                                    },
+                                                     child: Card(
+                                                        clipBehavior:
+                                                        Clip.antiAlias,
+                                                        elevation: 0,
+                                                        margin: EdgeInsets.all(0),
+                                                        color: ColorConstant
+                                                            .whiteA700,
+                                                        shape: RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                                color: ColorConstant
+                                                                    .black9000f,
                                                                 width:
                                                                 getHorizontalSize(
-                                                                    30.00),
-                                                                alignment:
-                                                                Alignment
-                                                                    .center)
-                                                          ]))))
+                                                                    1.00)),
+                                                            borderRadius:
+                                                            BorderRadiusStyle
+                                                                .roundedBorder10),
+                                                        child: Container(
+                                                            height:
+                                                            getVerticalSize(
+                                                                48.00),
+                                                            width:
+                                                            getHorizontalSize(
+                                                                57.00),
+                                                            padding: getPadding(
+                                                                left: 13,
+                                                                top: 9,
+                                                                right: 13,
+                                                                bottom: 9),
+                                                            decoration: AppDecoration
+                                                                .outlineBlack9000f
+                                                                .copyWith(
+                                                                borderRadius:
+                                                                BorderRadiusStyle
+                                                                    .roundedBorder10),
+                                                            child:
+                                                            Stack(children: [
+                                                              CustomImageView(
+                                                                  imagePath:
+                                                                  ImageConstant
+                                                                      .imgMacclient,
+                                                                  height:
+                                                                  getVerticalSize(
+                                                                      29.00),
+                                                                  width:
+                                                                  getHorizontalSize(
+                                                                      30.00),
+                                                                  alignment:
+                                                                  Alignment
+                                                                      .center)
+                                                            ]))
+                                                    ),
+                                                  )
+                                              )
                                             ]))
                                   ]
                               )

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:quickdine/Authentication/supabasecredential.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
@@ -890,7 +891,10 @@ class _HomeScreenState extends State<HomeScreen> {
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);
   }
-  onTaplogout() {}
+  onTaplogout() {
+   SupabaseCredential.supabaseClient.auth.signOut();
+   Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
+  }
 
 }
 

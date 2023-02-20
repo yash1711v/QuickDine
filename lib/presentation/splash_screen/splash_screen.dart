@@ -1,6 +1,7 @@
 
 import 'package:quickdine/core/app_export.dart';
 
+import '../../Authentication/supabasecredential.dart';
 import '../../routes/app_routes.dart';
 import 'controller/splash_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
  void  initState()
   {
-    Future.delayed(Duration(seconds: 2),(){
-      Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
+        super.initState();
+        final session= SupabaseCredential.supabaseClient.auth.currentSession;
+      Future.delayed(Duration(seconds: 2),(){
+        if(session!=null){
+          print(session);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+        }
+        else{
+          print(session);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.signinScreen);
+        }
     });
-    super.initState();
+
   }
   get controller=>SplashController();
   @override

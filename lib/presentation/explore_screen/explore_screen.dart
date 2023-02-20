@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../Authentication/supabasecredential.dart';
 import '../../widgets/app_bar/appbar_dropdown.dart';
 import '../DrawerWidget/DrawerItem.dart';
 import '../DrawerWidget/DrawerWidget.dart';
@@ -877,7 +878,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);
   }
-  onTaplogout() {}
+  onTaplogout() {
+    SupabaseCredential.supabaseClient.auth.signOut();
+    Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
+  }
 }
 
 

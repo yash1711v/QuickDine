@@ -115,8 +115,7 @@ class AppRoutes {
 
   static const String appNavigationScreen = '/app_navigation_screen';
 
-  static String initialRoute = '/initialRoute';
-
+  // static String signinWithPhone = '/signinwithPhone';
   static List<GetPage> pages = [
     GetPage(
       name: splashScreen,
@@ -316,11 +315,12 @@ class AppRoutes {
         AppNavigationBinding(),
       ],
     ),
+
     // GetPage(
-    //   name: initialRoute,
-    //   page: () => SplashScreen(),
+    //   name: signinWithPhone,
+    //   page: () => SingninWithPhoneNumber(),
     //   bindings: [
-    //     SplashBinding(),
+    //     SigninWithPhoneBinding(),
     //   ],
     // )
   ];
