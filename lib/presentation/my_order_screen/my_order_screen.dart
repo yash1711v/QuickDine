@@ -4,6 +4,7 @@ import 'models/my_order_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_button.dart';
+import 'package:upi_india/upi_india.dart';
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
 
@@ -12,6 +13,110 @@ class MyOrderScreen extends StatefulWidget {
 }
 
 class _MyOrderScreenState extends State<MyOrderScreen> {
+  Future<UpiResponse>? _transaction;
+  UpiIndia _upiIndia = UpiIndia();
+  List<UpiApp>? apps;
+  late String receiverUpiId='9971104827@paytm';
+  late String receiverName='Yash';
+  late double amount=100;
+  void initState() {
+    _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
+      setState(() {
+        apps = value;
+      });
+    }).catchError((e) {
+      apps = [];
+    });
+    super.initState();
+  }
+
+  Future<UpiResponse> initiateTransaction(UpiApp app) async {
+    return _upiIndia.startTransaction(
+      app: app,
+      receiverUpiId: receiverUpiId,
+      receiverName: receiverName,
+      transactionRefId: 'TestingUpiIndiaPlugin',
+      transactionNote: 'Not actual. Just an example.',
+      amount: amount,
+      flexibleAmount: false
+    );
+  }
+  Widget displayUpiApps() {
+    if (apps == null)
+      return Center(child: CircularProgressIndicator());
+    else if (apps!.length == 0)
+      return Center(
+        child: Text(
+          "No apps found to handle transaction.",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    else
+      return Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Wrap(
+            children: apps!.map<Widget>((UpiApp app) {
+              return GestureDetector(
+                onTap: () {
+                  _transaction = initiateTransaction(app);
+                  setState(() {});
+                },
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.memory(
+                        app.icon,
+                        height: 60,
+                        width: 60,
+                      ),
+                      Text(app.name),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+      );
+  }
+  String _upiErrorHandler(error) {
+    switch (error) {
+      case UpiIndiaAppNotInstalledException:
+        return 'Requested app not installed on device';
+      case UpiIndiaUserCancelledException:
+        return 'You cancelled the transaction';
+      case UpiIndiaNullResponseException:
+        return 'Requested app didn\'t return any response';
+      case UpiIndiaInvalidParametersException:
+        return 'Requested app cannot handle the transaction';
+      default:
+        return 'An Unknown error has occurred';
+    }
+  }
+  void _checkTxnStatus(String status) {
+    switch (status) {
+      case UpiPaymentStatus.SUCCESS:
+      Get.toNamed(AppRoutes.paidSuccessfullScreen);
+        break;
+      case UpiPaymentStatus.SUBMITTED:
+        print('Transaction Submitted');
+        break;
+      case UpiPaymentStatus.FAILURE:
+        Get.toNamed(AppRoutes.paidFailScreen);
+        break;
+      default:
+        print('Received an Unknown transaction status');
+    }
+  }
   get controller => MyOrderController();
   @override
   Widget build(BuildContext context) {
@@ -130,12 +235,50 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                           margin: getMargin(top: 61, bottom: 5),
                           padding: ButtonPadding.PaddingAll13,
                           onTap: onTapPaynow)
-                    ]))));
+                    ])
+            )
+        )
+    );
   }
 
   onTapPaynow() {
-    Get.toNamed(AppRoutes.paidSuccessfullScreen);
-  }
+
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder( // <-- SEE HERE
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(40.0),
+            ),
+          ),
+          enableDrag: true,
+          backgroundColor: Colors.teal.shade100,
+          builder: (context){
+            return  Container(
+                height: 500,
+                padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
+              child: displayUpiApps(),
+               );Expanded(
+                child: FutureBuilder(
+                  future: _transaction,
+                  builder: (BuildContext context, AsyncSnapshot<UpiResponse> snapshot){
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasError) {
+                    return Center(
+                        child: Text(
+                      _upiErrorHandler(snapshot.error.runtimeType),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ), // Print's text message on screen
+                      );}
+                      }
+                  },
+                ),
+              );
+          });
+    }
 }
 
 
