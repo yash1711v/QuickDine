@@ -382,7 +382,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                         padding: getPadding(
                                             left: 9,
                                             top: 4,
-                                            right: 6,
+                                            right: 1,
                                             bottom: 3),
                                         child: Text("lbl_waiter".tr,
                                             overflow: TextOverflow.ellipsis,

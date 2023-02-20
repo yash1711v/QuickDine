@@ -22,11 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(Duration(seconds: 2),(){
         if(session!=null){
           print(session);
-          Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.signinScreen);
+
         }
         else{
           print(session);
-          Navigator.of(context).pushReplacementNamed(AppRoutes.signinScreen);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
         }
     });
 

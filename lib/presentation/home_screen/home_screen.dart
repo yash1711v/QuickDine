@@ -837,7 +837,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                    width: getSize(6.00),
                                                    alignment:
                                                    Alignment.center)
-                                             ]))))
+                                             ]
+                                             )
+                                         )
+                                     )
+                                 )
                                ]))
                      ]
                  )
@@ -894,6 +898,7 @@ class _HomeScreenState extends State<HomeScreen> {
   onTaplogout() {
    SupabaseCredential.supabaseClient.auth.signOut();
    Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
+
   }
 
 }
