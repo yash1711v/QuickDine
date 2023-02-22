@@ -3,6 +3,7 @@ import 'package:quickdine/Authentication/supabasecredential.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
 
+import '../../UserModel/SupabaseUser.dart';
 import 'controller/signin_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -25,6 +26,7 @@ class _SigninScreenState extends State<SigninScreen> {
  TextEditingController _PassControler=TextEditingController();
   bool _isVisible = false;
  bool _isLoading = false;
+ late Supabaseuser uid;
   @override
   void initState(){
     super.initState();
@@ -32,30 +34,29 @@ class _SigninScreenState extends State<SigninScreen> {
     _PassControler=TextEditingController();
     _isVisible=true;
   }
+
   bool IsLoading=false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //Functions That is handling the Login
-  // Future<String?> userLogin({required final String email, required final String password,})
-  // async{
-  //         final response=await client.auth.signInWithPassword(
-  //           email: email,
-  //           password : password
-  //         );
-  //         final user= response.user;
-  //         return user?.id;
-  // }
  Future<void> _singIn() async {
    setState(() {
      _isLoading=true;
    });
-   final response=await SupabaseCredential.supabaseClient.auth.signInWithPassword(
+   AuthResponse response=await SupabaseCredential.supabaseClient.auth.signInWithPassword(
        email: _emailControler.text,
        password: _PassControler.text
    );
-   final error=response.user;
+   User? error=response.user;
+   setState(() {
+     uid=new Supabaseuser(uid: response.user!.id);
+     print(uid);
+   });
    if(error!=null){
      print(error.email);
-     Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+     Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen,
+     arguments: {
+       "Uid": uid,
+     }
+     );
      Toast.show("Signin SuccessFull ",
        backgroundColor: Colors.grey,
        duration: 5
@@ -68,9 +69,6 @@ class _SigninScreenState extends State<SigninScreen> {
        duration: 5
      );
    }
-   setState(() {
-     _isLoading=false;
-   });
  }
 
  Future<void> _singInWithFacebook() async {

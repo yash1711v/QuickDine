@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
+import 'package:quickdine/Database/DatabaseServices.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
 
+import '../../UserModel/SupabaseUser.dart';
+import '../../UserModel/usermodel.dart';
 import '../DrawerWidget/DrawerWidget.dart';
 import '../home_screen/widgets/listrectanglefiftyfive_item_widget.dart';
 import '../home_screen/widgets/restaurantnear_item_widget.dart';
@@ -33,6 +36,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int  _currentIndex=0;
   get controller => HomeController();
+  void initState(){
+    super.initState();
+   Future userdata=DatabaseServices().fetchUser();
+   userdata.asStream();
+   userdata.toString();
+   print(userdata);
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -902,4 +913,5 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 }
+
 

@@ -1,4 +1,7 @@
 import 'package:quickdine/Authentication/supabasecredential.dart';
+import 'package:quickdine/Database/DatabaseServices.dart';
+import 'package:quickdine/UserModel/SupabaseUser.dart';
+import 'package:supabase/supabase.dart';
 import 'package:toast/toast.dart';
 
 import 'controller/signup_controller.dart';
@@ -19,8 +22,11 @@ class _SignupScreenState extends State<SignupScreen> {
 
   get controller => SignupController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailControler=TextEditingController();
-  final TextEditingController _PassControler=TextEditingController();
+    late TextEditingController _FirstName=TextEditingController();
+   late  TextEditingController _lastname=TextEditingController();
+  late TextEditingController _PhoneNumbercontroler=TextEditingController();
+   late  TextEditingController _emailControler=TextEditingController();
+  late TextEditingController _PassControler=TextEditingController();
   final FocusNode _firstname=FocusNode();
   final FocusNode _lasttname=FocusNode();
   final FocusNode _PhoneNumber=FocusNode();
@@ -28,22 +34,18 @@ class _SignupScreenState extends State<SignupScreen> {
   final FocusNode _password=FocusNode();
   bool _isVisible = false;
   bool _isLoading = false;
+  late User error;
+
   @override
   void initState(){
     super.initState();
+    _PhoneNumbercontroler=TextEditingController();
+    _FirstName=TextEditingController();
+    _lastname=TextEditingController();
+    _emailControler=TextEditingController();
+    _PassControler=TextEditingController();
     _isVisible=true;
   }
-  // Future<bool> createUser({required final String email, required final String password,}) async{
-  //
-  //   final response=await client.auth.signUp(
-  //     email: email,
-  //       password: password,
-  //   );
-  //   final User=response.user;
-  //   if(User==null){
-  //
-  //   }
-  // }
   Future<void> _singUp() async {
     setState(() {
       _isLoading=true;
@@ -52,7 +54,9 @@ class _SignupScreenState extends State<SignupScreen> {
        email: _emailControler.text,
       password: _PassControler.text
     );
-    final error=response.user;
+
+    error=response.user!;
+    await DatabaseServices().updateuserData(_FirstName.text, _lastname.text,_PhoneNumbercontroler.text, _emailControler.text,_PassControler.text, error.id);
     if(error!=null){
       print(error.email);
       Navigator.of(context).pushNamed(AppRoutes.signinScreen);
@@ -67,6 +71,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     setState(() {
       _isLoading=false;
+
     });
   }
 
@@ -105,7 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   child: SizedBox(
                                     width: 360,
                                     child: TextField(
-                                      //controller: _emailControler,
+                                      controller: _FirstName,
                                       obscureText: false,
                                       focusNode: _firstname,
                                      // keyboardType: TextInputType.name,
@@ -132,6 +137,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     width: 360,
                                     child: TextField(
                                       obscureText: false,
+                                      controller: _lastname,
                                       focusNode: _lasttname,
                                       decoration:  InputDecoration(
                                         enabledBorder: OutlineInputBorder(
@@ -160,6 +166,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       obscureText: false,
                                       maxLines: 1,
                                       maxLength: 10,
+                                       controller: _PhoneNumbercontroler,
                                        focusNode: _PhoneNumber,
                                       decoration:  InputDecoration(
                                         enabledBorder: OutlineInputBorder(
@@ -253,7 +260,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                       shape: ButtonShape.RoundedBorder10,
                                       padding: ButtonPadding.PaddingAll13,
                                       fontStyle: ButtonFontStyle.PoppinsBold18,
-                                      onTap: (){_singUp();}
+                                      onTap: (){
+                                        _singUp();
+                                        onTapCreateanaccountOne();
+                                      }
                                   ),
                                 ),
                                 CustomButton(
@@ -283,8 +293,8 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  onTapCreateanaccountOne() {
-    Get.toNamed(AppRoutes.homeScreen);
+  onTapCreateanaccountOne() async{
+
   }
 
   onTapContinueasaguest() {

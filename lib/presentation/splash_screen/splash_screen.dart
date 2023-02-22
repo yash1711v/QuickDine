@@ -1,7 +1,11 @@
 
 import 'package:quickdine/core/app_export.dart';
+import 'package:supabase/supabase.dart';
+import 'package:supabase/supabase.dart';
+import 'package:supabase/supabase.dart';
 
 import '../../Authentication/supabasecredential.dart';
+import '../../UserModel/SupabaseUser.dart';
 import '../../routes/app_routes.dart';
 import 'controller/splash_controller.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +18,12 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
  void  initState()
   {
         super.initState();
-        final session= SupabaseCredential.supabaseClient.auth.currentSession;
+        final session= SupabaseCredential.supabaseClient.auth.currentUser;
       Future.delayed(Duration(seconds: 2),(){
         if(session!=null){
           print(session);
