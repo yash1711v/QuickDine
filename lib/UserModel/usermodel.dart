@@ -1,10 +1,11 @@
-class SupabaseUserData{
+class SupabaseUserData {
   late final String uid;
-  late final String Firstname;
-  late final String LastName;
-  late final String PhoneNumber;
-  late final String EmailId;
-  late final String Password;
-  SupabaseUserData(this.uid, this.Firstname, this.LastName, this.PhoneNumber,
-      this.EmailId, this.Password);
+  late final String firstName;
+  late final String lastName;
+  late final String phoneNumber;
+  late final String emailID;
+  late final String password;
+
+  SupabaseUserData(this.uid, this.firstName, this.lastName, this.phoneNumber,
+      this.emailID, this.password);
 }

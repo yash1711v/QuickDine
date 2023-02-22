@@ -7,7 +7,6 @@ import 'package:quickdine/widgets/custom_button.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
 
-
 class OrderpreScreen extends StatefulWidget {
   const OrderpreScreen({Key? key}) : super(key: key);
 

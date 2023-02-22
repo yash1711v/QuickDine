@@ -56,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
 
     error=response.user!;
-    await DatabaseServices().updateuserData(_FirstName.text, _lastname.text,_PhoneNumbercontroler.text, _emailControler.text,_PassControler.text, error.id);
+    await DatabaseServices().updateUserData(_FirstName.text, _lastname.text,_PhoneNumbercontroler.text, _emailControler.text,_PassControler.text, error.id);
     if(error!=null){
       print(error.email);
       Navigator.of(context).pushNamed(AppRoutes.signinScreen);

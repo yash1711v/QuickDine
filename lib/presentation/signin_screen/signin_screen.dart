@@ -26,7 +26,7 @@ class _SigninScreenState extends State<SigninScreen> {
  TextEditingController _PassControler=TextEditingController();
   bool _isVisible = false;
  bool _isLoading = false;
- late Supabaseuser uid;
+ late SupabaseUser uid;
   @override
   void initState(){
     super.initState();
@@ -47,7 +47,7 @@ class _SigninScreenState extends State<SigninScreen> {
    );
    User? error=response.user;
    setState(() {
-     uid=new Supabaseuser(uid: response.user!.id);
+     uid=new SupabaseUser(uid: response.user!.id);
      print(uid);
    });
    if(error!=null){
