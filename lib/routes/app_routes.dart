@@ -55,64 +55,33 @@ import 'package:get/get.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splash_screen';
-
   static const String signupScreen = '/signup_screen';
-
   static const String signinScreen = '/signin_screen';
-
   static const String homeScreen = '/home_screen';
-
   static const String exploreScreen = '/explore_screen';
-
   static const String sidemenuScreen = '/sidemenu_screen';
-
-  static const String home2afterclickingontextScreen =
-      '/home2afterclickingontext_screen';
-
-  static const String explore2afterclickingonsearchScreen =
-      '/explore2afterclickingonsearch_screen';
-
+  static const String home2afterclickingontextScreen = '/home2afterclickingontext_screen';
+  static const String explore2afterclickingonsearchScreen = '/explore2afterclickingonsearch_screen';
   static const String aboutUsScreen = '/about_us_screen';
-
   static const String profileSettingScreen = '/profile_setting_screen';
-
   static const String profileScreen = '/profile_screen';
-
   static const String promoScreen = '/promo_screen';
-
   static const String orderHistoryScreen = '/order_history_screen';
-
   static const String helpScreen = '/help_screen';
-
   static const String reserveTableScreen = '/reserve_table_screen';
-
-  static const String reserverTableDetailsScreen =
-      '/reserver_table_details_screen';
-
+  static const String reserverTableDetailsScreen = '/reserver_table_details_screen';
   static const String payBillScreen = '/pay_bill_screen';
-
   static const String confirmedScreen = '/confirmed_screen';
-
   static const String restaurantmapScreen = '/restaurantmap_screen';
-
   static const String orderpreScreen = '/orderpre_screen';
-
   static const String addToOrderScreen = '/add_to_order_screen';
-
   static const String myOrderScreen = '/my_order_screen';
-
   static const String paidFailScreen = '/paid_fail_screen';
-
   static const String paidSuccessfullScreen = '/paid_successfull_screen';
-
   static const String frameNineScreen = '/frame_nine_screen';
-
   static const String waiterCallDetailsScreen = '/waiter_call_details_screen';
-
   static const String reviewScreen = '/review_screen';
-
   static const String feedbackScreen = '/feedback_screen';
-
   static const String appNavigationScreen = '/app_navigation_screen';
 
   // static String signinWithPhone = '/signinwithPhone';

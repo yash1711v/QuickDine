@@ -6,7 +6,6 @@ class AppbarStack extends StatelessWidget {
   AppbarStack({this.margin, this.onTap});
 
   EdgeInsetsGeometry? margin;
-
   Function? onTap;
 
   @override

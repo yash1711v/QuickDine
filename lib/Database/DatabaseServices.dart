@@ -23,7 +23,8 @@ class DatabaseServices{
   Future fetchUser() async {
     try {
       var response = await _collection.select().execute();
-      print(response.data);
+      print('..................');
+      //print(response.data);
     }
     catch(e) {
       print(e.toString());

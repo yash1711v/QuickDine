@@ -17,27 +17,16 @@ class CustomButton extends StatelessWidget {
       this.suffixWidget});
 
   ButtonShape? shape;
-
   ButtonPadding? padding;
-
   ButtonVariant? variant;
-
   ButtonFontStyle? fontStyle;
-
   Alignment? alignment;
-
   EdgeInsetsGeometry? margin;
-
   VoidCallback? onTap;
-
   double? width;
-
   double? height;
-
   String? text;
-
   Widget? prefixWidget;
-
   Widget? suffixWidget;
 
   @override

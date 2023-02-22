@@ -25,41 +25,23 @@ class CustomTextFormField extends StatelessWidget {
       this.validator, });
 
   TextFormFieldShape? shape;
-
   TextFormFieldPadding? padding;
-
   TextFormFieldVariant? variant;
-
   TextFormFieldFontStyle? fontStyle;
-
   Alignment? alignment;
-
   double? width;
-
   EdgeInsetsGeometry? margin;
-
   TextEditingController? controller;
-
   FocusNode? focusNode;
-
   bool? isObscureText;
-
   TextInputAction? textInputAction;
-
   TextInputType? textInputType;
-
   int? maxLines;
-
   String? hintText;
-
   Widget? prefix;
-
   BoxConstraints? prefixConstraints;
-
   Widget? suffix;
-
   BoxConstraints? suffixConstraints;
-
   FormFieldValidator<String>? validator;
 
   @override

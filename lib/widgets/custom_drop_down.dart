@@ -20,29 +20,17 @@ class CustomDropDown extends StatelessWidget {
       this.validator});
 
   DropDownShape? shape;
-
   DropDownPadding? padding;
-
   DropDownVariant? variant;
-
   DropDownFontStyle? fontStyle;
-
   Alignment? alignment;
-
   double? width;
-
   EdgeInsetsGeometry? margin;
-
   FocusNode? focusNode;
-
   Widget? icon;
-
   String? hintText;
-
   Widget? prefix;
-
   BoxConstraints? prefixConstraints;
-
   List<SelectionPopupModel>? items;
 
   Function(SelectionPopupModel)? onChanged;

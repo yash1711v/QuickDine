@@ -48,7 +48,7 @@ class _SigninScreenState extends State<SigninScreen> {
    User? error=response.user;
    setState(() {
      uid=new SupabaseUser(uid: response.user!.id);
-     print(uid);
+     print(uid.uid);
    });
    if(error!=null){
      print(error.email);

@@ -6,6 +6,7 @@ import 'package:quickdine/Database/DatabaseServices.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../UserModel/SupabaseUser.dart';
 import '../../UserModel/usermodel.dart';
@@ -36,17 +37,43 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int  _currentIndex=0;
   get controller => HomeController();
-  void initState(){
+
+  List ? myList;
+  List<Map<String, dynamic>> userList = [];
+
+  void initState() {
     super.initState();
-   Future userdata=DatabaseServices().fetchUser();
-   userdata.asStream();
-   userdata.toString();
-   print(userdata);
+    readData();
+  }
+
+  Future<void> readData() async {
+    var response = await Supabase.instance.client
+        .from('user')
+        .select()
+        .execute();
+    setState(() {
+      myList = response.data.toList();
+
+      // print('//////////////////////');
+      myList!.forEach((element) {
+        userList.add(element);
+        // print(element);
+        // print('\n');
+      });
+      // print('//////////////////////');
+
+      // print('...............');
+      // print(myList![1]);
+      // print(myList![0]["id"]);
+      // print('...............');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    print(userList);
+
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
         appBar: AppBar(
