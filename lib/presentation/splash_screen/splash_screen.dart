@@ -1,5 +1,6 @@
 
 import 'package:quickdine/core/app_export.dart';
+import 'package:quickdine/preferences/shp.dart';
 import 'package:supabase/supabase.dart';
 import 'package:supabase/supabase.dart';
 import 'package:supabase/supabase.dart';
@@ -18,14 +19,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String id="";
 
   @override
  void  initState()
   {
         super.initState();
-        final session= SupabaseCredential.supabaseClient.auth.currentUser;
+        checkidValue();
+        final session= checkidValue();
       Future.delayed(Duration(seconds: 2),(){
-        if(session!=null){
+        if(id==""){
           print(session);
           Navigator.of(context).pushReplacementNamed(AppRoutes.signinScreen);
 
@@ -36,6 +39,14 @@ class _SplashScreenState extends State<SplashScreen> {
         }
     });
 
+  }
+  checkidValue() async {
+    String uid= await shp().getUid()??"";
+    setState(() {
+      id= uid;
+    });
+    print("----"+id+"---------");
+    return id;
   }
   get controller=>SplashController();
   @override

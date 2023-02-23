@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
 import 'package:quickdine/Database/DatabaseServices.dart';
+import 'package:quickdine/preferences/shp.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
 import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
@@ -37,15 +38,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int  _currentIndex=0;
   get controller => HomeController();
-
+   String id="";
   List ? myList;
   List<Map<String, dynamic>> userList = [];
-
+  int i=0;
   void initState() {
     super.initState();
     readData();
+    checkidValue();
   }
-
+  checkidValue() async {
+    String uid= await shp().getUid()??"";
+    setState(() {
+      id= uid;
+    });
+    print("----"+id+"---------");
+  }
   Future<void> readData() async {
     var response = await Supabase.instance.client
         .from('user')
@@ -54,25 +62,38 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       myList = response.data.toList();
 
-      // print('//////////////////////');
+       print('//////////////////////');
       myList!.forEach((element) {
         userList.add(element);
-        // print(element);
-        // print('\n');
+        i++;
       });
-      // print('//////////////////////');
+       print('//////////////////////');
 
       // print('...............');
       // print(myList![1]);
       // print(myList![0]["id"]);
       // print('...............');
     });
+    for(int j=0;j<i;j++){
+      if(id==userList[j]['id']){
+        print("id is at : ");
+        print(j);
+        print(userList[j]['first_name']);
+        shp().setFirstname(userList[j]['first_name']);
+        shp().setLastName(userList[j]['last_name']);
+        shp().setemail(userList[j]['email_Id']);
+        shp().setPassword(userList[j]['Password']);
+        //print(userList[j]['Password']);
+        shp().setPhone(userList[j]['phone_no']);
+      }
+    }
+
   }
 
   @override
   Widget build(BuildContext context) {
     print(userList);
-
+    //readData();
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
@@ -152,119 +173,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),)
     );
   }
-
-// class HomeScreen extends GetWidget<HomeController> {
-//   int _currentIndex=0;
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//         top: false,
-//         bottom: false,
-//         child: Scaffold(
-//             resizeToAvoidBottomInset: false,
-//             backgroundColor: ColorConstant.whiteA700,
-//              appBar: AppBar(
-//                backgroundColor: Colors.white,
-//                elevation: 0,
-//                centerTitle: true,
-//                  leading: Builder(
-//                    builder: (BuildContext context) {
-//                      return IconButton(
-//                        icon: const Icon(
-//                          Icons.menu_rounded,
-//                          color: Colors.black,
-//                          size: 50, // Changing Drawer Icon Size
-//                        ),
-//                        onPressed: () {
-//                          Scaffold.of(context).openDrawer();
-//                        },
-//                        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-//
-//                      );
-//                    },
-//                  ),
-//                title: AppbarDropdown(
-//                      hintText: "lbl_delhi".tr,
-//                      margin: getMargin(top: 10),
-//                      items: controller.homeModelObj.value.dropdownItemList,
-//                      onTap: (value) {
-//                        controller.onSelected(value);
-//                      }
-//                      ),
-//                  actions: [
-//                      AppbarStack(
-//                          margin: getMargin(left: 20, right: 20,top: 12),
-//                          onTap: onTapProfileIcon
-//                      )
-//                    ]
-//              ),
-//              //CustomAppBar(
-//             //     height: getVerticalSize(50.00),
-//             //     leadingWidth: 60,
-//             //     // leading: AppbarImage(
-//             //     //     height: getSize(24.00),
-//             //     //     width: getSize(24.00),
-//             //     //     svgPath: ImageConstant.imgMenu,
-//             //     //     margin: getMargin(left: 18, top: 7, bottom: 0),
-//             //     //   onTap: (){
-//             //     //       onTapMenuIconButtonInTopAppBar();
-//             //     //   },
-//             //     // ),
-//             //     centerTitle: true,
-//             //     title: AppbarDropdown(
-//             //         hintText: "lbl_delhi".tr,
-//             //         margin: getMargin(top: 10),
-//             //         items: controller.homeModelObj.value.dropdownItemList,
-//             //         onTap: (value) {
-//             //           controller.onSelected(value);
-//             //         }),
-//             //     actions: [
-//             //       AppbarStack(
-//             //           margin: getMargin(left: 20, right: 20,top: 5),
-//             //           onTap: onTapProfileIcon
-//             //       )
-//             //     ]),
-//             body: Stack(
-//               children: [
-//                 buildDrawer(),
-//                 buildPAge(),
-//               ],
-//             ),
-//           drawer: buildDrawer(),
-//           bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
-//             child: GNav(
-//               duration: Duration(milliseconds: 400),
-//               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-//               activeColor: Colors.white,
-//               selectedIndex: _currentIndex,
-//               tabs: [
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.home,
-//                   text: "Home",
-//                   onPressed: (){onTapBottomHomeButton();
-//                   },
-//                 ),
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.search,
-//                   text: "Search",
-//                   onPressed: (){onTapBottomSearchButton();},
-//                 ),
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.access_time,
-//                   text: "Pre-Order",),
-//                 GButton(
-//                     gap: 8,
-//                     icon: Icons.bookmark_border,
-//                     text: "Reservation",
-//                     onPressed: (){onTapBottomReservationButton();}),
-//               ],
-//             ),)
-//         ),
-//     );
-//   }
 
  Widget buildDrawer()=> DrawerWidget(
    onSelectedItem: (item) {
@@ -937,8 +845,121 @@ class _HomeScreenState extends State<HomeScreen> {
    SupabaseCredential.supabaseClient.auth.signOut();
    Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
 
+      shp().setUid("");
   }
 
 }
 
 
+// class HomeScreen extends GetWidget<HomeController> {
+//   int _currentIndex=0;
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         top: false,
+//         bottom: false,
+//         child: Scaffold(
+//             resizeToAvoidBottomInset: false,
+//             backgroundColor: ColorConstant.whiteA700,
+//              appBar: AppBar(
+//                backgroundColor: Colors.white,
+//                elevation: 0,
+//                centerTitle: true,
+//                  leading: Builder(
+//                    builder: (BuildContext context) {
+//                      return IconButton(
+//                        icon: const Icon(
+//                          Icons.menu_rounded,
+//                          color: Colors.black,
+//                          size: 50, // Changing Drawer Icon Size
+//                        ),
+//                        onPressed: () {
+//                          Scaffold.of(context).openDrawer();
+//                        },
+//                        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+//
+//                      );
+//                    },
+//                  ),
+//                title: AppbarDropdown(
+//                      hintText: "lbl_delhi".tr,
+//                      margin: getMargin(top: 10),
+//                      items: controller.homeModelObj.value.dropdownItemList,
+//                      onTap: (value) {
+//                        controller.onSelected(value);
+//                      }
+//                      ),
+//                  actions: [
+//                      AppbarStack(
+//                          margin: getMargin(left: 20, right: 20,top: 12),
+//                          onTap: onTapProfileIcon
+//                      )
+//                    ]
+//              ),
+//              //CustomAppBar(
+//             //     height: getVerticalSize(50.00),
+//             //     leadingWidth: 60,
+//             //     // leading: AppbarImage(
+//             //     //     height: getSize(24.00),
+//             //     //     width: getSize(24.00),
+//             //     //     svgPath: ImageConstant.imgMenu,
+//             //     //     margin: getMargin(left: 18, top: 7, bottom: 0),
+//             //     //   onTap: (){
+//             //     //       onTapMenuIconButtonInTopAppBar();
+//             //     //   },
+//             //     // ),
+//             //     centerTitle: true,
+//             //     title: AppbarDropdown(
+//             //         hintText: "lbl_delhi".tr,
+//             //         margin: getMargin(top: 10),
+//             //         items: controller.homeModelObj.value.dropdownItemList,
+//             //         onTap: (value) {
+//             //           controller.onSelected(value);
+//             //         }),
+//             //     actions: [
+//             //       AppbarStack(
+//             //           margin: getMargin(left: 20, right: 20,top: 5),
+//             //           onTap: onTapProfileIcon
+//             //       )
+//             //     ]),
+//             body: Stack(
+//               children: [
+//                 buildDrawer(),
+//                 buildPAge(),
+//               ],
+//             ),
+//           drawer: buildDrawer(),
+//           bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
+//             child: GNav(
+//               duration: Duration(milliseconds: 400),
+//               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+//               activeColor: Colors.white,
+//               selectedIndex: _currentIndex,
+//               tabs: [
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.home,
+//                   text: "Home",
+//                   onPressed: (){onTapBottomHomeButton();
+//                   },
+//                 ),
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.search,
+//                   text: "Search",
+//                   onPressed: (){onTapBottomSearchButton();},
+//                 ),
+//                 GButton(
+//                   gap: 8,
+//                   icon: Icons.access_time,
+//                   text: "Pre-Order",),
+//                 GButton(
+//                     gap: 8,
+//                     icon: Icons.bookmark_border,
+//                     text: "Reservation",
+//                     onPressed: (){onTapBottomReservationButton();}),
+//               ],
+//             ),)
+//         ),
+//     );
+//   }

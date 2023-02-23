@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
+import 'package:quickdine/preferences/shp.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:toast/toast.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../UserModel/SupabaseUser.dart';
 import 'controller/signin_controller.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,15 @@ class _SigninScreenState extends State<SigninScreen> {
   bool _isVisible = false;
  bool _isLoading = false;
  late SupabaseUser uid;
+ String id="";
+
   @override
   void initState(){
     super.initState();
     _emailControler=TextEditingController();
     _PassControler=TextEditingController();
     _isVisible=true;
+
   }
 
   bool IsLoading=false;
@@ -48,13 +52,14 @@ class _SigninScreenState extends State<SigninScreen> {
    User? error=response.user;
    setState(() {
      uid=new SupabaseUser(uid: response.user!.id);
-     print(uid.uid);
+     //print(uid.uid);
+    shp().setUid(uid.uid);
    });
    if(error!=null){
      print(error.email);
      Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen,
      arguments: {
-       "Uid": uid,
+       "Uid": uid.uid,
      }
      );
      Toast.show("Signin SuccessFull ",
@@ -70,6 +75,7 @@ class _SigninScreenState extends State<SigninScreen> {
      );
    }
  }
+
 
  Future<void> _singInWithFacebook() async {
    await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
@@ -90,6 +96,7 @@ class _SigninScreenState extends State<SigninScreen> {
  }
   @override
   Widget build(BuildContext context) {
+   print(id);
     ToastContext().init(context);
     return SafeArea(
         top: false,

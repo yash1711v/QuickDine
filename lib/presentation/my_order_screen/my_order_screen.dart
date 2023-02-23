@@ -257,7 +257,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             return  Container(
                 height: 500,
                 padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
-              child: displayUpiApps(),
+              //child: displayUpiApps(),
                );Expanded(
                 child: FutureBuilder(
                   future: _transaction,

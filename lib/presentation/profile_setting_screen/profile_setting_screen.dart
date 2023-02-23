@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../preferences/shp.dart';
 import 'controller/profile_setting_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -12,6 +13,18 @@ class ProfileSettingScreen extends StatefulWidget {
 }
 
 class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
+  String firstname="";
+  void initState() {
+    super.initState();
+    checkidValue();
+  }
+  checkidValue() async {
+    String Firstname= await shp().getFirstname()??"";
+    setState(() {
+      firstname= Firstname;
+    });
+    print("----"+firstname+"---------");
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -56,7 +69,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                                               fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w600)),
                                       TextSpan(
-                                          text: "lbl_vaibhav".tr,
+                                          text: firstname.tr,
                                           style: TextStyle(
                                               color: ColorConstant.amber500,
                                               fontSize: getFontSize(25),

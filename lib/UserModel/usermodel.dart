@@ -1,3 +1,4 @@
+
 class SupabaseUserData {
   late final String uid;
   late final String firstName;
