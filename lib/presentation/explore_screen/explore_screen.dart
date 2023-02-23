@@ -15,6 +15,7 @@ import 'package:quickdine/widgets/app_bar/appbar_stack.dart';
 import 'package:quickdine/widgets/app_bar/custom_app_bar.dart';
 import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
+
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({Key? key}) : super(key: key);
 
@@ -24,7 +25,7 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   get controller => ExploreController();
-  int _currentIndex=1;
+  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,8 +49,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                       onPressed: () {
                         Scaffold.of(context).openDrawer();
                       },
-                      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
                     );
                   },
                 ),
@@ -59,15 +60,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     items: controller.exploreModelObj.value.dropdownItemList,
                     onTap: (value) {
                       controller.onSelected(value);
-                    }
-                ),
+                    }),
                 actions: [
                   AppbarStack(
-                      margin: getMargin(left: 20, right: 20,top: 12),
-                      onTap: onTapProfileIcon
-                  )
-                ]
-            ),
+                      margin: getMargin(left: 20, right: 20, top: 12),
+                      onTap: onTapProfileIcon)
+                ]),
             body: SizedBox(
                 width: size.width,
                 child: SingleChildScrollView(
@@ -796,8 +794,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                       ]))
                             ])))),
             drawer: buildDrawer(),
-            bottomNavigationBar:
-            SizedBox(height: 90.50, width: 10,
+            bottomNavigationBar: SizedBox(
+              height: 90.50,
+              width: 10,
               child: GNav(
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -808,63 +807,72 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     gap: 8,
                     icon: Icons.home,
                     text: "Home",
-                    onPressed: (){onTapBottomHomeButton();
-                      },
+                    onPressed: () {
+                      onTapBottomHomeButton();
+                    },
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.search,
                     text: "Search",
-                    onPressed: ()=>onTapBottomSearchButton(),
+                    onPressed: () => onTapBottomSearchButton(),
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.access_time,
                     text: "Pre-Order",
-                    onPressed: (){onTapBottomPre_OrderButton();},
+                    onPressed: () {
+                      onTapBottomPre_OrderButton();
+                    },
                   ),
                   GButton(
-                    gap: 8,
-                    icon: Icons.bookmark_border,
-                    text: "Reservation",
-                    onPressed: (){onTapBottomReservationButton();}),
+                      gap: 8,
+                      icon: Icons.bookmark_border,
+                      text: "Reservation",
+                      onPressed: () {
+                        onTapBottomReservationButton();
+                      }),
                 ],
-              ),)
-        )
-    );
+              ),
+            )));
   }
-  Widget buildDrawer()=> DrawerWidget(
-    onSelectedItem: (item) {
-      switch(item){
-        case DrawerItems.Info:
-          return onTapInfo();
-        case DrawerItems.profile:
-          return onTapProfile();
-        case DrawerItems.Pre_Order:
-          return onTapBottomPre_OrderButton();
-        case DrawerItems.Offers:
-          return onTapOffersandPromo();
-        case DrawerItems.Logout:
-          return onTaplogout();
 
-      }
-    },
-  );
+  Widget buildDrawer() => DrawerWidget(
+        onSelectedItem: (item) {
+          switch (item) {
+            case DrawerItems.Info:
+              return onTapInfo();
+            case DrawerItems.profile:
+              return onTapProfile();
+            case DrawerItems.Pre_Order:
+              return onTapBottomPre_OrderButton();
+            case DrawerItems.Offers:
+              return onTapOffersandPromo();
+            case DrawerItems.Logout:
+              return onTaplogout();
+          }
+        },
+      );
   onTapProfileIcon1() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
+
   onTapBottomPre_OrderButton() {
     Get.toNamed(AppRoutes.orderpreScreen);
   }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+
   onTapProfileIcon() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
@@ -872,19 +880,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
   onTapInfo() {
     Get.toNamed(AppRoutes.aboutUsScreen);
   }
+
   onTapProfile() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
+
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);
   }
+
   onTaplogout() {
     SupabaseCredential.supabaseClient.auth.signOut();
     Navigator.pushReplacementNamed(context, AppRoutes.signinScreen);
   }
 }
-
-
 
 // class ExploreScreen extends GetWidget<ExploreController> {
 //   int _currentIndex=1;

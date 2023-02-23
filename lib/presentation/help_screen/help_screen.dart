@@ -6,7 +6,6 @@ import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
 
-
 class HelpScreen extends StatefulWidget {
   const HelpScreen({Key? key}) : super(key: key);
   @override

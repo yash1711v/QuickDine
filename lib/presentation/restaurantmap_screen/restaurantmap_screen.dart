@@ -64,7 +64,7 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                       width: getHorizontalSize(20.00),
                       svgPath: ImageConstant.imgMapBlack900,
                       margin:
-                      getMargin(left: 41, top: 14, right: 41, bottom: 20))
+                          getMargin(left: 41, top: 14, right: 41, bottom: 20))
                 ]),
             body: SizedBox(
                 width: size.width,
@@ -83,7 +83,7 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                   variant: SearchViewVariant.OutlineAmber500,
                                   padding: SearchViewPadding.PaddingT8,
                                   fontStyle:
-                                  SearchViewFontStyle.PoppinsRegular15,
+                                      SearchViewFontStyle.PoppinsRegular15,
                                   prefix: Container(
                                       margin: getMargin(
                                           left: 13,
@@ -129,131 +129,131 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                           bottom: 8),
                                       decoration: AppDecoration.outlineAmber5003
                                           .copyWith(
-                                          borderRadius: BorderRadiusStyle
-                                              .roundedBorder5),
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder5),
                                       child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             CustomImageView(
                                                 imagePath: ImageConstant
                                                     .imgRectangle82,
                                                 height: getVerticalSize(140.00),
                                                 width:
-                                                getHorizontalSize(343.00),
+                                                    getHorizontalSize(343.00),
                                                 radius: BorderRadius.circular(
                                                     getHorizontalSize(5.00)),
                                                 margin: getMargin(left: 12)),
                                             Align(
                                                 alignment:
-                                                Alignment.centerRight,
+                                                    Alignment.centerRight,
                                                 child: Padding(
                                                     padding: getPadding(
                                                         left: 16, top: 1),
                                                     child: Row(
                                                         mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .end,
+                                                            MainAxisAlignment
+                                                                .end,
                                                         crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Text(
                                                               "lbl_sagar_ratna"
                                                                   .tr
                                                                   .toUpperCase(),
                                                               overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               textAlign:
-                                                              TextAlign
-                                                                  .center,
+                                                                  TextAlign
+                                                                      .center,
                                                               style: AppStyle
                                                                   .txtPoppinsMedium20),
                                                           Spacer(),
                                                           CustomImageView(
                                                               svgPath:
-                                                              ImageConstant
-                                                                  .imgStar5,
+                                                                  ImageConstant
+                                                                      .imgStar5,
                                                               height:
-                                                              getVerticalSize(
-                                                                  16.00),
+                                                                  getVerticalSize(
+                                                                      16.00),
                                                               width:
-                                                              getHorizontalSize(
-                                                                  18.00),
+                                                                  getHorizontalSize(
+                                                                      18.00),
                                                               margin: getMargin(
                                                                   top: 5,
                                                                   bottom: 8)),
                                                           CustomImageView(
                                                               svgPath:
-                                                              ImageConstant
-                                                                  .imgStar1,
+                                                                  ImageConstant
+                                                                      .imgStar1,
                                                               height:
-                                                              getVerticalSize(
-                                                                  16.00),
+                                                                  getVerticalSize(
+                                                                      16.00),
                                                               width:
-                                                              getHorizontalSize(
-                                                                  18.00),
+                                                                  getHorizontalSize(
+                                                                      18.00),
                                                               margin: getMargin(
                                                                   top: 5,
                                                                   bottom: 8)),
                                                           Container(
                                                               height:
-                                                              getVerticalSize(
-                                                                  16.00),
+                                                                  getVerticalSize(
+                                                                      16.00),
                                                               width:
-                                                              getHorizontalSize(
-                                                                  50.00),
+                                                                  getHorizontalSize(
+                                                                      50.00),
                                                               margin: getMargin(
                                                                   top: 5,
                                                                   bottom: 8),
                                                               child: Stack(
                                                                   alignment:
-                                                                  Alignment
-                                                                      .centerLeft,
+                                                                      Alignment
+                                                                          .centerLeft,
                                                                   children: [
                                                                     CustomImageView(
                                                                         svgPath:
-                                                                        ImageConstant
-                                                                            .imgStar2,
+                                                                            ImageConstant
+                                                                                .imgStar2,
                                                                         height: getVerticalSize(
                                                                             16.00),
                                                                         width: getHorizontalSize(
                                                                             18.00),
                                                                         alignment:
-                                                                        Alignment.centerLeft),
+                                                                            Alignment.centerLeft),
                                                                     CustomImageView(
                                                                         svgPath:
-                                                                        ImageConstant
-                                                                            .imgStar3,
+                                                                            ImageConstant
+                                                                                .imgStar3,
                                                                         height: getVerticalSize(
                                                                             16.00),
                                                                         width: getHorizontalSize(
                                                                             18.00),
                                                                         alignment:
-                                                                        Alignment
-                                                                            .centerLeft,
+                                                                            Alignment
+                                                                                .centerLeft,
                                                                         margin: getMargin(
                                                                             left:
-                                                                            15)),
+                                                                                15)),
                                                                     CustomImageView(
                                                                         svgPath:
-                                                                        ImageConstant
-                                                                            .imgStar4,
+                                                                            ImageConstant
+                                                                                .imgStar4,
                                                                         height: getVerticalSize(
                                                                             16.00),
                                                                         width: getHorizontalSize(
                                                                             18.00),
                                                                         alignment:
-                                                                        Alignment.centerRight)
+                                                                            Alignment.centerRight)
                                                                   ]))
                                                         ]))),
                                             Padding(
                                                 padding:
-                                                getPadding(left: 5, top: 2),
+                                                    getPadding(left: 5, top: 2),
                                                 child: Row(children: [
                                                   CustomImageView(
                                                       svgPath: ImageConstant
@@ -263,10 +263,10 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                                       width: getHorizontalSize(
                                                           15.00),
                                                       margin:
-                                                      getMargin(bottom: 1)),
+                                                          getMargin(bottom: 1)),
                                                   Padding(
                                                       padding:
-                                                      getPadding(left: 7),
+                                                          getPadding(left: 7),
                                                       child: Text(
                                                           "msg_lodhi_rd_cgo_complex"
                                                               .tr
@@ -274,7 +274,7 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
-                                                          TextAlign.left,
+                                                              TextAlign.left,
                                                           style: AppStyle
                                                               .txtPoppinsMedium12Black900))
                                                 ])),
@@ -283,18 +283,18 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                                     left: 6, top: 8, bottom: 8),
                                                 child: Row(
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       CustomImageView(
                                                           svgPath: ImageConstant
                                                               .imgCallBlack900,
                                                           height:
-                                                          getVerticalSize(
-                                                              26.00),
+                                                              getVerticalSize(
+                                                                  26.00),
                                                           width:
-                                                          getHorizontalSize(
-                                                              24.00)),
+                                                              getHorizontalSize(
+                                                                  24.00)),
                                                       Padding(
                                                           padding: getPadding(
                                                               left: 3,
@@ -304,11 +304,11 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                                                   .tr
                                                                   .toUpperCase(),
                                                               overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               textAlign:
-                                                              TextAlign
-                                                                  .center,
+                                                                  TextAlign
+                                                                      .center,
                                                               style: AppStyle
                                                                   .txtPoppinsMedium12Black900))
                                                     ]))
@@ -320,22 +320,22 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                       left: 49, top: 5, right: 49, bottom: 5),
                                   decoration: AppDecoration.fillBluegray1001c
                                       .copyWith(
-                                      borderRadius: BorderRadiusStyle
-                                          .customBorderBL20),
+                                          borderRadius: BorderRadiusStyle
+                                              .customBorderBL20),
                                   child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Padding(
                                             padding:
-                                            getPadding(left: 4, right: 35),
+                                                getPadding(left: 4, right: 35),
                                             child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   CustomImageView(
                                                       svgPath: ImageConstant
@@ -372,7 +372,7 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                             child: Row(children: [
                                               Text("lbl_home".tr,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
                                                   style: AppStyle
                                                       .txtPoppinsRegular12Red500),
@@ -380,26 +380,28 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                                                   padding: getPadding(left: 25),
                                                   child: Text("lbl_explore".tr,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtPoppinsRegular12Black9005e)),
                                               Text("lbl_pre_order3".tr,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
                                                   style: AppStyle
                                                       .txtPoppinsRegular12Black9005e),
                                               Text("lbl_reserve_table".tr,
                                                   overflow:
-                                                  TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
                                                   style: AppStyle
                                                       .txtPoppinsRegular12Black9005e)
                                             ]))
                                       ]))
                             ])))),
-            bottomNavigationBar: SizedBox(height: 90.50, width: 10,
+            bottomNavigationBar: SizedBox(
+              height: 90.50,
+              width: 10,
               child: GNav(
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -409,25 +411,29 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
                     gap: 8,
                     icon: Icons.home,
                     text: "Home",
-                    onPressed: ()=>onTapBottomHomeButton(),),
+                    onPressed: () => onTapBottomHomeButton(),
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.search,
                     text: "Search",
-                    onPressed: ()=>onTapBottomSearchButton(),
+                    onPressed: () => onTapBottomSearchButton(),
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.access_time,
                     text: "Pre-Order",
-                  onPressed: ()=>onTapPreORder(),),
+                    onPressed: () => onTapPreORder(),
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.bookmark_border,
                     text: "Reservation",
-                    onPressed: ()=>onTapBottomReservationButton(),),
+                    onPressed: () => onTapBottomReservationButton(),
+                  ),
                 ],
-              ),)));
+              ),
+            )));
   }
 
   onTapImgBasemapimage() {
@@ -437,19 +443,23 @@ class _RestaurantmapScreenState extends State<RestaurantmapScreen> {
   onTapColumnrectanglefifteen() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+
+  onTapPreORder() {
+    Get.toNamed(AppRoutes.orderpreScreen);
+  }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
 
 // class RestaurantmapScreen extends GetWidget<RestaurantmapController> {
 //   @override

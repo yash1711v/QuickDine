@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 
-
 class ConfirmedScreen extends StatefulWidget {
   const ConfirmedScreen({Key? key}) : super(key: key);
 
@@ -226,7 +225,7 @@ class _ConfirmedScreenState extends State<ConfirmedScreen> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style:
-                                      AppStyle.txtPoppinsMedium12Green900,
+                                          AppStyle.txtPoppinsMedium12Green900,
                                     ),
                                   ),
                                 ],

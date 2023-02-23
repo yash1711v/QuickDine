@@ -10,7 +10,8 @@ class WaiterCallDetailsScreen extends StatefulWidget {
   const WaiterCallDetailsScreen({Key? key}) : super(key: key);
 
   @override
-  State<WaiterCallDetailsScreen> createState() => _WaiterCallDetailsScreenState();
+  State<WaiterCallDetailsScreen> createState() =>
+      _WaiterCallDetailsScreenState();
 }
 
 class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
@@ -265,7 +266,8 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
                                               TextSpan(
                                                 text: "lbl_waiter".tr,
                                                 style: TextStyle(
-                                                  color: ColorConstant.black9007f,
+                                                  color:
+                                                      ColorConstant.black9007f,
                                                   fontSize: getFontSize(
                                                     14,
                                                   ),
@@ -351,7 +353,9 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: SizedBox(height: 90.50, width: 10,
+          bottomNavigationBar: SizedBox(
+            height: 90.50,
+            width: 10,
             child: GNav(
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -361,43 +365,50 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
                   gap: 8,
                   icon: Icons.home,
                   text: "Home",
-                  onPressed: ()=>onTapBottomHomeButton(),),
+                  onPressed: () => onTapBottomHomeButton(),
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.search,
                   text: "Search",
-                  onPressed: ()=>onTapBottomSearchButton(),
+                  onPressed: () => onTapBottomSearchButton(),
                 ),
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
                   text: "Pre-Order",
-                onPressed: (){onTapBottomPre_OrderButton();},),
+                  onPressed: () {
+                    onTapBottomPre_OrderButton();
+                  },
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
                   text: "Reservation",
-                  onPressed: ()=>onTapBottomReservationButton(),),
+                  onPressed: () => onTapBottomReservationButton(),
+                ),
               ],
-            ),)
-      ),
+            ),
+          )),
     );
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
+
   onTapBottomPre_OrderButton() {
     Get.toNamed(AppRoutes.orderpreScreen);
   }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
 
 // class WaiterCallDetailsScreen extends GetWidget<WaiterCallDetailsController> {
 //   @override

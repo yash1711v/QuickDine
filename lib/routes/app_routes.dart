@@ -60,8 +60,10 @@ class AppRoutes {
   static const String homeScreen = '/home_screen';
   static const String exploreScreen = '/explore_screen';
   static const String sidemenuScreen = '/sidemenu_screen';
-  static const String home2afterclickingontextScreen = '/home2afterclickingontext_screen';
-  static const String explore2afterclickingonsearchScreen = '/explore2afterclickingonsearch_screen';
+  static const String home2afterclickingontextScreen =
+      '/home2afterclickingontext_screen';
+  static const String explore2afterclickingonsearchScreen =
+      '/explore2afterclickingonsearch_screen';
   static const String aboutUsScreen = '/about_us_screen';
   static const String profileSettingScreen = '/profile_setting_screen';
   static const String profileScreen = '/profile_screen';
@@ -69,7 +71,8 @@ class AppRoutes {
   static const String orderHistoryScreen = '/order_history_screen';
   static const String helpScreen = '/help_screen';
   static const String reserveTableScreen = '/reserve_table_screen';
-  static const String reserverTableDetailsScreen = '/reserver_table_details_screen';
+  static const String reserverTableDetailsScreen =
+      '/reserver_table_details_screen';
   static const String payBillScreen = '/pay_bill_screen';
   static const String confirmedScreen = '/confirmed_screen';
   static const String restaurantmapScreen = '/restaurantmap_screen';

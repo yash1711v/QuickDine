@@ -309,8 +309,9 @@ class _PayBillScreenState extends State<PayBillScreen> {
                   padding: ButtonPadding.PaddingAll13,
                   fontStyle: ButtonFontStyle.PoppinsMedium20,
                   alignment: Alignment.center,
-                  onTap: (){onTapConfirmReservation();
-                    },
+                  onTap: () {
+                    onTapConfirmReservation();
+                  },
                 ),
               ),
             ],
@@ -320,7 +321,8 @@ class _PayBillScreenState extends State<PayBillScreen> {
     );
   }
 }
-onTapConfirmReservation(){
+
+onTapConfirmReservation() {
   Get.toNamed(AppRoutes.confirmedScreen);
 }
 

@@ -6,6 +6,7 @@ import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_drop_down.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
+
 // New Code
 class ReserveTableScreen extends StatefulWidget {
   const ReserveTableScreen({Key? key}) : super(key: key);
@@ -37,9 +38,9 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                           width: getHorizontalSize(414.00),
                           radius: BorderRadius.only(
                               topLeft:
-                              Radius.circular(getHorizontalSize(20.00)),
+                                  Radius.circular(getHorizontalSize(20.00)),
                               topRight:
-                              Radius.circular(getHorizontalSize(20.00)))),
+                                  Radius.circular(getHorizontalSize(20.00)))),
                       Container(
                           height: getVerticalSize(42.00),
                           width: getHorizontalSize(413.00),
@@ -61,9 +62,9 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                             left: 33, top: 8, right: 26),
                                         child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               CustomTextFormField(
                                                   width: 79,
@@ -74,36 +75,36 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                   variant: TextFormFieldVariant
                                                       .UnderLineRed500,
                                                   fontStyle:
-                                                  TextFormFieldFontStyle
-                                                      .PoppinsSemiBold15,
+                                                      TextFormFieldFontStyle
+                                                          .PoppinsSemiBold15,
                                                   textInputAction:
-                                                  TextInputAction.done),
+                                                      TextInputAction.done),
                                               Padding(
                                                   padding: getPadding(
                                                       left: 30, bottom: 10),
                                                   child: Text("lbl_offers".tr,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtPoppinsRegular15)),
                                               Spacer(flex: 51),
                                               Padding(
                                                   padding:
-                                                  getPadding(bottom: 9),
+                                                      getPadding(bottom: 9),
                                                   child: Text("lbl_menu".tr,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtPoppinsRegular15)),
                                               Spacer(flex: 48),
                                               Padding(
                                                   padding:
-                                                  getPadding(bottom: 10),
+                                                      getPadding(bottom: 10),
                                                   child: Text("lbl_reviews".tr,
                                                       overflow:
-                                                      TextOverflow.ellipsis,
+                                                          TextOverflow.ellipsis,
                                                       textAlign: TextAlign.left,
                                                       style: AppStyle
                                                           .txtPoppinsRegular15))
@@ -174,16 +175,16 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               },
                               child: Container(
                                   margin:
-                                  getMargin(left: 37, top: 26, right: 35),
+                                      getMargin(left: 37, top: 26, right: 35),
                                   padding: getPadding(
                                       left: 18, top: 16, right: 18, bottom: 16),
                                   decoration: AppDecoration.outlineBlack900071
                                       .copyWith(
-                                      borderRadius: BorderRadiusStyle
-                                          .roundedBorder10),
+                                          borderRadius: BorderRadiusStyle
+                                              .roundedBorder10),
                                   child: Row(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         CustomImageView(
                                             imagePath: ImageConstant.imgTable,
@@ -208,7 +209,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               width: getHorizontalSize(341.00),
                               margin: getMargin(top: 10),
                               child:
-                              Stack(alignment: Alignment.center, children: [
+                                  Stack(alignment: Alignment.center, children: [
                                 CustomImageView(
                                     imagePath: ImageConstant.imgPayicon,
                                     height: getVerticalSize(24.00),
@@ -229,7 +230,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                             shape: RoundedRectangleBorder(
                                                 side: BorderSide(
                                                     color:
-                                                    ColorConstant.amber500,
+                                                        ColorConstant.amber500,
                                                     width: getHorizontalSize(
                                                         1.00)),
                                                 borderRadius: BorderRadiusStyle
@@ -237,7 +238,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                             child: Container(
                                                 height: getVerticalSize(59.00),
                                                 width:
-                                                getHorizontalSize(341.00),
+                                                    getHorizontalSize(341.00),
                                                 padding: getPadding(
                                                     left: 21,
                                                     top: 3,
@@ -246,30 +247,30 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                 decoration: AppDecoration
                                                     .outlineAmber5002
                                                     .copyWith(
-                                                    borderRadius:
-                                                    BorderRadiusStyle
-                                                        .roundedBorder10),
+                                                        borderRadius:
+                                                            BorderRadiusStyle
+                                                                .roundedBorder10),
                                                 child: Stack(
                                                     alignment:
-                                                    Alignment.bottomLeft,
+                                                        Alignment.bottomLeft,
                                                     children: [
                                                       Align(
                                                           alignment: Alignment
                                                               .topLeft,
                                                           child: Padding(
                                                               padding:
-                                                              getPadding(
-                                                                  left: 46,
-                                                                  top: 10),
+                                                                  getPadding(
+                                                                      left: 46,
+                                                                      top: 10),
                                                               child: Text(
                                                                   "lbl_pay_bill"
                                                                       .tr,
                                                                   overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                   textAlign:
-                                                                  TextAlign
-                                                                      .left,
+                                                                      TextAlign
+                                                                          .left,
                                                                   style: AppStyle
                                                                       .txtPoppinsRegular15))),
                                                       Align(
@@ -277,17 +278,17 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                               .bottomLeft,
                                                           child: Padding(
                                                               padding:
-                                                              getPadding(
-                                                                  left: 45),
+                                                                  getPadding(
+                                                                      left: 45),
                                                               child: Text(
                                                                   "msg_save_extra_10"
                                                                       .tr,
                                                                   overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                   textAlign:
-                                                                  TextAlign
-                                                                      .left,
+                                                                      TextAlign
+                                                                          .left,
                                                                   style: AppStyle
                                                                       .txtPoppinsRegular12Black9009b))),
                                                       Align(
@@ -295,32 +296,32 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                               .topRight,
                                                           child: Container(
                                                               width:
-                                                              getHorizontalSize(
-                                                                  77.00),
+                                                                  getHorizontalSize(
+                                                                      77.00),
                                                               margin: getMargin(
                                                                   top: 8),
                                                               padding:
-                                                              getPadding(
-                                                                  left: 6,
-                                                                  top: 1,
-                                                                  right: 6,
-                                                                  bottom:
-                                                                  1),
+                                                                  getPadding(
+                                                                      left: 6,
+                                                                      top: 1,
+                                                                      right: 6,
+                                                                      bottom:
+                                                                          1),
                                                               decoration: AppDecoration
                                                                   .txtFillAmber500
                                                                   .copyWith(
-                                                                  borderRadius:
-                                                                  BorderRadiusStyle
-                                                                      .txtRoundedBorder5),
+                                                                      borderRadius:
+                                                                          BorderRadiusStyle
+                                                                              .txtRoundedBorder5),
                                                               child: Text(
                                                                   "lbl_flat_30_off2"
                                                                       .tr,
                                                                   overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                   textAlign:
-                                                                  TextAlign
-                                                                      .left,
+                                                                      TextAlign
+                                                                          .left,
                                                                   style: AppStyle
                                                                       .txtPoppinsMedium12)))
                                                     ])))))
@@ -333,8 +334,8 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                   left: 25, top: 16, right: 25, bottom: 16),
                               decoration: AppDecoration.outlineBlack900071
                                   .copyWith(
-                                  borderRadius:
-                                  BorderRadiusStyle.roundedBorder10),
+                                      borderRadius:
+                                          BorderRadiusStyle.roundedBorder10),
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -347,15 +348,16 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                         padding: getPadding(
                                             left: 30, right: 167, bottom: 3),
                                         child: GestureDetector(
-                                          onTap: (){onTapPreORder();},
-                                          child: Text("lbl_pre_order2".tr,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style:
-                                              AppStyle.txtPoppinsRegular15,
+                                          onTap: () {
+                                            onTapPreORder();
+                                          },
+                                          child: Text(
+                                            "lbl_pre_order2".tr,
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: AppStyle.txtPoppinsRegular15,
                                           ),
-                                        )
-                                    )
+                                        ))
                                   ]))),
                       Align(
                           alignment: Alignment.centerRight,
@@ -365,19 +367,22 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               },
                               child: Container(
                                   margin: getMargin(
-                                      left: 262, top: 47, right: 37-2.3, bottom: 2),
+                                      left: 262,
+                                      top: 47,
+                                      right: 37 - 2.3,
+                                      bottom: 2),
                                   padding: getPadding(
                                       left: 11, top: 7, right: 11, bottom: 10),
                                   decoration: AppDecoration.outlineGreen5001
                                       .copyWith(
-                                      borderRadius: BorderRadiusStyle
-                                          .roundedBorder51),
+                                          borderRadius: BorderRadiusStyle
+                                              .roundedBorder51),
                                   child: Row(children: [
                                     CustomImageView(
-                                        imagePath: ImageConstant.imgCallmale,
-                                        height: getSize(40.00),
-                                        width: getSize(40.00),
-                                        ),
+                                      imagePath: ImageConstant.imgCallmale,
+                                      height: getSize(40.00),
+                                      width: getSize(40.00),
+                                    ),
                                     Padding(
                                         padding: getPadding(
                                             left: 9,
@@ -391,7 +396,9 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                 .txtPoppinsMedium15Black900))
                                   ]))))
                     ])),
-            bottomNavigationBar:SizedBox(height: 90.50, width: 10,
+            bottomNavigationBar: SizedBox(
+              height: 90.50,
+              width: 10,
               child: GNav(
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -402,14 +409,15 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                     gap: 8,
                     icon: Icons.home,
                     text: "Home",
-                    onPressed: (){onTapBottomHomeButton();
+                    onPressed: () {
+                      onTapBottomHomeButton();
                     },
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.search,
                     text: "Search",
-                    onPressed: (){
+                    onPressed: () {
                       onTapBottomSearchButton();
                     },
                   ),
@@ -417,14 +425,16 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                     gap: 8,
                     icon: Icons.access_time,
                     text: "Pre-Order",
-                  onPressed: ()=>onTapPreORder(),),
+                    onPressed: () => onTapPreORder(),
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.bookmark_border,
                     text: "Reservation",
                   ),
                 ],
-              ),)));
+              ),
+            )));
   }
 
   onTapRowtable() {
@@ -438,19 +448,23 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
   onTapRowcallmale() {
     Get.toNamed(AppRoutes.waiterCallDetailsScreen);
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+
+  onTapPreORder() {
+    Get.toNamed(AppRoutes.orderpreScreen);
+  }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
 
 //Old Code
 // class ReserveTableScreen extends GetWidget<ReserveTableController> {

@@ -17,57 +17,67 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  get controller => ProfileController(); // Agar Undefined Controller ae to ye aega get controller=>"Os class ka Controler"
+  get controller =>
+      ProfileController(); // Agar Undefined Controller ae to ye aega get controller=>"Os class ka Controller"
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late TextEditingController _FirstName=TextEditingController();
-  late  TextEditingController _lastname=TextEditingController();
-  late TextEditingController _PhoneNumbercontroler=TextEditingController();
-  late  TextEditingController _emailControler=TextEditingController();
-  late TextEditingController _PassControler=TextEditingController();
-  final FocusNode _firstname=FocusNode();
-  final FocusNode _lasttname=FocusNode();
-  final FocusNode _PhoneNumber=FocusNode();
-  final FocusNode _email=FocusNode();
-  final FocusNode _password=FocusNode();
+  late TextEditingController _firstNameController = TextEditingController();
+  late TextEditingController _lastNameController = TextEditingController();
+  late TextEditingController _phoneNumberController = TextEditingController();
+  late TextEditingController _emailController = TextEditingController();
+  late TextEditingController _passwordController = TextEditingController();
+
+  final FocusNode _firstNameNode = FocusNode();
+  final FocusNode _lastNameNode = FocusNode();
+  final FocusNode _phoneNumberNode = FocusNode();
+  final FocusNode _emailNode = FocusNode();
+  final FocusNode _passwordNode = FocusNode();
+
   bool _isVisible = false;
-  String firstname="";
-  String lastname="";
-  String email="";
-  String password="";
-  String id="";
-  String phone="";
+
+  String firstName = "";
+  String lastName = "";
+  String email = "";
+  String password = "";
+  String id = "";
+  String phone = "";
+
   void initState() {
     super.initState();
     checkidValue();
-    _PhoneNumbercontroler=TextEditingController();
-    _FirstName=TextEditingController();
-    _lastname=TextEditingController();
-    _emailControler=TextEditingController();
-    _PassControler=TextEditingController();
-    _isVisible=true;
+    _isVisible = true;
   }
+
   checkidValue() async {
-    String Firstname= await shp().getFirstname()??"";
-    String Lastname= await shp().getLastName()??"";
-    String Phone= await shp().getPhone()??"";
-    String Email= await shp().getemail()??"";
-    String Password= await shp().getPassword()??"";
-    String Uid=await shp().getUid();
+    String firstName = await shp().getFirstname() ?? "";
+    String lastName = await shp().getLastName() ?? "";
+    String phone = await shp().getPhone() ?? "";
+    String email = await shp().getemail() ?? "";
+    String password = await shp().getPassword() ?? "";
+    String uid = await shp().getUid();
+
     setState(() {
-      firstname= Firstname;
-      lastname=Lastname;
-      phone=Phone;
-      email=Email;
-      password=Password;
-      id=Uid;
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.phone = phone;
+      this.email = email;
+      this.password = password;
+      this.id = uid;
+
+      _firstNameController.text = firstName;
+      _lastNameController.text = lastName;
+      _phoneNumberController.text = phone;
+      _emailController.text = email;
+      _passwordController.text = password;
     });
-    print("----"+password+"---------");
+    print("----" + password + "---------");
   }
-  String fname="";
-  String lname="";
-  String Phone="";
-  String Email="";
-  String pass="";
+
+  String fname = "";
+  String lname = "";
+  String Phone = "";
+  String Email = "";
+  String pass = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -125,24 +135,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: SizedBox(
                           width: 360,
                           child: TextField(
-                            controller: _FirstName,
+                            controller: _firstNameController,
                             obscureText: false,
-                            focusNode: _firstname,
+                            focusNode: _firstNameNode,
                             // keyboardType: TextInputType.name,
-                            decoration:  InputDecoration(
+                            decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 0,), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                  width: 0,
+                                ), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                    width: 5,
+                                    color: Colors
+                                        .deepOrange.shade100), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               //errorText: "Please enter valid text",
-                              hintText: 'Enter Your First name',
-                              labelText: firstname,
+                              hintText: 'First name',
+                              labelText: 'First name',
                             ),
                           ),
                         ),
@@ -153,26 +166,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 360,
                           child: TextField(
                             obscureText: false,
-                            controller: _lastname,
-                            focusNode: _lasttname,
-                            decoration:  InputDecoration(
+                            controller: _lastNameController,
+                            focusNode: _lastNameNode,
+                            decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 0,), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                  width: 0,
+                                ), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                    width: 5,
+                                    color: Colors
+                                        .deepOrange.shade100), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
-                              hintText: 'Enter Your Last name',
-                              labelText: lastname,
+                              hintText: 'Last name',
+                              labelText: 'Last name',
                             ),
                           ),
                         ),
                       ),
-
                       Container(
                         margin: getMargin(top: 24),
                         child: SizedBox(
@@ -183,22 +198,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             obscureText: false,
                             maxLines: 1,
                             maxLength: 10,
-                            controller: _PhoneNumbercontroler,
-                            focusNode: _PhoneNumber,
-                            decoration:  InputDecoration(
+                            controller: _phoneNumberController,
+                            focusNode: _phoneNumberNode,
+                            decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 0,), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                  width: 0,
+                                ), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                borderSide: BorderSide(
+                                    width: 5,
+                                    color: Colors
+                                        .deepOrange.shade100), //<-- SEE HERE
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               //errorText: "Please enter valid text",
-                              hintText: 'Enter Your PhoneNumber',
-                              labelText: phone.toString(),
+                              hintText: 'Mobile No.',
+                              labelText: 'Mobile No.',
                             ),
                           ),
                         ),
@@ -208,27 +226,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: SizedBox(
                           width: 360,
                           child: TextField(
-                            controller: _emailControler,
+                            controller: _emailController,
                             // keyboardType: TextInputType.name,
                             obscureText: false,
-                            focusNode: _email,
-                            decoration:  InputDecoration(
+                            focusNode: _emailNode,
+                            decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(width: 0,), //<-- SEE HERE
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  ), //<-- SEE HERE
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                  borderSide: BorderSide(
+                                      width: 5,
+                                      color: Colors
+                                          .deepOrange.shade100), //<-- SEE HERE
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 //errorText: "Please enter valid text",
-                                hintText: 'Enter Your Email',
-                                labelText: email,
-                                prefixIcon: Icon(Icons.mail,
-                                  color: Colors.deepOrange,)
-                            ),
+                                hintText: 'example@abc.com',
+                                labelText: 'Email Address',
+                                prefixIcon: Icon(
+                                  Icons.mail,
+                                  color: Colors.deepOrange,
+                                )),
                           ),
                         ),
                       ),
@@ -237,35 +259,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: SizedBox(
                           width: 360,
                           child: TextField(
-                            controller: _PassControler,
+                            controller: _passwordController,
                             obscureText: _isVisible,
                             // keyboardType: TextInputType.visiblePassword,
-                            focusNode: _password,
+                            focusNode: _passwordNode,
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(width: 0,), //<-- SEE HERE
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  ), //<-- SEE HERE
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                  BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                  borderSide: BorderSide(
+                                      width: 5,
+                                      color: Colors
+                                          .deepOrange.shade100), //<-- SEE HERE
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 //errorText: "Please enter valid text",
-                                hintText: 'Enter Password',
-                                labelText: password,
-                                prefixIcon: Icon(Icons.lock,
-                                  color: Colors.deepOrange,),
+                                hintText: 'Password',
+                                labelText: 'Password',
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Colors.deepOrange,
+                                ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _isVisible=!_isVisible;
+                                      _isVisible = !_isVisible;
                                     });
-                                  }, icon: Icon(_isVisible?Icons.visibility:Icons.visibility_off),
+                                  },
+                                  icon: Icon(_isVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
                                   padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
-                                )
-                            ),
+                                )),
                           ),
                         ),
                       ),
@@ -288,38 +317,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fontStyle: ButtonFontStyle.PoppinsBold18,
                                 onTap: () async {
                                   setState(() {
-                                    if(_FirstName.text==null){
-                                      fname=firstname;
+                                    if (_firstNameController.text == null) {
+                                      fname = firstName;
+                                    } else {
+                                      fname = _firstNameController.text;
                                     }
-                                    else{
-                                      fname=_FirstName.text;
+                                    if (_lastNameController.text == null) {
+                                      lname = lastName;
+                                    } else {
+                                      lname = _lastNameController.text;
                                     }
-                                    if(_lastname.text==null){
-                                      lname=lastname;
+                                    if (_emailController.text == null) {
+                                      Email = email;
+                                    } else {
+                                      Email = _emailController.text;
                                     }
-                                    else{
-                                      lname=_lastname.text;
+                                    if (_passwordController.text == null) {
+                                      pass = password;
+                                    } else {
+                                      pass = _passwordController.text;
                                     }
-                                    if(_emailControler.text==null){
-                                      Email=email;
-                                    }
-                                    else{
-                                      Email=_emailControler.text;
-                                    }
-                                    if(_PassControler.text==null){
-                                      pass=password;
-                                    }
-                                    else{
-                                      pass=_PassControler.text;
-                                    }
-                                    if(_PhoneNumbercontroler.text==null){
-                                      Phone=phone.toString();
-                                    }
-                                    else{
-                                      Phone=_PhoneNumbercontroler.text;
+                                    if (_phoneNumberController.text == null) {
+                                      Phone = phone.toString();
+                                    } else {
+                                      Phone = _phoneNumberController.text;
                                     }
                                   });
-                                  Future.delayed(Duration(seconds: 1),() async{
+                                  Future.delayed(Duration(seconds: 1),
+                                      () async {
                                     await DatabaseServices().InsertuserData(
                                         fname,
                                         lname,
@@ -344,16 +369,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
           ),
         ),
       ),
     );
   }
 }
-onTapSave() async{
 
-}
+onTapSave() async {}
 
 //olde
 // class ProfileScreen extends GetWidget<ProfileController> {

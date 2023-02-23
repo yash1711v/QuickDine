@@ -65,7 +65,7 @@ class _PromoScreenState extends State<PromoScreen> {
                           121.00,
                         ),
                         child: Obx(
-                              () => ListView.separated(
+                          () => ListView.separated(
                             padding: getPadding(
                               top: 4,
                             ),
@@ -81,10 +81,9 @@ class _PromoScreenState extends State<PromoScreen> {
                             itemCount: controller.promoModelObj.value
                                 .listrectanglefiftyfive3ItemList.length,
                             itemBuilder: (context, index) {
-                              Listrectanglefiftyfive3ItemModel model = controller
-                                  .promoModelObj
-                                  .value
-                                  .listrectanglefiftyfive3ItemList[index];
+                              Listrectanglefiftyfive3ItemModel model =
+                                  controller.promoModelObj.value
+                                      .listrectanglefiftyfive3ItemList[index];
                               return Listrectanglefiftyfive3ItemWidget(
                                 model,
                               );
@@ -114,7 +113,7 @@ class _PromoScreenState extends State<PromoScreen> {
                           right: 38,
                         ),
                         child: Obx(
-                              () => ListView.separated(
+                          () => ListView.separated(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             separatorBuilder: (context, index) {
@@ -144,7 +143,9 @@ class _PromoScreenState extends State<PromoScreen> {
               ),
             ),
           ),
-          bottomNavigationBar: SizedBox(height: 90.50, width: 10,
+          bottomNavigationBar: SizedBox(
+            height: 90.50,
+            width: 10,
             child: GNav(
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -154,41 +155,48 @@ class _PromoScreenState extends State<PromoScreen> {
                   gap: 8,
                   icon: Icons.home,
                   text: "Home",
-                  onPressed: ()=>onTapBottomHomeButton(),),
+                  onPressed: () => onTapBottomHomeButton(),
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.search,
                   text: "Search",
-                  onPressed: ()=>onTapBottomSearchButton(),
+                  onPressed: () => onTapBottomSearchButton(),
                 ),
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
                   text: "Pre-Order",
-                onPressed: ()=>onTapPreORder(),),
+                  onPressed: () => onTapPreORder(),
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
                   text: "Reservation",
-                  onPressed: ()=>onTapBottomReservationButton(),),
+                  onPressed: () => onTapBottomReservationButton(),
+                ),
               ],
-            ),)
-      ),
+            ),
+          )),
     );
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+
+  onTapPreORder() {
+    Get.toNamed(AppRoutes.orderpreScreen);
+  }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
 
 // class PromoScreen extends GetWidget<PromoController> {
 //   @override

@@ -19,60 +19,70 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-
   get controller => SignupController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    late TextEditingController _FirstName=TextEditingController();
-   late  TextEditingController _lastname=TextEditingController();
-  late TextEditingController _PhoneNumbercontroler=TextEditingController();
-   late  TextEditingController _emailControler=TextEditingController();
-  late TextEditingController _PassControler=TextEditingController();
-  final FocusNode _firstname=FocusNode();
-  final FocusNode _lasttname=FocusNode();
-  final FocusNode _PhoneNumber=FocusNode();
-  final FocusNode _email=FocusNode();
-  final FocusNode _password=FocusNode();
+  late TextEditingController _FirstName = TextEditingController();
+  late TextEditingController _lastname = TextEditingController();
+  late TextEditingController _PhoneNumbercontroler = TextEditingController();
+  late TextEditingController _emailControler = TextEditingController();
+  late TextEditingController _PassControler = TextEditingController();
+  final FocusNode _firstname = FocusNode();
+  final FocusNode _lasttname = FocusNode();
+  final FocusNode _PhoneNumber = FocusNode();
+  final FocusNode _email = FocusNode();
+  final FocusNode _password = FocusNode();
   bool _isVisible = false;
   bool _isLoading = false;
   late User error;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _PhoneNumbercontroler=TextEditingController();
-    _FirstName=TextEditingController();
-    _lastname=TextEditingController();
-    _emailControler=TextEditingController();
-    _PassControler=TextEditingController();
-    _isVisible=true;
+    _PhoneNumbercontroler = TextEditingController();
+    _FirstName = TextEditingController();
+    _lastname = TextEditingController();
+    _emailControler = TextEditingController();
+    _PassControler = TextEditingController();
+    _isVisible = true;
   }
+
   Future<void> _singUp() async {
     setState(() {
-      _isLoading=true;
+      _isLoading = true;
     });
-    final response=await SupabaseCredential.supabaseClient.auth.signUp(
-       email: _emailControler.text,
-      password: _PassControler.text
-    );
 
-    error=response.user!;
-    await DatabaseServices().updateuserData(_FirstName.text, _lastname.text,_PhoneNumbercontroler.text, _emailControler.text,_PassControler.text, error.id);
-    if(error!=null){
-      print(error.email);
-      Navigator.of(context).pushNamed(AppRoutes.signinScreen);
-      Toast.show("Login SuccessFull Please Login ",
-        backgroundColor: Colors.grey,
-      );
-    }
-    else{
-      Toast.show("Not able to SignUp please Try again latter",
-        backgroundColor: Colors.grey,
-      );
-    }
-    setState(() {
-      _isLoading=false;
+    final bool emailValid =
+    RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(_emailControler.text);
 
-    });
+    if (!emailValid) {
+      Toast.show("Enter a valid Email ID", backgroundColor: Colors.grey,);
+    }
+    else {
+      final response = await SupabaseCredential.supabaseClient.auth
+          .signUp(email: _emailControler.text, password: _PassControler.text);
+
+      error = response.user!;
+      await DatabaseServices().updateuserData(
+          _FirstName.text,
+          _lastname.text,
+          _PhoneNumbercontroler.text,
+          _emailControler.text,
+          _PassControler.text,
+          error.id);
+      if (error != null) {
+        print(error.email);
+        Navigator.of(context).pushNamed(AppRoutes.signinScreen);
+        Toast.show("Login SuccessFull Please Login ", backgroundColor: Colors.grey,);
+      }
+      else {
+          Toast.show("Unable to SignUp, please yry again later", backgroundColor: Colors.grey,);
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -91,8 +101,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       key: _formKey,
                       child: Container(
                           width: size.width,
-                          padding:
-                          getPadding(left: 25, top: 12, right: 25, bottom: 12),
+                          padding: getPadding(
+                              left: 25, top: 12, right: 25, bottom: 12),
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -104,7 +114,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                     radius: BorderRadius.circular(
                                         getHorizontalSize(40.00)),
                                     margin: getMargin(top: 84)),
-
                                 Container(
                                   margin: getMargin(top: 20),
                                   child: SizedBox(
@@ -113,20 +122,25 @@ class _SignupScreenState extends State<SignupScreen> {
                                       controller: _FirstName,
                                       obscureText: false,
                                       focusNode: _firstname,
-                                     // keyboardType: TextInputType.name,
-                                      decoration:  InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide:
-                                            BorderSide(width: 0,), //<-- SEE HERE
-                                            borderRadius: BorderRadius.circular(15.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide:
-                                            BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                            borderRadius: BorderRadius.circular(15.0),
-                                          ),
-                                          //errorText: "Please enter valid text",
-                                          hintText: 'Enter Your First name',
+                                      // keyboardType: TextInputType.name,
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                          ), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 5,
+                                              color: Colors.deepOrange
+                                                  .shade100), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                        ),
+                                        //errorText: "Please enter valid text",
+                                        hintText: 'Enter Your First name',
                                       ),
                                     ),
                                   ),
@@ -139,45 +153,54 @@ class _SignupScreenState extends State<SignupScreen> {
                                       obscureText: false,
                                       controller: _lastname,
                                       focusNode: _lasttname,
-                                      decoration:  InputDecoration(
+                                      decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 0,), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                          ), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderSide: BorderSide(
+                                              width: 5,
+                                              color: Colors.deepOrange
+                                                  .shade100), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
                                         hintText: 'Enter Your Last name',
                                       ),
                                     ),
                                   ),
                                 ),
-
                                 Container(
                                   margin: getMargin(top: 24),
                                   child: SizedBox(
                                     width: 360,
                                     child: TextField(
-                                       //controller: controller.phoneNumberTextController,
-                                     // keyboardType: TextInputType.phone,
+                                      //controller: controller.phoneNumberTextController,
+                                      // keyboardType: TextInputType.phone,
                                       obscureText: false,
                                       maxLines: 1,
                                       maxLength: 10,
-                                       controller: _PhoneNumbercontroler,
-                                       focusNode: _PhoneNumber,
-                                      decoration:  InputDecoration(
+                                      controller: _PhoneNumbercontroler,
+                                      focusNode: _PhoneNumber,
+                                      decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 0,), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderSide: BorderSide(
+                                            width: 0,
+                                          ), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
+                                          borderSide: BorderSide(
+                                              width: 5,
+                                              color: Colors.deepOrange
+                                                  .shade100), //<-- SEE HERE
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
                                         ),
                                         //errorText: "Please enter valid text",
                                         hintText: 'Enter Your PhoneNumber',
@@ -193,23 +216,29 @@ class _SignupScreenState extends State<SignupScreen> {
                                       controller: _emailControler,
                                       // keyboardType: TextInputType.name,
                                       obscureText: false,
-                                       focusNode: _email,
-                                      decoration:  InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 0,), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                          BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                          borderRadius: BorderRadius.circular(15.0),
-                                        ),
-                                        //errorText: "Please enter valid text",
-                                        hintText: 'Enter Your Email',
-                                          prefixIcon: Icon(Icons.mail,
-                                            color: Colors.deepOrange,)
-                                      ),
+                                      focusNode: _email,
+                                      decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 0,
+                                            ), //<-- SEE HERE
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 5,
+                                                color: Colors.deepOrange
+                                                    .shade100), //<-- SEE HERE
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          //errorText: "Please enter valid text",
+                                          hintText: 'Enter Your Email',
+                                          prefixIcon: Icon(
+                                            Icons.mail,
+                                            color: Colors.deepOrange,
+                                          )),
                                     ),
                                   ),
                                 ),
@@ -220,32 +249,42 @@ class _SignupScreenState extends State<SignupScreen> {
                                     child: TextField(
                                       controller: _PassControler,
                                       obscureText: _isVisible,
-                                     // keyboardType: TextInputType.visiblePassword,
-                                       focusNode: _password,
+                                      // keyboardType: TextInputType.visiblePassword,
+                                      focusNode: _password,
                                       decoration: InputDecoration(
                                           enabledBorder: OutlineInputBorder(
-                                            borderSide:
-                                            BorderSide(width: 0,), //<-- SEE HERE
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderSide: BorderSide(
+                                              width: 0,
+                                            ), //<-- SEE HERE
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                           ),
                                           focusedBorder: OutlineInputBorder(
-                                            borderSide:
-                                            BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                            borderRadius: BorderRadius.circular(15.0),
+                                            borderSide: BorderSide(
+                                                width: 5,
+                                                color: Colors.deepOrange
+                                                    .shade100), //<-- SEE HERE
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
                                           ),
                                           //errorText: "Please enter valid text",
                                           hintText: 'Enter Password',
-                                          prefixIcon: Icon(Icons.lock,
-                                            color: Colors.deepOrange,),
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            color: Colors.deepOrange,
+                                          ),
                                           suffixIcon: IconButton(
                                             onPressed: () {
                                               setState(() {
-                                                _isVisible=!_isVisible;
+                                                _isVisible = !_isVisible;
                                               });
-                                            }, icon: Icon(_isVisible?Icons.visibility:Icons.visibility_off),
-                                            padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
-                                          )
-                                      ),
+                                            },
+                                            icon: Icon(_isVisible
+                                                ? Icons.visibility
+                                                : Icons.visibility_off),
+                                            padding: EdgeInsets.fromLTRB(
+                                                20, 0, 15, 0),
+                                          )),
                                     ),
                                   ),
                                 ),
@@ -260,11 +299,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                       shape: ButtonShape.RoundedBorder10,
                                       padding: ButtonPadding.PaddingAll13,
                                       fontStyle: ButtonFontStyle.PoppinsBold18,
-                                      onTap: (){
+                                      onTap: () {
                                         _singUp();
                                         onTapCreateanaccountOne();
-                                      }
-                                  ),
+                                      }),
                                 ),
                                 CustomButton(
                                     height: 53,
@@ -274,34 +312,27 @@ class _SignupScreenState extends State<SignupScreen> {
                                     variant: ButtonVariant.OutlineRed500,
                                     shape: ButtonShape.RoundedBorder10,
                                     fontStyle: ButtonFontStyle.PoppinsBold18,
-                                    onTap: (){}),
+                                    onTap: () {}),
                                 Padding(
                                     padding: getPadding(top: 61),
                                     child: Text("msg_terms_conditions".tr,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: AppStyle.txtInterLight12))
-                              ]
-                          )
-                      )
-                  ),
+                              ]))),
                 ),
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
               ),
-            )
-        )
-    );
+            )));
   }
 
-  onTapCreateanaccountOne() async{
-
-  }
+  onTapCreateanaccountOne() async {}
 
   onTapContinueasaguest() {
     Get.toNamed(AppRoutes.homeScreen);
   }
 }
-
 
 // // ignore_for_file: must_be_immutable
 // class SignupScreen extends GetWidget<SignupController> {

@@ -4,7 +4,6 @@ import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 import 'package:quickdine/widgets/custom_icon_button.dart';
 
-
 class FrameNineScreen extends StatefulWidget {
   const FrameNineScreen({Key? key}) : super(key: key);
   @override
@@ -130,24 +129,24 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                 ),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.end,
+                                          CrossAxisAlignment.end,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.end,
+                                              MainAxisAlignment.end,
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             CustomImageView(
                                               imagePath:
-                                              ImageConstant.imgOnline,
+                                                  ImageConstant.imgOnline,
                                               height: getSize(
                                                 60.00,
                                               ),
@@ -188,7 +187,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                             children: [
                                               CustomImageView(
                                                 svgPath:
-                                                ImageConstant.imgVector1,
+                                                    ImageConstant.imgVector1,
                                                 height: getVerticalSize(
                                                   243.00,
                                                 ),
@@ -199,7 +198,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                               ),
                                               CustomImageView(
                                                 imagePath:
-                                                ImageConstant.imgCarpool,
+                                                    ImageConstant.imgCarpool,
                                                 height: getSize(
                                                   20.00,
                                                 ),
@@ -207,7 +206,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                                   20.00,
                                                 ),
                                                 alignment:
-                                                Alignment.bottomRight,
+                                                    Alignment.bottomRight,
                                               ),
                                             ],
                                           ),
@@ -221,11 +220,11 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                            MainAxisAlignment.start,
                                         children: [
                                           CustomImageView(
                                             svgPath:
-                                            ImageConstant.imgPlusWhiteA700,
+                                                ImageConstant.imgPlusWhiteA700,
                                             height: getSize(
                                               30.00,
                                             ),
@@ -235,7 +234,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                           ),
                                           CustomImageView(
                                             svgPath:
-                                            ImageConstant.imgMenuWhiteA700,
+                                                ImageConstant.imgMenuWhiteA700,
                                             height: getSize(
                                               30.00,
                                             ),
@@ -462,8 +461,6 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
     );
   }
 }
-
-
 
 //old Code
 // class FrameNineScreen extends GetWidget<FrameNineController> {

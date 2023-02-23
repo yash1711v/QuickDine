@@ -30,7 +30,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                   width: size.width,
                                   child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Align(
                                             alignment: Alignment.centerRight,
@@ -39,10 +39,10 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                     top: 45, right: 33),
                                                 child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Padding(
                                                           padding: getPadding(
@@ -51,20 +51,20 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                               "lbl_masala_dosa2"
                                                                   .tr,
                                                               overflow:
-                                                              TextOverflow
-                                                                  .ellipsis,
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               textAlign:
-                                                              TextAlign
-                                                                  .left,
+                                                                  TextAlign
+                                                                      .left,
                                                               style: AppStyle
                                                                   .txtPoppinsMedium20)),
                                                       Container(
                                                           height:
-                                                          getVerticalSize(
-                                                              25.00),
+                                                              getVerticalSize(
+                                                                  25.00),
                                                           width:
-                                                          getHorizontalSize(
-                                                              23.00),
+                                                              getHorizontalSize(
+                                                                  23.00),
                                                           margin: getMargin(
                                                               left: 88,
                                                               bottom: 21),
@@ -74,67 +74,67 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                               children: [
                                                                 CustomImageView(
                                                                     svgPath:
-                                                                    ImageConstant
-                                                                        .imgVectorBlack900,
+                                                                        ImageConstant
+                                                                            .imgVectorBlack900,
                                                                     height:
-                                                                    getSize(
-                                                                        2.00),
+                                                                        getSize(
+                                                                            2.00),
                                                                     width:
-                                                                    getSize(
-                                                                        2.00),
+                                                                        getSize(
+                                                                            2.00),
                                                                     alignment:
-                                                                    Alignment
-                                                                        .bottomLeft,
+                                                                        Alignment
+                                                                            .bottomLeft,
                                                                     margin: getMargin(
                                                                         left: 8,
                                                                         bottom:
-                                                                        2)),
+                                                                            2)),
                                                                 CustomImageView(
                                                                     svgPath:
-                                                                    ImageConstant
-                                                                        .imgVectorBlack900,
+                                                                        ImageConstant
+                                                                            .imgVectorBlack900,
                                                                     height:
-                                                                    getSize(
-                                                                        2.00),
+                                                                        getSize(
+                                                                            2.00),
                                                                     width:
-                                                                    getSize(
-                                                                        2.00),
+                                                                        getSize(
+                                                                            2.00),
                                                                     alignment:
-                                                                    Alignment
-                                                                        .bottomRight,
+                                                                        Alignment
+                                                                            .bottomRight,
                                                                     margin: getMargin(
                                                                         right:
-                                                                        2,
+                                                                            2,
                                                                         bottom:
-                                                                        2)),
+                                                                            2)),
                                                                 CustomImageView(
                                                                     svgPath:
-                                                                    ImageConstant
-                                                                        .imgCartBlack900,
+                                                                        ImageConstant
+                                                                            .imgCartBlack900,
                                                                     height:
-                                                                    getVerticalSize(
-                                                                        16.00),
+                                                                        getVerticalSize(
+                                                                            16.00),
                                                                     width: getHorizontalSize(
                                                                         22.00),
                                                                     alignment:
-                                                                    Alignment
-                                                                        .topRight),
+                                                                        Alignment
+                                                                            .topRight),
                                                                 Align(
                                                                     alignment:
-                                                                    Alignment
-                                                                        .bottomLeft,
+                                                                        Alignment
+                                                                            .bottomLeft,
                                                                     child: Container(
                                                                         width: getHorizontalSize(
                                                                             19.00),
                                                                         padding: getPadding(
                                                                             left:
-                                                                            4,
+                                                                                4,
                                                                             top:
-                                                                            1,
+                                                                                1,
                                                                             right:
-                                                                            4,
+                                                                                4,
                                                                             bottom:
-                                                                            1),
+                                                                                1),
                                                                         decoration: AppDecoration.txtFillRed500.copyWith(
                                                                             borderRadius: BorderRadiusStyle
                                                                                 .txtRoundedBorder5),
@@ -142,14 +142,14 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                                             "lbl_02"
                                                                                 .tr,
                                                                             overflow:
-                                                                            TextOverflow.ellipsis,
+                                                                                TextOverflow.ellipsis,
                                                                             textAlign: TextAlign.left,
                                                                             style: AppStyle.txtPoppinsRegular8)))
                                                               ]))
                                                     ]))),
                                         CustomImageView(
                                             imagePath:
-                                            ImageConstant.imgRectangle27,
+                                                ImageConstant.imgRectangle27,
                                             height: getVerticalSize(277.00),
                                             width: getHorizontalSize(247.00),
                                             radius: BorderRadius.circular(
@@ -159,11 +159,11 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                             padding: getPadding(top: 39),
                                             child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Card(
                                                       clipBehavior:
-                                                      Clip.antiAlias,
+                                                          Clip.antiAlias,
                                                       elevation: 0,
                                                       margin: getMargin(top: 2),
                                                       color: ColorConstant
@@ -171,21 +171,21 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                       shape: RoundedRectangleBorder(
                                                           side: BorderSide(
                                                               color:
-                                                              ColorConstant
-                                                                  .amber500,
+                                                                  ColorConstant
+                                                                      .amber500,
                                                               width:
-                                                              getHorizontalSize(
-                                                                  1.00)),
+                                                                  getHorizontalSize(
+                                                                      1.00)),
                                                           borderRadius:
-                                                          BorderRadiusStyle
-                                                              .roundedBorder5),
+                                                              BorderRadiusStyle
+                                                                  .roundedBorder5),
                                                       child: Container(
                                                           height:
-                                                          getVerticalSize(
-                                                              56.00),
+                                                              getVerticalSize(
+                                                                  56.00),
                                                           width:
-                                                          getHorizontalSize(
-                                                              59.00),
+                                                              getHorizontalSize(
+                                                                  59.00),
                                                           padding: getPadding(
                                                               left: 17,
                                                               top: 16,
@@ -194,22 +194,22 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           decoration: AppDecoration
                                                               .outlineAmber5004
                                                               .copyWith(
-                                                              borderRadius:
-                                                              BorderRadiusStyle
-                                                                  .roundedBorder5),
+                                                                  borderRadius:
+                                                                      BorderRadiusStyle
+                                                                          .roundedBorder5),
                                                           child:
-                                                          Stack(children: [
+                                                              Stack(children: [
                                                             CustomImageView(
                                                                 svgPath:
-                                                                ImageConstant
-                                                                    .imgCheckmark,
+                                                                    ImageConstant
+                                                                        .imgCheckmark,
                                                                 height: getSize(
                                                                     24.00),
                                                                 width: getSize(
                                                                     24.00),
                                                                 alignment:
-                                                                Alignment
-                                                                    .center)
+                                                                    Alignment
+                                                                        .center)
                                                           ]))),
                                                   Padding(
                                                       padding: getPadding(
@@ -220,14 +220,14 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
-                                                          TextAlign.left,
+                                                              TextAlign.left,
                                                           style: AppStyle
                                                               .txtPoppinsRegular25)),
                                                   CustomIconButton(
                                                       height: 58,
                                                       width: 59,
                                                       margin:
-                                                      getMargin(left: 35),
+                                                          getMargin(left: 35),
                                                       shape: IconButtonShape
                                                           .RoundedBorder5,
                                                       child: CustomImageView(
@@ -242,7 +242,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                 child: Text(
                                                     "lbl_masala_dosa2".tr,
                                                     overflow:
-                                                    TextOverflow.ellipsis,
+                                                        TextOverflow.ellipsis,
                                                     textAlign: TextAlign.center,
                                                     style: AppStyle
                                                         .txtPoppinsMedium19Black900))),
@@ -251,7 +251,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                 left: 53, top: 14, right: 44),
                                             child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   CustomImageView(
                                                       imagePath: ImageConstant
@@ -259,7 +259,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                       height: getSize(20.00),
                                                       width: getSize(20.00),
                                                       margin:
-                                                      getMargin(bottom: 1)),
+                                                          getMargin(bottom: 1)),
                                                   Padding(
                                                       padding: getPadding(
                                                           left: 4,
@@ -270,17 +270,17 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
-                                                          TextAlign.center,
+                                                              TextAlign.center,
                                                           style: AppStyle
                                                               .txtPoppinsRegular11)),
                                                   Spacer(flex: 45),
                                                   CustomImageView(
                                                       imagePath:
-                                                      ImageConstant.imgFood,
+                                                          ImageConstant.imgFood,
                                                       height: getSize(20.00),
                                                       width: getSize(20.00),
                                                       margin:
-                                                      getMargin(top: 1)),
+                                                          getMargin(top: 1)),
                                                   Padding(
                                                       padding: getPadding(
                                                           left: 5,
@@ -290,7 +290,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
-                                                          TextAlign.left,
+                                                              TextAlign.left,
                                                           style: AppStyle
                                                               .txtPoppinsRegular11)),
                                                   Spacer(flex: 54),
@@ -300,7 +300,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                       height: getSize(20.00),
                                                       width: getSize(20.00),
                                                       margin:
-                                                      getMargin(top: 1)),
+                                                          getMargin(top: 1)),
                                                   Padding(
                                                       padding: getPadding(
                                                           left: 3,
@@ -311,7 +311,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
-                                                          TextAlign.center,
+                                                              TextAlign.center,
                                                           style: AppStyle
                                                               .txtPoppinsRegular11))
                                                 ])),
@@ -323,7 +323,7 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                 child: Text(
                                                     "lbl_ingredients".tr,
                                                     overflow:
-                                                    TextOverflow.ellipsis,
+                                                        TextOverflow.ellipsis,
                                                     textAlign: TextAlign.center,
                                                     style: AppStyle
                                                         .txtPoppinsRegular19))),
@@ -343,39 +343,39 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                     left: 37, top: 11),
                                                 child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                        MainAxisAlignment.end,
                                                     crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Padding(
                                                           padding: getPadding(
                                                               bottom: 58),
                                                           child: Column(
                                                               mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
+                                                                  MainAxisAlignment
+                                                                      .start,
                                                               children: [
                                                                 Text(
                                                                     "lbl_price"
                                                                         .tr,
                                                                     overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
+                                                                        TextOverflow
+                                                                            .ellipsis,
                                                                     textAlign:
-                                                                    TextAlign
-                                                                        .left,
+                                                                        TextAlign
+                                                                            .left,
                                                                     style: AppStyle
                                                                         .txtPoppinsBold16),
                                                                 Text(
                                                                     "lbl_500"
                                                                         .tr,
                                                                     overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
+                                                                        TextOverflow
+                                                                            .ellipsis,
                                                                     textAlign:
-                                                                    TextAlign
-                                                                        .left,
+                                                                        TextAlign
+                                                                            .left,
                                                                     style: AppStyle
                                                                         .txtPoppinsMedium15Black900)
                                                               ])),
@@ -384,23 +384,23 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                           height: 45,
                                                           width: 146,
                                                           text:
-                                                          "lbl_add_to_order"
-                                                              .tr,
+                                                              "lbl_add_to_order"
+                                                                  .tr,
                                                           margin: getMargin(
                                                               top: 3,
                                                               bottom: 54),
                                                           onTap:
-                                                          onTapAddtoorder),
+                                                              onTapAddtoorder),
                                                       CustomImageView(
                                                           imagePath:
-                                                          ImageConstant
-                                                              .imgFood90x5,
+                                                              ImageConstant
+                                                                  .imgFood90x5,
                                                           height:
-                                                          getVerticalSize(
-                                                              90.00),
+                                                              getVerticalSize(
+                                                                  90.00),
                                                           width:
-                                                          getHorizontalSize(
-                                                              5.00),
+                                                              getHorizontalSize(
+                                                                  5.00),
                                                           margin: getMargin(
                                                               left: 22,
                                                               top: 12))
@@ -413,9 +413,6 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
     Get.toNamed(AppRoutes.myOrderScreen);
   }
 }
-
-
-
 
 //Old Code
 // class AddToOrderScreen extends GetWidget<AddToOrderController> {

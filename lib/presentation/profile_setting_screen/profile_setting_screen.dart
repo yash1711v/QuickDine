@@ -13,18 +13,20 @@ class ProfileSettingScreen extends StatefulWidget {
 }
 
 class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
-  String firstname="";
+  String firstname = "";
   void initState() {
     super.initState();
     checkidValue();
   }
+
   checkidValue() async {
-    String Firstname= await shp().getFirstname()??"";
+    String Firstname = await shp().getFirstname() ?? "";
     setState(() {
-      firstname= Firstname;
+      firstname = Firstname;
     });
-    print("----"+firstname+"---------");
+    print("----" + firstname + "---------");
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +53,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                             Container(
                                 width: getHorizontalSize(104.00),
                                 margin:
-                                getMargin(left: 25, top: 21, bottom: 50),
+                                    getMargin(left: 25, top: 21, bottom: 50),
                                 child: RichText(
                                     text: TextSpan(children: [
                                       TextSpan(
@@ -99,7 +101,7 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style:
-                                            AppStyle.txtPoppinsRegular20)))
+                                                AppStyle.txtPoppinsRegular20)))
                               ])),
                       Padding(
                           padding: getPadding(left: 24, top: 22),
@@ -159,7 +161,9 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                                         style: AppStyle.txtPoppinsRegular20)))
                           ]))
                     ])),
-            bottomNavigationBar: SizedBox(height: 90.50, width: 10,
+            bottomNavigationBar: SizedBox(
+              height: 90.50,
+              width: 10,
               child: GNav(
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -169,25 +173,29 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
                     gap: 8,
                     icon: Icons.home,
                     text: "Home",
-                    onPressed: ()=>onTapBottomHomeButton(),),
+                    onPressed: () => onTapBottomHomeButton(),
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.search,
                     text: "Search",
-                    onPressed: ()=>onTapBottomSearchButton(),
+                    onPressed: () => onTapBottomSearchButton(),
                   ),
                   GButton(
                     gap: 8,
                     icon: Icons.access_time,
                     text: "Pre-Order",
-                  onPressed: ()=>onTapPreORder(),),
+                    onPressed: () => onTapPreORder(),
+                  ),
                   GButton(
                     gap: 8,
                     icon: Icons.bookmark_border,
                     text: "Reservation",
-                    onPressed: ()=>onTapBottomReservationButton(),),
+                    onPressed: () => onTapBottomReservationButton(),
+                  ),
                 ],
-              ),)));
+              ),
+            )));
   }
 
   onTapTxtProfileSetting() {
@@ -205,23 +213,23 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
   onTapTxtPromoOffers() {
     Get.toNamed(AppRoutes.promoScreen);
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+
+  onTapPreORder() {
+    Get.toNamed(AppRoutes.orderpreScreen);
+  }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
-
-
-
-
 
 // class ProfileSettingScreen extends GetWidget<ProfileSettingController> {
 //   @override

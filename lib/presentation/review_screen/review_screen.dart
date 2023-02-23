@@ -783,7 +783,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: SizedBox(height: 90.50, width: 10,
+          bottomNavigationBar: SizedBox(
+            height: 90.50,
+            width: 10,
             child: GNav(
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
@@ -793,41 +795,48 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   gap: 8,
                   icon: Icons.home,
                   text: "Home",
-                  onPressed: ()=>onTapBottomHomeButton(),),
+                  onPressed: () => onTapBottomHomeButton(),
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.search,
                   text: "Search",
-                  onPressed: ()=>onTapBottomSearchButton(),
+                  onPressed: () => onTapBottomSearchButton(),
                 ),
                 GButton(
                   gap: 8,
                   icon: Icons.access_time,
                   text: "Pre-Order",
-                onPressed: ()=>onTapPreORder(),),
+                  onPressed: () => onTapPreORder(),
+                ),
                 GButton(
                   gap: 8,
                   icon: Icons.bookmark_border,
                   text: "Reservation",
-                  onPressed: ()=>onTapBottomReservationButton(),),
+                  onPressed: () => onTapBottomReservationButton(),
+                ),
               ],
-            ),)
-      ),
+            ),
+          )),
     );
   }
+
   onTapBottomSearchButton() {
     Get.toNamed(AppRoutes.exploreScreen);
   }
+
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-  onTapPreORder(){ Get.toNamed(AppRoutes.orderpreScreen);}
+
+  onTapPreORder() {
+    Get.toNamed(AppRoutes.orderpreScreen);
+  }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 }
-
-
 
 // class ReviewScreen extends GetWidget<ReviewController> {
 //   @override

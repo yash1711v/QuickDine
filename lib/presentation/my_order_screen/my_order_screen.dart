@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_button.dart';
 import 'package:upi_india/upi_india.dart';
+
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({Key? key}) : super(key: key);
 
@@ -16,9 +17,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   Future<UpiResponse>? _transaction;
   UpiIndia _upiIndia = UpiIndia();
   List<UpiApp>? apps;
-  late String receiverUpiId='9971104827@paytm';
-  late String receiverName='Yash';
-  late double amount=100;
+  late String receiverUpiId = '9971104827@paytm';
+  late String receiverName = 'Yash';
+  late double amount = 100;
   void initState() {
     _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
       setState(() {
@@ -32,15 +33,15 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
 
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
-      app: app,
-      receiverUpiId: receiverUpiId,
-      receiverName: receiverName,
-      transactionRefId: 'TestingUpiIndiaPlugin',
-      transactionNote: 'Not actual. Just an example.',
-      amount: amount,
-      flexibleAmount: false
-    );
+        app: app,
+        receiverUpiId: receiverUpiId,
+        receiverName: receiverName,
+        transactionRefId: 'TestingUpiIndiaPlugin',
+        transactionNote: 'Not actual. Just an example.',
+        amount: amount,
+        flexibleAmount: false);
   }
+
   Widget displayUpiApps() {
     if (apps == null)
       return Center(child: CircularProgressIndicator());
@@ -88,6 +89,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
         ),
       );
   }
+
   String _upiErrorHandler(error) {
     switch (error) {
       case UpiIndiaAppNotInstalledException:
@@ -102,10 +104,11 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
         return 'An Unknown error has occurred';
     }
   }
+
   void _checkTxnStatus(String status) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-      Get.toNamed(AppRoutes.paidSuccessfullScreen);
+        Get.toNamed(AppRoutes.paidSuccessfullScreen);
         break;
       case UpiPaymentStatus.SUBMITTED:
         print('Transaction Submitted');
@@ -117,6 +120,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
         print('Received an Unknown transaction status');
     }
   }
+
   get controller => MyOrderController();
   @override
   Widget build(BuildContext context) {
@@ -202,14 +206,14 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                         style:
-                                        AppStyle.txtPoppinsRegular12Red500))
+                                            AppStyle.txtPoppinsRegular12Red500))
                               ]))),
                       Container(
                           height: getVerticalSize(1.00),
                           width: getHorizontalSize(412.00),
                           margin: getMargin(top: 29),
                           decoration:
-                          BoxDecoration(color: ColorConstant.gray5007a)),
+                              BoxDecoration(color: ColorConstant.gray5007a)),
                       Padding(
                           padding: getPadding(left: 49, top: 16, right: 57),
                           child: Row(
@@ -235,52 +239,51 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                           margin: getMargin(top: 61, bottom: 5),
                           padding: ButtonPadding.PaddingAll13,
                           onTap: onTapPaynow)
-                    ])
-            )
-        )
-    );
+                    ]))));
   }
 
   onTapPaynow() {
-
-      showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder( // <-- SEE HERE
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(40.0),
-            ),
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          // <-- SEE HERE
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(40.0),
           ),
-          enableDrag: true,
-          backgroundColor: Colors.teal.shade100,
-          builder: (context){
-            return  Container(
-                height: 500,
-                padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
-              //child: displayUpiApps(),
-               );Expanded(
-                child: FutureBuilder(
-                  future: _transaction,
-                  builder: (BuildContext context, AsyncSnapshot<UpiResponse> snapshot){
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
+        ),
+        enableDrag: true,
+        backgroundColor: Colors.teal.shade100,
+        builder: (context) {
+          return Container(
+            height: 500,
+            padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
+            //child: displayUpiApps(),
+          );
+          Expanded(
+            child: FutureBuilder(
+              future: _transaction,
+              builder:
+                  (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
                     return Center(
-                        child: Text(
-                      _upiErrorHandler(snapshot.error.runtimeType),
+                      child: Text(
+                        _upiErrorHandler(snapshot.error.runtimeType),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
-                        ), // Print's text message on screen
-                      );}
-                      }
-                  },
-                ),
-              );
-          });
-    }
+                      ), // Print's text message on screen
+                    );
+                  }
+                }
+              },
+            ),
+          );
+        });
+  }
 }
-
 
 // class MyOrderScreen extends GetWidget<MyOrderController> {
 //   @override

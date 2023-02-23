@@ -3,26 +3,27 @@ import 'package:flutter/src/services/text_formatter.dart';
 import 'package:quickdine/core/app_export.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField(
-      {this.shape,
-      this.padding,
-      this.variant,
-      this.fontStyle,
-      this.alignment,
-      this.width,
-      this.margin,
-      this.controller,
-      this.focusNode,
-      this.isObscureText = false,
-      this.textInputAction = TextInputAction.next,
-      this.textInputType = TextInputType.text,
-      this.maxLines,
-      this.hintText,
-      this.prefix,
-      this.prefixConstraints,
-      this.suffix,
-      this.suffixConstraints,
-      this.validator, });
+  CustomTextFormField({
+    this.shape,
+    this.padding,
+    this.variant,
+    this.fontStyle,
+    this.alignment,
+    this.width,
+    this.margin,
+    this.controller,
+    this.focusNode,
+    this.isObscureText = false,
+    this.textInputAction = TextInputAction.next,
+    this.textInputType = TextInputType.text,
+    this.maxLines,
+    this.hintText,
+    this.prefix,
+    this.prefixConstraints,
+    this.suffix,
+    this.suffixConstraints,
+    this.validator,
+  });
 
   TextFormFieldShape? shape;
   TextFormFieldPadding? padding;

@@ -19,84 +19,77 @@ class SigninScreen extends StatefulWidget {
 
   @override
   State<SigninScreen> createState() => _SigninScreenState();
-
 }
 
 class _SigninScreenState extends State<SigninScreen> {
- TextEditingController _emailControler=TextEditingController();
- TextEditingController _PassControler=TextEditingController();
+  TextEditingController _emailControler = TextEditingController();
+  TextEditingController _PassControler = TextEditingController();
   bool _isVisible = false;
- bool _isLoading = false;
- late SupabaseUser uid;
- String id="";
+  bool _isLoading = false;
+  late SupabaseUser uid;
+  String id = "";
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _emailControler=TextEditingController();
-    _PassControler=TextEditingController();
-    _isVisible=true;
-
+    _emailControler = TextEditingController();
+    _PassControler = TextEditingController();
+    _isVisible = true;
   }
 
-  bool IsLoading=false;
+  bool IsLoading = false;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
- Future<void> _singIn() async {
-   setState(() {
-     _isLoading=true;
-   });
-   AuthResponse response=await SupabaseCredential.supabaseClient.auth.signInWithPassword(
-       email: _emailControler.text,
-       password: _PassControler.text
-   );
-   User? error=response.user;
-   setState(() {
-     uid=new SupabaseUser(uid: response.user!.id);
-     //print(uid.uid);
-    shp().setUid(uid.uid);
-   });
-   if(error!=null){
-     print(error.email);
-     Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen,
-     arguments: {
-       "Uid": uid.uid,
-     }
-     );
-     Toast.show("Signin SuccessFull ",
-       backgroundColor: Colors.grey,
-       duration: 5
-     );
-   }
-   else{
-     //Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
-     Toast.show("Not able to SignIn please Try again latter",
-       backgroundColor: Colors.grey,
-       duration: 5
-     );
-   }
- }
+  Future<void> _singIn() async {
+    setState(() {
+      _isLoading = true;
+    });
+    AuthResponse response = await SupabaseCredential.supabaseClient.auth
+        .signInWithPassword(
+            email: _emailControler.text, password: _PassControler.text);
+    User? error = response.user;
+    setState(() {
+      uid = new SupabaseUser(uid: response.user!.id);
+      //print(uid.uid);
+      shp().setUid(uid.uid);
+    });
+    if (error != null) {
+      print(error.email);
+      Navigator.of(context)
+          .pushReplacementNamed(AppRoutes.homeScreen, arguments: {
+        "Uid": uid.uid,
+      });
+      Toast.show("Signin SuccessFull ",
+          backgroundColor: Colors.grey, duration: 5);
+    } else {
+      //Navigator.of(context).pushReplacementNamed(AppRoutes.homeScreen);
+      Toast.show("Not able to SignIn please Try again latter",
+          backgroundColor: Colors.grey, duration: 5);
+    }
+  }
 
+  Future<void> _singInWithFacebook() async {
+    await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+      Provider.facebook,
+    );
+  }
 
- Future<void> _singInWithFacebook() async {
-   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
-     Provider.facebook,
-   );
- }
- Future<void> _singInWithGoogle() async {
-   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
-     Provider.google,
-     //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
-   );
- }
- Future<void> _singInWithApple() async {
-   await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
-     Provider.apple,
-     //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
-   );
- }
+  Future<void> _singInWithGoogle() async {
+    await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+      Provider.google,
+      //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
+    );
+  }
+
+  Future<void> _singInWithApple() async {
+    await SupabaseCredential.supabaseClient.auth.signInWithOAuth(
+      Provider.apple,
+      //redirectTo: 'io.supabase.flutterquickstart://login-callback/'
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-   print(id);
+    print(id);
     ToastContext().init(context);
     return SafeArea(
         top: false,
@@ -118,8 +111,7 @@ class _SigninScreenState extends State<SigninScreen> {
                               width: getHorizontalSize(156.00),
                               radius: BorderRadius.circular(
                                   getHorizontalSize(40.00)),
-                              margin: getMargin(top: 35)
-                          ),
+                              margin: getMargin(top: 35)),
                           Container(
                             margin: getMargin(top: 10),
                             child: SizedBox(
@@ -128,24 +120,27 @@ class _SigninScreenState extends State<SigninScreen> {
                                 //keyboardType: TextInputType.emailAddress,
                                 controller: _emailControler,
                                 obscureText: false,
-                                focusNode: FocusNode(
-                                ),
-                                decoration:  InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(width: 0,), //<-- SEE HERE
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                    BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  //errorText: "Please enter valid text",
-                                   hintText: 'Enter the Email',
-                                  prefixIcon: Icon(Icons.mail,
-                                  color: Colors.deepOrange,)
-                                ),
+                                focusNode: FocusNode(),
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 0,
+                                      ), //<-- SEE HERE
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 5,
+                                          color: Colors.deepOrange
+                                              .shade100), //<-- SEE HERE
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    //errorText: "Please enter valid text",
+                                    hintText: 'Enter the Email',
+                                    prefixIcon: Icon(
+                                      Icons.mail,
+                                      color: Colors.deepOrange,
+                                    )),
                               ),
                             ),
                           ),
@@ -156,33 +151,40 @@ class _SigninScreenState extends State<SigninScreen> {
                               child: TextField(
                                 controller: _PassControler,
                                 obscureText: _isVisible,
-                                  keyboardType: TextInputType.visiblePassword,
-                                focusNode: FocusNode(
-                                ),
+                                keyboardType: TextInputType.visiblePassword,
+                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(width: 0,), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                        width: 0,
+                                      ), //<-- SEE HERE
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(width: 5, color: Colors.deepOrange.shade100), //<-- SEE HERE
+                                      borderSide: BorderSide(
+                                          width: 5,
+                                          color: Colors.deepOrange
+                                              .shade100), //<-- SEE HERE
                                       borderRadius: BorderRadius.circular(15.0),
                                     ),
                                     //errorText: "Please enter valid text",
-                                     hintText: 'Enter Password',
-                                    prefixIcon: Icon(Icons.lock,
-                                      color: Colors.deepOrange,),
+                                    hintText: 'Enter Password',
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: Colors.deepOrange,
+                                    ),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          _isVisible=!_isVisible;
+                                          _isVisible = !_isVisible;
                                         });
-                                      }, icon: Icon(_isVisible?Icons.visibility:Icons.visibility_off),
-                                      padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
-                                    )
-                                ),
+                                      },
+                                      icon: Icon(_isVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off),
+                                      padding:
+                                          EdgeInsets.fromLTRB(20, 0, 15, 0),
+                                    )),
                               ),
                             ),
                           ),
@@ -212,9 +214,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 //               gravity:  Toast.bottom
                                 //           );
                                 //     }
-                              }
-
-                          ),
+                              }),
                           Padding(
                               padding: getPadding(top: 62),
                               child: Row(
@@ -254,8 +254,10 @@ class _SigninScreenState extends State<SigninScreen> {
                                           color: ColorConstant.whiteA700,
                                           shape: RoundedRectangleBorder(
                                               side: BorderSide(
-                                                  color: ColorConstant.black9000f,
-                                                  width: getHorizontalSize(1.00)),
+                                                  color:
+                                                      ColorConstant.black9000f,
+                                                  width:
+                                                      getHorizontalSize(1.00)),
                                               borderRadius: BorderRadiusStyle
                                                   .roundedBorder10),
                                           child: Container(
@@ -269,37 +271,38 @@ class _SigninScreenState extends State<SigninScreen> {
                                               decoration: AppDecoration
                                                   .outlineBlack9000f
                                                   .copyWith(
-                                                  borderRadius:
-                                                  BorderRadiusStyle
-                                                      .roundedBorder10),
+                                                      borderRadius:
+                                                          BorderRadiusStyle
+                                                              .roundedBorder10),
                                               child: Stack(children: [
                                                 CustomImageView(
                                                     imagePath: ImageConstant
                                                         .imgFacebookcircled,
                                                     height:
-                                                    getVerticalSize(29.00),
-                                                    width:
-                                                    getHorizontalSize(30.00),
+                                                        getVerticalSize(29.00),
+                                                    width: getHorizontalSize(
+                                                        30.00),
                                                     alignment: Alignment.center)
-                                              ]
-                                              )
-                                          )
-                                      ),
-                                      onTap: (){
+                                              ]))),
+                                      onTap: () {
                                         _singInWithFacebook();
                                       },
                                     ),
                                     GestureDetector(
-                                      onTap: (){_singInWithGoogle();},
-                                        child: Card(
+                                      onTap: () {
+                                        _singInWithGoogle();
+                                      },
+                                      child: Card(
                                           clipBehavior: Clip.antiAlias,
                                           elevation: 0,
                                           margin: getMargin(left: 33),
                                           color: ColorConstant.whiteA700,
                                           shape: RoundedRectangleBorder(
                                               side: BorderSide(
-                                                  color: ColorConstant.black9000f,
-                                                  width: getHorizontalSize(1.00)),
+                                                  color:
+                                                      ColorConstant.black9000f,
+                                                  width:
+                                                      getHorizontalSize(1.00)),
                                               borderRadius: BorderRadiusStyle
                                                   .roundedBorder10),
                                           child: Container(
@@ -313,17 +316,17 @@ class _SigninScreenState extends State<SigninScreen> {
                                               decoration: AppDecoration
                                                   .outlineBlack9000f
                                                   .copyWith(
-                                                  borderRadius:
-                                                  BorderRadiusStyle
-                                                      .roundedBorder10),
+                                                      borderRadius:
+                                                          BorderRadiusStyle
+                                                              .roundedBorder10),
                                               child: Stack(children: [
                                                 CustomImageView(
                                                     imagePath: ImageConstant
                                                         .imgFacebookcircled29x30,
                                                     height:
-                                                    getVerticalSize(29.00),
-                                                    width:
-                                                    getHorizontalSize(30.00),
+                                                        getVerticalSize(29.00),
+                                                    width: getHorizontalSize(
+                                                        30.00),
                                                     alignment: Alignment.center)
                                               ]))),
                                     ),
@@ -336,28 +339,29 @@ class _SigninScreenState extends State<SigninScreen> {
                                             children: [
                                               Align(
                                                   alignment:
-                                                  Alignment.centerRight,
+                                                      Alignment.centerRight,
                                                   child: Container(
                                                       height: getVerticalSize(
                                                           29.00),
                                                       width: getHorizontalSize(
                                                           30.00),
                                                       margin:
-                                                      getMargin(right: 9),
+                                                          getMargin(right: 9),
                                                       decoration: BoxDecoration(
                                                           color: ColorConstant
                                                               .whiteA700))),
                                               Align(
                                                   alignment: Alignment.center,
                                                   child: GestureDetector(
-                                                    onTap: (){
+                                                    onTap: () {
                                                       _singInWithApple();
                                                     },
-                                                     child: Card(
+                                                    child: Card(
                                                         clipBehavior:
-                                                        Clip.antiAlias,
+                                                            Clip.antiAlias,
                                                         elevation: 0,
-                                                        margin: EdgeInsets.all(0),
+                                                        margin:
+                                                            EdgeInsets.all(0),
                                                         color: ColorConstant
                                                             .whiteA700,
                                                         shape: RoundedRectangleBorder(
@@ -365,18 +369,18 @@ class _SigninScreenState extends State<SigninScreen> {
                                                                 color: ColorConstant
                                                                     .black9000f,
                                                                 width:
-                                                                getHorizontalSize(
-                                                                    1.00)),
+                                                                    getHorizontalSize(
+                                                                        1.00)),
                                                             borderRadius:
-                                                            BorderRadiusStyle
-                                                                .roundedBorder10),
+                                                                BorderRadiusStyle
+                                                                    .roundedBorder10),
                                                         child: Container(
                                                             height:
-                                                            getVerticalSize(
-                                                                48.00),
+                                                                getVerticalSize(
+                                                                    48.00),
                                                             width:
-                                                            getHorizontalSize(
-                                                                57.00),
+                                                                getHorizontalSize(
+                                                                    57.00),
                                                             padding: getPadding(
                                                                 left: 13,
                                                                 top: 9,
@@ -385,32 +389,27 @@ class _SigninScreenState extends State<SigninScreen> {
                                                             decoration: AppDecoration
                                                                 .outlineBlack9000f
                                                                 .copyWith(
-                                                                borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .roundedBorder10),
-                                                            child:
-                                                            Stack(children: [
+                                                                    borderRadius:
+                                                                        BorderRadiusStyle
+                                                                            .roundedBorder10),
+                                                            child: Stack(children: [
                                                               CustomImageView(
                                                                   imagePath:
-                                                                  ImageConstant
-                                                                      .imgMacclient,
+                                                                      ImageConstant
+                                                                          .imgMacclient,
                                                                   height:
-                                                                  getVerticalSize(
-                                                                      29.00),
+                                                                      getVerticalSize(
+                                                                          29.00),
                                                                   width:
-                                                                  getHorizontalSize(
-                                                                      30.00),
+                                                                      getHorizontalSize(
+                                                                          30.00),
                                                                   alignment:
-                                                                  Alignment
-                                                                      .center)
-                                                            ]))
-                                                    ),
-                                                  )
-                                              )
+                                                                      Alignment
+                                                                          .center)
+                                                            ]))),
+                                                  ))
                                             ]))
-                                  ]
-                              )
-                          ),
+                                  ])),
                           Padding(
                               padding: getPadding(top: 85),
                               child: Row(
@@ -429,7 +428,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                         },
                                         child: Padding(
                                             padding:
-                                            getPadding(left: 9, top: 2),
+                                                getPadding(left: 9, top: 2),
                                             child: RichText(
                                                 text: TextSpan(children: [
                                                   TextSpan(
@@ -438,10 +437,10 @@ class _SigninScreenState extends State<SigninScreen> {
                                                           color: ColorConstant
                                                               .black9008c,
                                                           fontSize:
-                                                          getFontSize(20),
+                                                              getFontSize(20),
                                                           fontFamily: 'Poppins',
                                                           fontWeight:
-                                                          FontWeight.w400)),
+                                                              FontWeight.w400)),
                                                   TextSpan(
                                                       text: "lbl_register_now2"
                                                           .tr,
@@ -449,19 +448,14 @@ class _SigninScreenState extends State<SigninScreen> {
                                                           color: ColorConstant
                                                               .red500,
                                                           fontSize:
-                                                          getFontSize(20),
+                                                              getFontSize(20),
                                                           fontFamily: 'Poppins',
                                                           fontWeight:
-                                                          FontWeight.w400))
+                                                              FontWeight.w400))
                                                 ]),
                                                 textAlign: TextAlign.left)))
                                   ]))
-                        ]
-                    )
-                )
-            )
-        )
-    );
+                        ])))));
   }
 
   onTapSignin() {
