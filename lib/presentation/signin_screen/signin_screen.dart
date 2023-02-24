@@ -29,6 +29,8 @@ class _SigninScreenState extends State<SigninScreen> {
   late SupabaseUser uid;
   String id = "";
 
+  bool passenable = true; //boolean value to track password view enable disable.
+
   @override
   void initState() {
     super.initState();
@@ -148,7 +150,46 @@ class _SigninScreenState extends State<SigninScreen> {
                             margin: getMargin(top: 25),
                             child: SizedBox(
                               width: 360,
-                              child: TextField(
+                              child:
+                              TextField(
+
+
+
+
+                                // obscureText: passenable, //if passenable == true, show **, else show password character
+                                // decoration: InputDecoration(
+                                //   enabledBorder: OutlineInputBorder(
+                                //           borderSide: BorderSide(
+                                //             width: 0,
+                                //           ), //<-- SEE HERE
+                                //           borderRadius: BorderRadius.circular(15.0),
+                                //         ),
+                                //         focusedBorder: OutlineInputBorder(
+                                //           borderSide: BorderSide(
+                                //               width: 5,
+                                //               color: Colors.deepOrange
+                                //                   .shade100), //<-- SEE HERE
+                                //           borderRadius: BorderRadius.circular(15.0),
+                                //         ),
+                                //     labelText: "Password",
+                                //     hintText: 'Enter Password',
+                                //         prefixIcon: Icon(
+                                //           Icons.lock,
+                                //           color: Colors.deepOrange,
+                                //         ),
+                                //     suffix: IconButton(onPressed: (){ //add Icon button at end of TextField
+                                //       setState(() { //refresh UI
+                                //         if(passenable){ //if passenable == true, make it false
+                                //           passenable = false;
+                                //         }else{
+                                //           passenable = true; //if passenable == false, make it true
+                                //         }
+                                //       });
+                                //     }, icon: Icon(passenable == true?Icons.remove_red_eye:Icons.password))
+                                //   //eye icon if passenable = true, else, Icon is ***__
+                                // ),
+
+
                                 controller: _PassControler,
                                 obscureText: _isVisible,
                                 keyboardType: TextInputType.visiblePassword,
@@ -406,10 +447,15 @@ class _SigninScreenState extends State<SigninScreen> {
                                                                   alignment:
                                                                       Alignment
                                                                           .center)
-                                                            ]))),
-                                                  ))
-                                            ]))
-                                  ])),
+                                                            ])
+                                                        )
+                                                    ),
+                                                  )
+                                              )
+                                            ])
+                                    )
+                                  ])
+                          ),
                           Padding(
                               padding: getPadding(top: 85),
                               child: Row(
@@ -421,7 +467,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle
-                                                .txtPoppinsRegular20Black9008c)),
+                                                .txtPoppinsRegular20Black9008c)
+                                    ),
                                     GestureDetector(
                                         onTap: () {
                                           onTapTxtRegisternow();
@@ -440,7 +487,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                                               getFontSize(20),
                                                           fontFamily: 'Poppins',
                                                           fontWeight:
-                                                              FontWeight.w400)),
+                                                              FontWeight.w400)
+                                                  ),
                                                   TextSpan(
                                                       text: "lbl_register_now2"
                                                           .tr,
@@ -451,11 +499,19 @@ class _SigninScreenState extends State<SigninScreen> {
                                                               getFontSize(20),
                                                           fontFamily: 'Poppins',
                                                           fontWeight:
-                                                              FontWeight.w400))
+                                                              FontWeight.w400)
+                                                  )
                                                 ]),
-                                                textAlign: TextAlign.left)))
-                                  ]))
-                        ])))));
+                                                textAlign: TextAlign.left)
+                                        )
+                                    )
+                                  ])
+                          )
+                        ])
+                )
+            )
+        )
+    );
   }
 
   onTapSignin() {
