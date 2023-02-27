@@ -1,4 +1,5 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../Authentication/supabasecredential.dart';
 import '../../widgets/app_bar/appbar_dropdown.dart';
@@ -26,6 +27,9 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   get controller => ExploreController();
   int _currentIndex = 1;
+  final _tabStream = Supabase.instance.client
+      .from('restaurant')
+      .stream(primaryKey: ['id']).eq('isMember', true);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -353,446 +357,187 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: AppStyle.txtPoppinsMedium20)),
-                              CustomImageView(
-                                  imagePath: ImageConstant.imgRectangle13,
-                                  height: getVerticalSize(154.00),
-                                  width: getHorizontalSize(340.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(5.00)),
-                                  margin: getMargin(left: 7, top: 12)),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: getPadding(
-                                          left: 8, top: 1, right: 22),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                                height: getVerticalSize(65.00),
-                                                width:
-                                                    getHorizontalSize(270.00),
-                                                child: Stack(
-                                                    alignment:
-                                                        Alignment.bottomLeft,
-                                                    children: [
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .bottomLeft,
-                                                          child: Row(children: [
-                                                            Card(
-                                                                clipBehavior: Clip
-                                                                    .antiAlias,
-                                                                elevation: 0,
-                                                                margin:
-                                                                    getMargin(
-                                                                        top: 3,
-                                                                        bottom:
-                                                                            2),
-                                                                color:
-                                                                    ColorConstant
-                                                                        .amber500,
-                                                                shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadiusStyle
-                                                                            .roundedBorder10),
-                                                                child:
-                                                                    Container(
-                                                                        height: getVerticalSize(
-                                                                            16.00),
-                                                                        width: getHorizontalSize(
-                                                                            17.00),
-                                                                        padding: getPadding(
-                                                                            left:
-                                                                                5,
-                                                                            top:
-                                                                                4,
-                                                                            right:
-                                                                                5,
-                                                                            bottom:
-                                                                                4),
-                                                                        decoration: AppDecoration
-                                                                            .fillAmber500
-                                                                            .copyWith(borderRadius: BorderRadiusStyle.roundedBorder10),
-                                                                        child: Stack(children: [
-                                                                          CustomImageView(
-                                                                              svgPath: ImageConstant.imgAirplane,
-                                                                              height: getSize(6.00),
-                                                                              width: getSize(6.00),
-                                                                              alignment: Alignment.center)
-                                                                        ]))),
-                                                            Text(
-                                                                "lbl_flat_30_off"
-                                                                    .tr,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left,
-                                                                style: AppStyle
-                                                                    .txtPoppinsMedium15Red500)
-                                                          ])),
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .bottomLeft,
-                                                          child: Padding(
-                                                              padding:
-                                                                  getPadding(
-                                                                      left: 3,
-                                                                      bottom:
-                                                                          19),
-                                                              child: Text(
-                                                                  "msg_pragati_vihar_new"
-                                                                      .tr,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style: AppStyle
-                                                                      .txtPoppinsRegular12Black900d1))),
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .topCenter,
-                                                          child: Text(
-                                                              "msg_baluchi_indian"
-                                                                  .tr,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                              style: AppStyle
-                                                                  .txtPoppinsMedium20))
-                                                    ])),
-                                            Padding(
-                                                padding: getPadding(
-                                                    top: 8, bottom: 39),
-                                                child: RatingBar.builder(
-                                                    initialRating: 4,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: false,
-                                                    itemSize:
-                                                        getVerticalSize(17.00),
-                                                    unratedColor:
-                                                        ColorConstant.amber500,
-                                                    itemCount: 4,
-                                                    updateOnDrag: true,
-                                                    onRatingUpdate: (rating) {},
-                                                    itemBuilder: (context, _) {
-                                                      return Icon(Icons.star,
-                                                          color: ColorConstant
-                                                              .amber500);
-                                                    }))
-                                          ]))),
-                              CustomImageView(
-                                  imagePath: ImageConstant.imgRectangle13,
-                                  height: getVerticalSize(154.00),
-                                  width: getHorizontalSize(340.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(5.00)),
-                                  margin: getMargin(left: 12, top: 11)),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: getPadding(
-                                          left: 14, top: 5, right: 17),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("msg_baluchi_indian".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium20),
-                                            Padding(
-                                                padding: getPadding(
-                                                    top: 5, bottom: 2),
-                                                child: RatingBar.builder(
-                                                    initialRating: 4,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: false,
-                                                    itemSize:
-                                                        getVerticalSize(17.00),
-                                                    unratedColor:
-                                                        ColorConstant.amber500,
-                                                    itemCount: 4,
-                                                    updateOnDrag: true,
-                                                    onRatingUpdate: (rating) {},
-                                                    itemBuilder: (context, _) {
-                                                      return Icon(Icons.star,
-                                                          color: ColorConstant
-                                                              .amber500);
-                                                    }))
-                                          ]))),
-                              Padding(
-                                  padding: getPadding(left: 16),
-                                  child: Text("msg_pragati_vihar_new".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle
-                                          .txtPoppinsRegular12Black900d1)),
                               Container(
-                                  height: getVerticalSize(19.00),
-                                  width: getHorizontalSize(109.00),
-                                  margin: getMargin(left: 13, top: 1),
-                                  child: Stack(
-                                      alignment: Alignment.centerLeft,
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text("lbl_flat_30_off".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium15Red500)),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Card(
-                                                clipBehavior: Clip.antiAlias,
-                                                elevation: 0,
-                                                margin: EdgeInsets.all(0),
-                                                color: ColorConstant.amber500,
+                                child: StreamBuilder<List<Map<String, dynamic>>>(
+                                  stream: _tabStream,
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return const Center(child: CircularProgressIndicator());
+                                    }
+                                    final tab = snapshot.data!;
+
+                                    return ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: tab.length,
+                                      itemBuilder: (context, index) {
+                                        return Align(
+                                          alignment: Alignment.bottomLeft,
+                                          child: SizedBox(
+                                            width: 800,
+                                            height: 270,
+                                            child: GestureDetector(
+                                              onTap: () {},
+                                              child: Card(
+                                                color: Colors.white,
+                                                elevation: 5,
                                                 shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadiusStyle
-                                                            .roundedBorder10),
-                                                child: Container(
-                                                    height:
-                                                        getVerticalSize(16.00),
-                                                    width: getHorizontalSize(
-                                                        17.00),
-                                                    padding: getPadding(
-                                                        left: 5,
-                                                        top: 4,
-                                                        right: 5,
-                                                        bottom: 4),
-                                                    decoration: AppDecoration
-                                                        .fillAmber500
-                                                        .copyWith(
-                                                            borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .roundedBorder10),
-                                                    child: Stack(children: [
-                                                      CustomImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgAirplane,
-                                                          height: getSize(6.00),
-                                                          width: getSize(6.00),
-                                                          alignment:
-                                                              Alignment.center)
-                                                    ]))))
-                                      ])),
-                              CustomImageView(
-                                  imagePath: ImageConstant.imgRectangle13,
-                                  height: getVerticalSize(154.00),
-                                  width: getHorizontalSize(340.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(5.00)),
-                                  margin: getMargin(left: 17, top: 13)),
-                              Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                      padding: getPadding(
-                                          left: 19, top: 5, right: 12),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("msg_baluchi_indian".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium20),
-                                            Padding(
-                                                padding: getPadding(
-                                                    top: 5, bottom: 2),
-                                                child: RatingBar.builder(
-                                                    initialRating: 4,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: false,
-                                                    itemSize:
-                                                        getVerticalSize(17.00),
-                                                    unratedColor:
-                                                        ColorConstant.amber500,
-                                                    itemCount: 4,
-                                                    updateOnDrag: true,
-                                                    onRatingUpdate: (rating) {},
-                                                    itemBuilder: (context, _) {
-                                                      return Icon(Icons.star,
-                                                          color: ColorConstant
-                                                              .amber500);
-                                                    }))
-                                          ]))),
-                              Padding(
-                                  padding: getPadding(left: 21),
-                                  child: Text("msg_pragati_vihar_new".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle
-                                          .txtPoppinsRegular12Black900d1)),
-                              Container(
-                                  height: getVerticalSize(19.00),
-                                  width: getHorizontalSize(109.00),
-                                  margin: getMargin(left: 18, top: 1),
-                                  child: Stack(
-                                      alignment: Alignment.centerLeft,
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text("lbl_flat_30_off".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium15Red500)),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Card(
-                                                clipBehavior: Clip.antiAlias,
-                                                elevation: 0,
-                                                margin: EdgeInsets.all(0),
-                                                color: ColorConstant.amber500,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadiusStyle
-                                                            .roundedBorder10),
-                                                child: Container(
-                                                    height:
-                                                        getVerticalSize(16.00),
-                                                    width: getHorizontalSize(
-                                                        17.00),
-                                                    padding: getPadding(
-                                                        left: 5,
-                                                        top: 4,
-                                                        right: 5,
-                                                        bottom: 4),
-                                                    decoration: AppDecoration
-                                                        .fillAmber500
-                                                        .copyWith(
-                                                            borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .roundedBorder10),
-                                                    child: Stack(children: [
-                                                      CustomImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgAirplane,
-                                                          height: getSize(6.00),
-                                                          width: getSize(6.00),
-                                                          alignment:
-                                                              Alignment.center)
-                                                    ]))))
-                                      ])),
-                              CustomImageView(
-                                  imagePath: ImageConstant.imgRectangle13,
-                                  height: getVerticalSize(154.00),
-                                  width: getHorizontalSize(340.00),
-                                  radius: BorderRadius.circular(
-                                      getHorizontalSize(5.00)),
-                                  margin: getMargin(left: 22, top: 13)),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                      padding: getPadding(
-                                          left: 24, top: 5, right: 7),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text("msg_baluchi_indian".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium20),
-                                            Padding(
-                                                padding: getPadding(
-                                                    top: 5, bottom: 2),
-                                                child: RatingBar.builder(
-                                                    initialRating: 4,
-                                                    minRating: 0,
-                                                    direction: Axis.horizontal,
-                                                    allowHalfRating: false,
-                                                    itemSize:
-                                                        getVerticalSize(17.00),
-                                                    unratedColor:
-                                                        ColorConstant.amber500,
-                                                    itemCount: 4,
-                                                    updateOnDrag: true,
-                                                    onRatingUpdate: (rating) {},
-                                                    itemBuilder: (context, _) {
-                                                      return Icon(Icons.star,
-                                                          color: ColorConstant
-                                                              .amber500);
-                                                    }))
-                                          ]))),
-                              Padding(
-                                  padding: getPadding(left: 26),
-                                  child: Text("msg_pragati_vihar_new".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle
-                                          .txtPoppinsRegular12Black900d1)),
-                              Container(
-                                  height: getVerticalSize(19.00),
-                                  width: getHorizontalSize(109.00),
-                                  margin: getMargin(left: 23, top: 1),
-                                  child: Stack(
-                                      alignment: Alignment.centerLeft,
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text("lbl_flat_30_off".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.center,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium15Red500)),
-                                        Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Card(
-                                                clipBehavior: Clip.antiAlias,
-                                                elevation: 0,
-                                                margin: EdgeInsets.all(0),
-                                                color: ColorConstant.amber500,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadiusStyle
-                                                            .roundedBorder10),
-                                                child: Container(
-                                                    height:
-                                                        getVerticalSize(16.00),
-                                                    width: getHorizontalSize(
-                                                        17.00),
-                                                    padding: getPadding(
-                                                        left: 5,
-                                                        top: 4,
-                                                        right: 5,
-                                                        bottom: 4),
-                                                    decoration: AppDecoration
-                                                        .fillAmber500
-                                                        .copyWith(
-                                                            borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .roundedBorder10),
-                                                    child: Stack(children: [
-                                                      CustomImageView(
-                                                          svgPath: ImageConstant
-                                                              .imgAirplane,
-                                                          height: getSize(6.00),
-                                                          width: getSize(6.00),
-                                                          alignment:
-                                                              Alignment.center)
-                                                    ]))))
-                                      ]))
-                            ])))),
+                                                    borderRadius:BorderRadius.circular(18)
+                                                ),
+                                                margin: EdgeInsets.fromLTRB(0, 6.0, 5.0, 5.0),
+                                                child: ListTile(
+                                                  title: Wrap(
+                                                      children: [
+                                                        Container(
+                                                          margin: getMargin(top: 10,),
+                                                          child: Align(
+                                                            alignment: Alignment.center,
+                                                            child:    Row(
+                                                              children: [
+                                                                Align(
+                                                                  alignment: Alignment.center,
+                                                                  child: SizedBox(
+                                                                    height: 115,
+                                                                    width: 345,
+                                                                    child: Image.network
+                                                                      (
+                                                                      tab[index]['rest_photo'],
+                                                                      fit: BoxFit.cover,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: getMargin(top: 5),
+                                                          child: Wrap(
+                                                              children: [
+                                                                Row(
+                                                                  children:<Widget> [
+                                                                    Align(
+                                                                      alignment:Alignment.centerLeft,
+                                                                      child: SizedBox(
+                                                                        width: 188,
+                                                                        child: Text(
+                                                                          tab[index]['rest_name'],
+                                                                          style: TextStyle(fontSize: 15,
+                                                                              fontWeight: FontWeight.bold),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Align(
+                                                                      alignment:Alignment.center,
+                                                                      child: Stack(
+                                                                          alignment: Alignment.center,
+                                                                          children: [
+                                                                            Padding(
+                                                                              padding: getPadding(
+                                                                                  top: 15,
+                                                                                  bottom: 20,
+                                                                                  left: 95-19
+                                                                              ),
+                                                                              child: Align(
+                                                                                alignment: Alignment.centerRight,
+                                                                                child: RatingBar.builder(
+                                                                                  initialRating: tab[index]['avg_stars'],
+                                                                                  minRating: 1,
+                                                                                  direction: Axis.horizontal,
+                                                                                  allowHalfRating: true,
+                                                                                  itemSize: getVerticalSize(
+                                                                                    20.00,
+                                                                                  ),
+                                                                                  unratedColor: ColorConstant.gray400,
+                                                                                  itemCount: 5,
+                                                                                  updateOnDrag: true,
+                                                                                  onRatingUpdate: (rating) {},
+                                                                                  itemBuilder: (context, _) {
+                                                                                    return Icon(
+                                                                                      Icons.star,
+                                                                                      color: ColorConstant.amber500,
+                                                                                    );
+                                                                                  },
+                                                                                ),
+                                                                              ),
+
+                                                                            ),
+                                                                          ]),
+                                                                    ),
+
+                                                                  ],
+                                                                ),
+                                                                Container(
+                                                                  margin: getMargin(top: 1
+                                                                  ),
+                                                                  child: Row(
+                                                                    children: <Widget>[                                                              Align(
+                                                                      alignment:Alignment.centerLeft,
+                                                                      child: SizedBox(
+                                                                        width: 345,
+                                                                        child: Text(  tab[index]['rest_address'],
+                                                                          style: TextStyle(fontSize: 12),),
+                                                                      ),
+                                                                    ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  margin: getMargin(top: 10),
+                                                                  child: Row(
+                                                                    children: <Widget>[
+                                                                      Align(
+                                                                        alignment:Alignment.centerLeft,
+                                                                        child: SizedBox(
+                                                                          width: 10,
+                                                                          child: Icon(Icons.percent_sharp,
+                                                                            color: Colors.orangeAccent,),
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        margin: getMargin(left: 15),
+                                                                        child: Row(
+                                                                          children: [
+                                                                            Text(
+                                                                                tab[index]['rest_discount_pecentage'].toString(),
+                                                                                style: TextStyle(fontSize: 20,
+                                                                                    fontWeight: FontWeight.bold)
+                                                                            ),
+
+                                                                            Padding(
+                                                                              padding: const EdgeInsets.only(left: 8),
+                                                                              child: Text(
+                                                                                  "OFF",
+                                                                                  style: TextStyle(fontSize: 20,
+                                                                                      fontWeight: FontWeight.bold)
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              ]
+                                                          ),
+                                                        ),]
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ]
+                        )
+                    )
+                )
+            ),
             drawer: buildDrawer(),
             bottomNavigationBar: SizedBox(
               height: 90.50,
