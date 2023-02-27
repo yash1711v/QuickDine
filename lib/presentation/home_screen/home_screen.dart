@@ -338,7 +338,7 @@ print(R);
                                 )
                             )
                         ),
-
+//From Here Featured RestUarant Cards Are Visible
                         Padding(
                             padding: getPadding(left: 7, top: 19),
                             child: Text("msg_featured_restaurants".tr,
