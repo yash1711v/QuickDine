@@ -345,183 +345,181 @@ print(R);
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtPoppinsMedium20)),
-
-                        Container(
-                          child: StreamBuilder<List<Map<String, dynamic>>>(
-                            stream: _tabStream,
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return const Center(child: CircularProgressIndicator());
-                              }
-                              final tab = snapshot.data!;
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: tab.length,
-                                itemBuilder: (context, index) {
-                                  return Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: SizedBox(
-                                      width: 800,
-                                      height: 270,
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Card(
-                                          color: Colors.white,
-                                          elevation: 5,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:BorderRadius.circular(18)
-                                          ),
-                                          margin: EdgeInsets.fromLTRB(0, 6.0, 10.0, 5.0),
-                                          child: ListTile(
-                                            title: Wrap(
-                                              children: [
-                                                    Container(
-                                                      margin: getMargin(top: 10),
-                                                      child: Align(
-                                                        alignment: Alignment.topLeft,
-                                                        child:    Row(
-                                                          children: [
+                          Container(
+                            child: StreamBuilder<List<Map<String, dynamic>>>(
+                              stream: _tabStream,
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const Center(child: CircularProgressIndicator());
+                                }
+                                final tab = snapshot.data!;
+                                return ListView.builder(
+                                 physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: tab.length,
+                                  itemBuilder: (context, index) {
+                                    return Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: SizedBox(
+                                        width: 800,
+                                        height: 270,
+                                        child: GestureDetector(
+                                          onTap: () {},
+                                          child: Card(
+                                            color: Colors.white,
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:BorderRadius.circular(18)
+                                            ),
+                                            margin: EdgeInsets.fromLTRB(0, 6.0, 5.0, 5.0),
+                                            child: ListTile(
+                                              title: Wrap(
+                                                children: [
+                                                      Container(
+                                                        margin: getMargin(top: 10,),
+                                                        child: Align(
+                                                          alignment: Alignment.topLeft,
+                                                          child:    Row(
+                                                            children: [
+                                                              Align(
+                                                                alignment: Alignment.center,
+                                                                child: SizedBox(
+                                                                  height: 115,
+                                                                  width: 345,
+                                                                  child: Image.network
+                                                                    (
+                                                                      tab[index]['rest_photo'],
+                                                                    fit: BoxFit.cover,
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  Container(
+                                                  margin: getMargin(top: 5),
+                                                  child: Wrap(
+                                                      children: [
+                                                        Row(
+                                                          children:<Widget> [
                                                             Align(
-                                                              alignment: Alignment.center,
+                                                              alignment:Alignment.centerLeft,
                                                               child: SizedBox(
-                                                                height: 115,
-                                                                width: 369,
-                                                                child: Image.network
-                                                                  (
-                                                                    tab[index]['rest_photo'],
-                                                                  fit: BoxFit.cover,
+                                                                width: 200-8.9,
+                                                                child: Text(
+                                                                  tab[index]['rest_name'],
+                                                                  style: TextStyle(fontSize: 15,
+                                                                      fontWeight: FontWeight.bold),
                                                                 ),
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                Container(
-                                                margin: getMargin(top: 5),
-                                                child: Wrap(
-                                                    children: [
-
-                                                      Row(
-                                                        children:<Widget> [
-                                                          Align(
-                                                            alignment:Alignment.centerLeft,
-                                                            child: SizedBox(
-                                                              width: 200,
-                                                              child: Text(
-                                                                tab[index]['rest_name'],
-                                                                style: TextStyle(fontSize: 15,
-                                                                    fontWeight: FontWeight.bold),
-                                                              ),
                                                             ),
-                                                          ),
-                                                          Align(
-                                                            alignment:Alignment.center,
-                                                            child: Stack(
-                                                                alignment: Alignment.center,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: getPadding(
-                                                                        top: 15,
-                                                                        bottom: 20,
-                                                                        left: 95-19
-                                                                    ),
-                                                                    child: Align(
-                                                                      alignment: Alignment.centerRight,
-                                                                      child: RatingBar.builder(
-                                                                        initialRating: tab[index]['avg_stars'] ,
-                                                                        minRating: 1,
-                                                                        direction: Axis.horizontal,
-                                                                        allowHalfRating: true,
-                                                                        itemSize: getVerticalSize(
-                                                                          20.00,
-                                                                        ),
-                                                                        unratedColor: ColorConstant.gray400,
-                                                                        itemCount: 5,
-                                                                        updateOnDrag: true,
-                                                                        onRatingUpdate: (rating) {},
-                                                                        itemBuilder: (context, _) {
-                                                                          return Icon(
-                                                                            Icons.star,
-                                                                            color: ColorConstant.amber500,
-                                                                          );
-                                                                        },
+                                                            Align(
+                                                              alignment:Alignment.center,
+                                                              child: Stack(
+                                                                  alignment: Alignment.center,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: getPadding(
+                                                                          top: 15,
+                                                                          bottom: 20,
+                                                                          left: 95-19
                                                                       ),
+                                                                      child: Align(
+                                                                        alignment: Alignment.centerRight,
+                                                                        child: RatingBar.builder(
+                                                                          initialRating: tab[index]['avg_stars'],
+                                                                          minRating: 1,
+                                                                          direction: Axis.horizontal,
+                                                                          allowHalfRating: true,
+                                                                          itemSize: getVerticalSize(
+                                                                            20.00,
+                                                                          ),
+                                                                          unratedColor: ColorConstant.gray400,
+                                                                          itemCount: 5,
+                                                                          updateOnDrag: true,
+                                                                          onRatingUpdate: (rating) {},
+                                                                          itemBuilder: (context, _) {
+                                                                            return Icon(
+                                                                              Icons.star,
+                                                                              color: ColorConstant.amber500,
+                                                                            );
+                                                                          },
+                                                                        ),
+                                                                      ),
+
                                                                     ),
-
-                                                                  ),
-                                                                ]),
-                                                          ),
-
-                                                        ],
-                                                      ),
-                                                      Container(
-                                                        margin: getMargin(top: 1),
-                                                        child: Row(
-                                                          children: <Widget>[
-
-                                                            Align(
-                                                              alignment:Alignment.centerLeft,
-                                                              child: SizedBox(
-                                                                width: 350,
-                                                                child: Text(  tab[index]['rest_address'],
-                                                                  style: TextStyle(fontSize: 12),),
-                                                              ),
+                                                                  ]),
                                                             ),
+
                                                           ],
                                                         ),
-                                                      ),
-                                                      Container(
-                                                        margin: getMargin(top: 10),
-                                                        child: Row(
-                                                          children: <Widget>[
-                                                            Align(
-                                                              alignment:Alignment.centerLeft,
-                                                              child: SizedBox(
-                                                                width: 10,
-                                                                child: Icon(Icons.percent_sharp,
-                                                                  color: Colors.orangeAccent,),
+                                                        Container(
+                                                          margin: getMargin(top: 1
+                                                          ),
+                                                          child: Row(
+                                                            children: <Widget>[                                                              Align(
+                                                                alignment:Alignment.centerLeft,
+                                                                child: SizedBox(
+                                                                  width: 345,
+                                                                  child: Text(  tab[index]['rest_address'],
+                                                                    style: TextStyle(fontSize: 12),),
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Container(
-                                                              margin: getMargin(left: 15),
-                                                              child: Row(
-                                                                children: [
-                                                                  Text(
-                                                                      tab[index]['rest_discount_pecentage'].toString(),
-                                                                      style: TextStyle(fontSize: 20,
-                                                                          fontWeight: FontWeight.bold)
-                                                                  ),
-
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(left: 8),
-                                                                    child: Text(
-                                                                        "OFF",
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: getMargin(top: 10),
+                                                          child: Row(
+                                                            children: <Widget>[
+                                                              Align(
+                                                                alignment:Alignment.centerLeft,
+                                                                child: SizedBox(
+                                                                  width: 10,
+                                                                  child: Icon(Icons.percent_sharp,
+                                                                    color: Colors.orangeAccent,),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                margin: getMargin(left: 15),
+                                                                child: Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        tab[index]['rest_discount_pecentage'].toString(),
                                                                         style: TextStyle(fontSize: 20,
                                                                             fontWeight: FontWeight.bold)
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              ),
 
-                                                            )
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ]
-                                                ),
-                                              ),]
+                                                                    Padding(
+                                                                      padding: const EdgeInsets.only(left: 8),
+                                                                      child: Text(
+                                                                          "OFF",
+                                                                          style: TextStyle(fontSize: 20,
+                                                                              fontWeight: FontWeight.bold)
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+
+                                                              )
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ]
+                                                  ),
+                                                ),]
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
-                        ),
 
                         // Align(
                         //     alignment: Alignment.center,
