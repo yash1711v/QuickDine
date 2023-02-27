@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   final _tabStream = Supabase.instance.client
       .from('restaurant')
-      .stream(primaryKey: ['id']);
+      .stream(primaryKey: ['id']).eq('isMember', true);
 
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
@@ -353,12 +353,12 @@ print(R);
                                   return const Center(child: CircularProgressIndicator());
                                 }
                                 final tab = snapshot.data!;
+
                                 return ListView.builder(
                                  physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: tab.length,
                                   itemBuilder: (context, index) {
-
                                     return Align(
                                       alignment: Alignment.bottomLeft,
                                       child: SizedBox(
