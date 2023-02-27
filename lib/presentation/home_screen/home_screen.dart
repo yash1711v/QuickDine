@@ -40,13 +40,27 @@ class _HomeScreenState extends State<HomeScreen> {
   get controller => HomeController();
   String id = "";
   List? myList;
+<<<<<<< HEAD
   List<Map<String, dynamic>> userList = [];
   int i = 0;
+=======
+  List? resList;
+  List<Map<String, dynamic>> userList = [];
+  List<Map<String, dynamic>> RestaurantList = [];
+  int i = 0;
+  int R = 0;
+>>>>>>> 199f182 (Restaurant Cards)
   void initState() {
     super.initState();
     readData();
     checkidValue();
   }
+<<<<<<< HEAD
+=======
+  final _tabStream = Supabase.instance.client
+      .from('restaurant')
+      .stream(primaryKey: ['id']);
+>>>>>>> 199f182 (Restaurant Cards)
 
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
@@ -59,16 +73,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> readData() async {
     var response =
         await Supabase.instance.client.from('user').select().execute();
+<<<<<<< HEAD
     setState(() {
       myList = response.data.toList();
 
+=======
+    var response2=await Supabase.instance.client.from('restaurant').select().execute();
+    setState(() {
+      myList = response.data.toList();
+      resList=response2.data.toList();
+>>>>>>> 199f182 (Restaurant Cards)
       print('//////////////////////');
       myList!.forEach((element) {
         userList.add(element);
         i++;
       });
+<<<<<<< HEAD
       print('//////////////////////');
 
+=======
+      resList!.forEach((element) {
+        RestaurantList.add(element);
+        R++;
+      });
+     // print('//////////////////////');
+print(R);
+>>>>>>> 199f182 (Restaurant Cards)
       // print('...............');
       // print(myList![1]);
       // print(myList![0]["id"]);
@@ -93,6 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     print(userList);
     //readData();
+<<<<<<< HEAD
+=======
+    //userList.toList(growable: true);
+>>>>>>> 199f182 (Restaurant Cards)
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
@@ -130,7 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ]),
         body: Stack(
           children: [
+<<<<<<< HEAD
             buildDrawer(),
+=======
+            //buildDrawer(),
+>>>>>>> 199f182 (Restaurant Cards)
             buildPAge(),
           ],
         ),
@@ -226,10 +264,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () {},
                               icon: Icon(Icons.search_rounded, size: 20),
                             ),
+<<<<<<< HEAD
                             // CustomImageView(
                             //     svgPath: ImageConstant.imgSearch)),
                             // prefixConstraints: BoxConstraints(
                             //    // maxHeight: getVerticalSize(40.00)
+=======
+>>>>>>> 199f182 (Restaurant Cards)
                           ),
                           prefixConstraints:
                               BoxConstraints(maxHeight: getVerticalSize(40.00)),
@@ -325,13 +366,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                           .value
                                           .restaurantnearItemList[index];
                                       return RestaurantnearItemWidget(model);
+<<<<<<< HEAD
                                     })))),
+=======
+                                    }
+                                    )
+                                )
+                            )
+                        ),
+
+>>>>>>> 199f182 (Restaurant Cards)
                         Padding(
                             padding: getPadding(left: 7, top: 19),
                             child: Text("msg_featured_restaurants".tr,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtPoppinsMedium20)),
+<<<<<<< HEAD
                         CustomImageView(
                             imagePath: ImageConstant.imgRectangle13,
                             height: getVerticalSize(154.00),
@@ -741,6 +792,170 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ]))))
                                 ]))
                       ])))),
+=======
+
+                        Container(
+                          child: StreamBuilder<List<Map<String, dynamic>>>(
+                            stream: _tabStream,
+                            builder: (context, snapshot) {
+                              final tab = snapshot.data!;
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: tab.length,
+                                itemBuilder: (context, index) {
+                                  return Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: SizedBox(
+                                      width: 800,
+                                      height: 270,
+                                      child: Card(
+                                        color: Colors.white,
+                                        elevation: 5,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:BorderRadius.circular(18)
+                                        ),
+                                        margin: EdgeInsets.fromLTRB(0, 6.0, 10.0, 5.0),
+                                        child: ListTile(
+
+                                          title: Container(
+                                            margin: getMargin(top: 130),
+                                            child: Wrap(
+                                              children: [
+                                                Row(
+                                                children:<Widget> [
+                                                  Align(
+                                                    alignment:Alignment.centerLeft,
+                                                    child: SizedBox(
+                                                      width: 200,
+                                                      child: Text(
+                                                        tab[index]['rest_name'],
+                                                        style: TextStyle(fontSize: 15,
+                                                        fontWeight: FontWeight.bold),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                      alignment:Alignment.center,
+                                                    child: Stack(
+                                                      alignment: Alignment.center,
+                                                      children: [
+                                                        Padding(
+                                                        padding: getPadding(
+                                                          top: 15,
+                                                          bottom: 20,
+                                                          left: 95-19
+                                                        ),
+                                                        child: Align(
+                                                          alignment: Alignment.centerRight,
+                                                          child: RatingBar.builder(
+                                                            initialRating: tab[index]['avg_stars'] ,
+                                                            minRating: 1,
+                                                            direction: Axis.horizontal,
+                                                            allowHalfRating: true,
+                                                            itemSize: getVerticalSize(
+                                                              20.00,
+                                                            ),
+                                                            unratedColor: ColorConstant.gray400,
+                                                            itemCount: 5,
+                                                            updateOnDrag: true,
+                                                            onRatingUpdate: (rating) {},
+                                                            itemBuilder: (context, _) {
+                                                              return Icon(
+                                                                Icons.star,
+                                                                color: ColorConstant.amber500,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+
+                                                      ),
+                                                    ]),
+                                                  ),
+
+                                                ],
+                                              ),
+                                                Container(
+                                                  margin: getMargin(top: 5),
+                                                  child: Row(
+                                                    children: <Widget>[
+
+                                                      Align(
+                                                        alignment:Alignment.centerLeft,
+                                                        child: SizedBox(
+                                                          width: 350,
+                                                          child: Text(  tab[index]['rest_address'],
+                                                            style: TextStyle(fontSize: 12),),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: getMargin(top: 10),
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Align(
+                                                        alignment:Alignment.centerLeft,
+                                                        child: SizedBox(
+                                                          width: 10,
+                                                          child: Icon(Icons.percent_sharp,
+                                                          color: Colors.orangeAccent,),
+                                                        ),
+                                                      ),
+                                                     Container(
+                                                       margin: getMargin(left: 15),
+                                                       child: Row(
+                                                         children: [
+                                                           Text(
+                                                               tab[index]['rest_discount_pecentage'].toString(),
+                                                               style: TextStyle(fontSize: 20,
+                                                               fontWeight: FontWeight.bold)
+                                                           ),
+
+                                                           Padding(
+                                                             padding: const EdgeInsets.only(left: 8),
+                                                             child: Text(
+                                                                 "OFF",
+                                                                 style: TextStyle(fontSize: 20,
+                                                                     fontWeight: FontWeight.bold)
+                                                             ),
+                                                           ),
+                                                         ],
+                                                       ),
+
+                                                     )
+                                                    ],
+                                                  ),
+                                                )
+                                              ]
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        // Align(
+                        //     alignment: Alignment.center,
+                        //   child: ListView.builder(
+                        //       itemBuilder: (context, index) {
+                        //         RestaurantnearItemModel model = controller
+                        //             .homeModelObj
+                        //             .value
+                        //             .restaurants[index];
+                        //         return RestaurantnearItemWidget(model);
+                        //       })
+                        //   ),
+                      ]
+                  )
+              )
+          )
+      ),
+>>>>>>> 199f182 (Restaurant Cards)
     );
   }
 
