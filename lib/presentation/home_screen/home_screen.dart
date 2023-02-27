@@ -358,6 +358,7 @@ print(R);
                                   shrinkWrap: true,
                                   itemCount: tab.length,
                                   itemBuilder: (context, index) {
+
                                     return Align(
                                       alignment: Alignment.bottomLeft,
                                       child: SizedBox(
@@ -378,7 +379,7 @@ print(R);
                                                       Container(
                                                         margin: getMargin(top: 10,),
                                                         child: Align(
-                                                          alignment: Alignment.topLeft,
+                                                          alignment: Alignment.center,
                                                           child:    Row(
                                                             children: [
                                                               Align(
@@ -406,7 +407,7 @@ print(R);
                                                             Align(
                                                               alignment:Alignment.centerLeft,
                                                               child: SizedBox(
-                                                                width: 200-8.9,
+                                                                width: 188,
                                                                 child: Text(
                                                                   tab[index]['rest_name'],
                                                                   style: TextStyle(fontSize: 15,
