@@ -19,7 +19,7 @@ class DrawerWidget extends StatelessWidget {
       child: Container(
         width: 350,
         height: 1000,
-        color: Colors.white70,
+        color: Colors.white,
         child: Column(
           children: [
             CustomImageView(
