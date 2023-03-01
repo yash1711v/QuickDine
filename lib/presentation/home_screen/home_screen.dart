@@ -318,19 +318,18 @@ print(R);
                                 ])),
                         Container(
                           child: StreamBuilder<List<Map<String, dynamic>>>(
-                            stream: _tabStream,
+                            stream: _tabStream2,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
                                 return const Center(
                                     child: CircularProgressIndicator());
                               }
                               final tab = snapshot.data!;
-
                               return Row(
                                 children: <Widget>[
                                   Expanded(
                                     child: SizedBox(
-                                      height: 150,
+                                      height: 250,
                                       child: ListView.builder(
                                         shrinkWrap: true,
                                         itemCount: tab.length,
@@ -342,8 +341,8 @@ print(R);
                                           return Align(
                                             alignment: Alignment.bottomLeft,
                                             child: SizedBox(
-                                              width: 400,
-                                              height: 270,
+                                              width: 200,
+                                              height: 1000,
                                               child: GestureDetector(
                                                 onTap: () {},
                                                 child: Card(
@@ -351,9 +350,9 @@ print(R);
                                                   elevation: 5,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                      BorderRadius.circular(18)),
+                                                      BorderRadius.circular(40)),
                                                   margin: EdgeInsets.fromLTRB(
-                                                      0, 6.0, 5.0, 5.0),
+                                                      5, 6.0, 5.0, 5.0),
                                                   child: ListTile(
                                                     title: Wrap(children: [
                                                       Container(
@@ -361,28 +360,30 @@ print(R);
                                                           top: 10,
                                                         ),
                                                         child: Align(
-                                                          alignment: Alignment.center,
-                                                          child: Row(
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                Alignment.center,
-                                                                child: SizedBox(
-                                                                  height: 115,
-                                                                  width: 345,
-                                                                  child: Image.network(
-                                                                    tab[index]
-                                                                    ['rest_photo'],
-                                                                    fit: BoxFit.cover,
+                                                          // alignment: Alignment.center,
+                                                          child: Center(
+                                                            child: Row(
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                  Alignment.center,
+                                                                  child: SizedBox(
+                                                                    height: 145,
+                                                                    width: 157,
+                                                                    child: Image.network(
+                                                                      tab[index]
+                                                                      ['rest_photo'],
+                                                                      fit: BoxFit.cover,
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              )
-                                                            ],
+                                                                )
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                       Container(
-                                                        margin: getMargin(top: 5),
+                                                        margin: getMargin(top: 0),
                                                         child: Wrap(children: [
                                                           Row(
                                                             children: <Widget>[
@@ -390,12 +391,12 @@ print(R);
                                                                 alignment: Alignment
                                                                     .centerLeft,
                                                                 child: SizedBox(
-                                                                  width: 188,
+                                                                  width: 98,
                                                                   child: Text(
                                                                     tab[index]
                                                                     ['rest_name'],
                                                                     style: TextStyle(
-                                                                        fontSize: 15,
+                                                                        fontSize: 14,
                                                                         fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -404,7 +405,7 @@ print(R);
                                                               ),
                                                               Align(
                                                                 alignment:
-                                                                Alignment.center,
+                                                                Alignment.centerLeft,
                                                                 child: Stack(
                                                                     alignment: Alignment
                                                                         .center,
@@ -414,9 +415,9 @@ print(R);
                                                                         getPadding(
                                                                             top: 15,
                                                                             bottom:
-                                                                            20,
-                                                                            left: 95 -
-                                                                                19),
+                                                                            17,
+                                                                            left: 0,
+                                                                        ),
                                                                         child: Align(
                                                                           alignment:
                                                                           Alignment
@@ -433,7 +434,7 @@ print(R);
                                                                             true,
                                                                             itemSize:
                                                                             getVerticalSize(
-                                                                              20.00,
+                                                                              13.00,
                                                                             ),
                                                                             unratedColor:
                                                                             ColorConstant
@@ -462,27 +463,7 @@ print(R);
                                                             ],
                                                           ),
                                                           Container(
-                                                            margin: getMargin(top: 1),
-                                                            child: Row(
-                                                              children: <Widget>[
-                                                                Align(
-                                                                  alignment: Alignment
-                                                                      .centerLeft,
-                                                                  child: SizedBox(
-                                                                    width: 345,
-                                                                    child: Text(
-                                                                      tab[index][
-                                                                      'rest_address'],
-                                                                      style: TextStyle(
-                                                                          fontSize: 12),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin: getMargin(top: 10),
+                                                            margin: getMargin(top: 0),
                                                             child: Row(
                                                               children: <Widget>[
                                                                 Align(
@@ -500,7 +481,7 @@ print(R);
                                                                 ),
                                                                 Container(
                                                                   margin: getMargin(
-                                                                      left: 15),
+                                                                      left: 25,top: 5),
                                                                   child: Row(
                                                                     children: [
                                                                       Text(
