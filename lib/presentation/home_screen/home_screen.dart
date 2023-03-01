@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       .stream(primaryKey: ['id']).eq('isMember', true);
 final _tabStream2 = Supabase.instance.client
       .from('restaurant')
-      .stream(primaryKey: ['id']);
+      .stream(primaryKey: ['id']).eq("rest_address", '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
 
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
