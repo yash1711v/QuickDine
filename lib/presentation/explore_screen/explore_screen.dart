@@ -371,6 +371,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                       shrinkWrap: true,
                                       itemCount: tab.length,
                                       itemBuilder: (context, index) {
+                                        double avgRating=tab[index]['avg_stars'].toDouble();
                                         return Align(
                                           alignment: Alignment.bottomLeft,
                                           child: SizedBox(
@@ -441,7 +442,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                               child: Align(
                                                                                 alignment: Alignment.centerRight,
                                                                                 child: RatingBar.builder(
-                                                                                  initialRating: tab[index]['avg_stars'],
+                                                                                  initialRating: avgRating,
                                                                                   minRating: 1,
                                                                                   direction: Axis.horizontal,
                                                                                   allowHalfRating: true,
