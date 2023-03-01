@@ -59,10 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
         'id'
       ]).eq("rest_address",
       '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
-  final _tabStream3 = Supabase.instance.client.from('restaurant').stream(
-      primaryKey: [
-        'id'
-      ]);
+  final _tabStream3 =
+      Supabase.instance.client.from('restaurant').stream(primaryKey: ['id']);
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
     setState(() {
@@ -310,15 +308,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     //kardio color and elevation kon
                                                     color: Colors.transparent,
                                                     elevation: 0,
-                                                    shape: RoundedRectangleBorder(
-                                                        side: BorderSide(
-                                                          color: Colors.orangeAccent,
-                                                          width: 5,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                40)
-                                                    ),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                              color: Colors
+                                                                  .orangeAccent,
+                                                              width: 5,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        11)),
                                                     margin: EdgeInsets.fromLTRB(
                                                         5, 6.0, 5.0, 5.0),
                                                     child: ListTile(
@@ -326,82 +326,95 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         Container(
                                                           margin:
                                                               getMargin(top: 0),
-                                                          child: Wrap(children: [
+                                                          child:
+                                                              Wrap(children: [
                                                             Container(
                                                               margin: getMargin(
                                                                   top: 0),
                                                               child: Row(
-                                                                children: <Widget>[
+                                                                children: <
+                                                                    Widget>[
                                                                   Container(
                                                                     margin:
                                                                         getMargin(
                                                                       left: 10,
-                                                                          top: 20,
+                                                                      top: 20,
                                                                     ),
                                                                     child: Row(
                                                                       children: [
                                                                         Center(
-                                                                          child: SizedBox(
-                                                                               width:70,
-                                                                            child: Text("FLAT",
-                                                                                style: TextStyle(
-                                                                                    fontSize: 25,
-                                                                                    fontWeight: FontWeight.bold)),
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                70,
+                                                                            child:
+                                                                                Text("FLAT", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                                                                           ),
                                                                         ),
-                                                                        // Align(
-                                                                        //   alignment:
-                                                                        //       Alignment.centerLeft,
-                                                                        //   child:
-                                                                        //       SizedBox(
-                                                                        //         width:
-                                                                        //         10,
-                                                                        //          child:
-                                                                        //            Icon(
-                                                                        //       Icons.percent_sharp,
-                                                                        //       color:
-                                                                        //           Colors.orangeAccent,
-                                                                        //     ),
-                                                                        //   ),
-                                                                        // ),
-                                                                        // Padding(
-                                                                        //   padding:
-                                                                        //       const EdgeInsets.only(left: 8),
-                                                                        //   child: Text(
-                                                                        //       "OFF",
-                                                                        //       style:
-                                                                        //           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                                                                        // ),
                                                                       ],
                                                                     ),
                                                                   ),
-
                                                                 ],
                                                               ),
                                                             ),
                                                             Row(
                                                               children: [
                                                                 Container(
-                                                                  margin:getMargin(left: 3,
-                                                                  top: 3),
+                                                                  margin:
+                                                                      getMargin(
+                                                                          left:
+                                                                              3,
+                                                                          top:
+                                                                              3),
                                                                   child: Text(
-                                                                      tab[index]['rest_discount_pecentage'].toString(),
+                                                                    tab[index][
+                                                                            'rest_discount_pecentage']
+                                                                        .toString(),
                                                                     style: TextStyle(
-                                                                      fontSize: 55,
-                                                                      fontWeight: FontWeight.w600
-                                                                    ),
+                                                                        fontSize:
+                                                                            55,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  margin:getMargin(left: 0,
-                                                                      top: 25),
-                                                                  child: Icon(Icons.percent_sharp,
-                                                                    color: Colors.orange,
+                                                                  margin:
+                                                                      getMargin(
+                                                                          left:
+                                                                              0,
+                                                                          top:
+                                                                              25),
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .percent_sharp,
+                                                                    color: Colors
+                                                                        .orange,
                                                                     size: 30,
                                                                   ),
-                                                              ),
+                                                                ),
                                                               ],
-                                                            )
+                                                            ),
+                                                            Container(
+                                                              margin: getMargin(
+                                                                  left: 5),
+                                                              child: Row(
+                                                                children: [
+                                                                  Container(
+                                                                    margin: getMargin(
+                                                                        left: 3,
+                                                                        top: 3),
+                                                                    child: Text(
+                                                                      "Instant Discount",
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              11,
+                                                                          fontWeight:
+                                                                              FontWeight.w700),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
                                                           ]),
                                                         ),
                                                       ]),
@@ -420,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                         ),
-
+                        //Restaurant Near You
                         Padding(
                             padding: getPadding(left: 9, top: 21, right: 29),
                             child: Row(
