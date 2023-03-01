@@ -50,13 +50,19 @@ class _HomeScreenState extends State<HomeScreen> {
     readData();
     checkidValue();
   }
+
   final _tabStream = Supabase.instance.client
       .from('restaurant')
       .stream(primaryKey: ['id']).eq('isMember', true);
-final _tabStream2 = Supabase.instance.client
-      .from('restaurant')
-      .stream(primaryKey: ['id']).eq("rest_address", '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
-
+  final _tabStream2 = Supabase.instance.client.from('restaurant').stream(
+      primaryKey: [
+        'id'
+      ]).eq("rest_address",
+      '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
+  final _tabStream3 = Supabase.instance.client.from('restaurant').stream(
+      primaryKey: [
+        'id'
+      ]);
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
     setState(() {
@@ -68,10 +74,11 @@ final _tabStream2 = Supabase.instance.client
   Future<void> readData() async {
     var response =
         await Supabase.instance.client.from('user').select().execute();
-    var response2=await Supabase.instance.client.from('restaurant').select().execute();
+    var response2 =
+        await Supabase.instance.client.from('restaurant').select().execute();
     setState(() {
       myList = response.data.toList();
-      resList=response2.data.toList();
+      resList = response2.data.toList();
       print('//////////////////////');
       myList!.forEach((element) {
         userList.add(element);
@@ -81,8 +88,8 @@ final _tabStream2 = Supabase.instance.client
         RestaurantList.add(element);
         R++;
       });
-     // print('//////////////////////');
-print(R);
+      // print('//////////////////////');
+      print(R);
       // print('...............');
       // print(myList![1]);
       // print(myList![0]["id"]);
@@ -268,30 +275,152 @@ print(R);
                                               style: AppStyle
                                                   .txtPoppinsRegular12)))
                                 ])),
-                        Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                                height: getVerticalSize(122.00),
-                                child: Obx(() => ListView.separated(
-                                    padding: getPadding(top: 5),
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                          height: getVerticalSize(17.00));
-                                    },
-                                    itemCount: controller.homeModelObj.value
-                                        .listrectanglefiftyfiveItemList.length,
-                                    itemBuilder: (context, index) {
-                                      ListrectanglefiftyfiveItemModel model =
-                                          controller.homeModelObj.value
-                                                  .listrectanglefiftyfiveItemList[
-                                              index];
-                                      return ListrectanglefiftyfiveItemWidget(
-                                          model,
-                                          onTapStackrectanglefiftyfive:
-                                              onTapStackrectanglefiftyfive);
-                                    })))),
+                        Container(
+                          child: StreamBuilder<List<Map<String, dynamic>>>(
+                            stream: _tabStream3,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              final tab = snapshot.data!;
+                              return Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: 170,
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: tab.length,
+                                        scrollDirection: Axis.horizontal,
+                                        //physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          return Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: SizedBox(
+                                              width: 140,
+                                              height: 200,
+                                              child: GestureDetector(
+                                                onTap: () {},
+                                                child: Container(
+                                                  child: Card(
+                                                    // color: Colors.amberAccent,
+                                                    // elevation: 5,
+                                                    //--------------------------------Neeche ke do comment hata dio Card ka background hatane ke liya or Uppr ka comment
+                                                    //kardio color and elevation kon
+                                                    color: Colors.transparent,
+                                                    elevation: 0,
+                                                    shape: RoundedRectangleBorder(
+                                                        side: BorderSide(
+                                                          color: Colors.orangeAccent,
+                                                          width: 5,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                40)
+                                                    ),
+                                                    margin: EdgeInsets.fromLTRB(
+                                                        5, 6.0, 5.0, 5.0),
+                                                    child: ListTile(
+                                                      title: Wrap(children: [
+                                                        Container(
+                                                          margin:
+                                                              getMargin(top: 0),
+                                                          child: Wrap(children: [
+                                                            Container(
+                                                              margin: getMargin(
+                                                                  top: 0),
+                                                              child: Row(
+                                                                children: <Widget>[
+                                                                  Container(
+                                                                    margin:
+                                                                        getMargin(
+                                                                      left: 10,
+                                                                          top: 20,
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Center(
+                                                                          child: SizedBox(
+                                                                               width:70,
+                                                                            child: Text("FLAT",
+                                                                                style: TextStyle(
+                                                                                    fontSize: 25,
+                                                                                    fontWeight: FontWeight.bold)),
+                                                                          ),
+                                                                        ),
+                                                                        // Align(
+                                                                        //   alignment:
+                                                                        //       Alignment.centerLeft,
+                                                                        //   child:
+                                                                        //       SizedBox(
+                                                                        //         width:
+                                                                        //         10,
+                                                                        //          child:
+                                                                        //            Icon(
+                                                                        //       Icons.percent_sharp,
+                                                                        //       color:
+                                                                        //           Colors.orangeAccent,
+                                                                        //     ),
+                                                                        //   ),
+                                                                        // ),
+                                                                        // Padding(
+                                                                        //   padding:
+                                                                        //       const EdgeInsets.only(left: 8),
+                                                                        //   child: Text(
+                                                                        //       "OFF",
+                                                                        //       style:
+                                                                        //           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                                                        // ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Container(
+                                                                  margin:getMargin(left: 3,
+                                                                  top: 3),
+                                                                  child: Text(
+                                                                      tab[index]['rest_discount_pecentage'].toString(),
+                                                                    style: TextStyle(
+                                                                      fontSize: 55,
+                                                                      fontWeight: FontWeight.w600
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  margin:getMargin(left: 0,
+                                                                      top: 25),
+                                                                  child: Icon(Icons.percent_sharp,
+                                                                    color: Colors.orange,
+                                                                    size: 30,
+                                                                  ),
+                                                              ),
+                                                              ],
+                                                            )
+                                                          ]),
+                                                        ),
+                                                      ]),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+
                         Padding(
                             padding: getPadding(left: 9, top: 21, right: 29),
                             child: Row(
@@ -336,8 +465,9 @@ print(R);
                                         scrollDirection: Axis.horizontal,
                                         //physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) {
-                                          double avgRating =
-                                          tab[index]['avg_stars'].toDouble();
+                                          double avgRating = tab[index]
+                                                  ['avg_stars']
+                                              .toDouble();
                                           return Align(
                                             alignment: Alignment.bottomLeft,
                                             child: SizedBox(
@@ -354,7 +484,8 @@ print(R);
                                                   // elevation: 0,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                      BorderRadius.circular(40)),
+                                                          BorderRadius.circular(
+                                                              40)),
                                                   margin: EdgeInsets.fromLTRB(
                                                       5, 6.0, 5.0, 5.0),
                                                   child: ListTile(
@@ -370,16 +501,24 @@ print(R);
                                                               children: [
                                                                 Align(
                                                                   alignment:
-                                                                  Alignment.center,
-                                                                  child: SizedBox(
+                                                                      Alignment
+                                                                          .center,
+                                                                  child:
+                                                                      SizedBox(
                                                                     height: 145,
                                                                     width: 157,
-                                                                    child: ClipRRect(
-                                                                      borderRadius: BorderRadius.circular(15),
-                                                                      child: Image.network(
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15),
+                                                                      child: Image
+                                                                          .network(
                                                                         tab[index]
-                                                                        ['rest_photo'],
-                                                                        fit: BoxFit.cover,
+                                                                            [
+                                                                            'rest_photo'],
+                                                                        fit: BoxFit
+                                                                            .cover,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -390,7 +529,8 @@ print(R);
                                                         ),
                                                       ),
                                                       Container(
-                                                        margin: getMargin(top: 0),
+                                                        margin:
+                                                            getMargin(top: 0),
                                                         child: Wrap(children: [
                                                           Row(
                                                             children: <Widget>[
@@ -400,66 +540,65 @@ print(R);
                                                                 child: SizedBox(
                                                                   width: 98,
                                                                   child: Text(
-                                                                    tab[index]
-                                                                    ['rest_name'],
+                                                                    tab[index][
+                                                                        'rest_name'],
                                                                     style: TextStyle(
-                                                                        fontSize: 14,
+                                                                        fontSize:
+                                                                            14,
                                                                         fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
+                                                                            FontWeight.bold),
                                                                   ),
                                                                 ),
                                                               ),
                                                               Align(
-                                                                alignment:
-                                                                Alignment.centerLeft,
+                                                                alignment: Alignment
+                                                                    .centerLeft,
                                                                 child: Stack(
-                                                                    alignment: Alignment
-                                                                        .center,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .center,
                                                                     children: [
                                                                       Padding(
                                                                         padding:
-                                                                        getPadding(
-                                                                            top: 15,
-                                                                            bottom:
-                                                                            17,
-                                                                            left: 0,
+                                                                            getPadding(
+                                                                          top:
+                                                                              15,
+                                                                          bottom:
+                                                                              17,
+                                                                          left:
+                                                                              0,
                                                                         ),
-                                                                        child: Align(
+                                                                        child:
+                                                                            Align(
                                                                           alignment:
-                                                                          Alignment
-                                                                              .centerRight,
-                                                                          child: RatingBar
-                                                                              .builder(
+                                                                              Alignment.centerRight,
+                                                                          child:
+                                                                              RatingBar.builder(
                                                                             initialRating:
-                                                                            avgRating,
+                                                                                avgRating,
                                                                             minRating:
-                                                                            1,
-                                                                            direction: Axis
-                                                                                .horizontal,
+                                                                                1,
+                                                                            direction:
+                                                                                Axis.horizontal,
                                                                             allowHalfRating:
-                                                                            true,
+                                                                                true,
                                                                             itemSize:
-                                                                            getVerticalSize(
+                                                                                getVerticalSize(
                                                                               13.00,
                                                                             ),
                                                                             unratedColor:
-                                                                            ColorConstant
-                                                                                .gray400,
+                                                                                ColorConstant.gray400,
                                                                             itemCount:
-                                                                            5,
+                                                                                5,
                                                                             updateOnDrag:
-                                                                            true,
+                                                                                true,
                                                                             onRatingUpdate:
                                                                                 (rating) {},
                                                                             itemBuilder:
-                                                                                (context,
-                                                                                _) {
+                                                                                (context, _) {
                                                                               return Icon(
-                                                                                Icons
-                                                                                    .star,
-                                                                                color: ColorConstant
-                                                                                    .amber500,
+                                                                                Icons.star,
+                                                                                color: ColorConstant.amber500,
                                                                               );
                                                                             },
                                                                           ),
@@ -470,13 +609,17 @@ print(R);
                                                             ],
                                                           ),
                                                           Container(
-                                                            margin: getMargin(top: 0),
+                                                            margin: getMargin(
+                                                                top: 0),
                                                             child: Row(
-                                                              children: <Widget>[
+                                                              children: <
+                                                                  Widget>[
                                                                 Align(
-                                                                  alignment: Alignment
-                                                                      .centerLeft,
-                                                                  child: SizedBox(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child:
+                                                                      SizedBox(
                                                                     width: 10,
                                                                     child: Icon(
                                                                       Icons
@@ -487,33 +630,25 @@ print(R);
                                                                   ),
                                                                 ),
                                                                 Container(
-                                                                  margin: getMargin(
-                                                                      left: 15,),
+                                                                  margin:
+                                                                      getMargin(
+                                                                    left: 15,
+                                                                  ),
                                                                   child: Row(
                                                                     children: [
                                                                       Text(
-                                                                          tab[index][
-                                                                          'rest_discount_pecentage']
+                                                                          tab[index]['rest_discount_pecentage']
                                                                               .toString(),
                                                                           style: TextStyle(
-                                                                              fontSize:
-                                                                              20,
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .bold)),
+                                                                              fontSize: 20,
+                                                                              fontWeight: FontWeight.bold)),
                                                                       Padding(
                                                                         padding:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                            8),
+                                                                            const EdgeInsets.only(left: 8),
                                                                         child: Text(
                                                                             "OFF",
-                                                                            style: TextStyle(
-                                                                                fontSize:
-                                                                                20,
-                                                                                fontWeight:
-                                                                                FontWeight.bold)),
+                                                                            style:
+                                                                                TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -545,186 +680,237 @@ print(R);
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtPoppinsMedium20)),
-                          Container(
-                            child: StreamBuilder<List<Map<String, dynamic>>>(
-                              stream: _tabStream,
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const Center(child: CircularProgressIndicator());
-                                }
-                                final tab = snapshot.data!;
+                        Container(
+                          child: StreamBuilder<List<Map<String, dynamic>>>(
+                            stream: _tabStream,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                              final tab = snapshot.data!;
 
-                                return ListView.builder(
-                                 physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: tab.length,
-                                  itemBuilder: (context, index) {
-                                   double avgRating=tab[index]['avg_stars'].toDouble();
-                                    return Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: SizedBox(
-                                        width: 760,
-                                        height: 275,
-                                        child: GestureDetector(
-                                          onTap: () {},
-                                          child: Card(
-                                            color: Colors.white,
-                                            elevation: 5,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:BorderRadius.circular(18)
-                                            ),
-                                            margin: EdgeInsets.fromLTRB(0, 6.0, 10.0, 5.0),
-                                            child: ListTile(
-                                              title: Wrap(
-                                                children: [
-                                                      Container(
-                                                        margin: getMargin(top: 10,),
-                                                        child: Align(
-                                                          alignment: Alignment.center,
-                                                          child:    Row(
-                                                            children: [
-                                                              Align(
-                                                                alignment: Alignment.center,
-                                                                child: SizedBox(
-                                                                  height: 130,
-                                                                  width: 370,
-                                                                  child: ClipRRect(
-                                                                    borderRadius: BorderRadius.circular(15),
-                                                                    child: Image.network
-                                                                      (
-                                                                        tab[index]['rest_photo'],
-                                                                      fit: BoxFit.cover,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
+                              return ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: tab.length,
+                                itemBuilder: (context, index) {
+                                  double avgRating =
+                                      tab[index]['avg_stars'].toDouble();
+                                  return Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: SizedBox(
+                                      width: 760,
+                                      height: 275,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Card(
+                                          color: Colors.white,
+                                          elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18)),
+                                          margin: EdgeInsets.fromLTRB(
+                                              0, 6.0, 10.0, 5.0),
+                                          child: ListTile(
+                                            title: Wrap(children: [
+                                              Container(
+                                                margin: getMargin(
+                                                  top: 10,
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Row(
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: SizedBox(
+                                                          height: 130,
+                                                          width: 370,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            child:
+                                                                Image.network(
+                                                              tab[index][
+                                                                  'rest_photo'],
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                margin: getMargin(top: 5),
+                                                child: Wrap(children: [
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: SizedBox(
+                                                          width: 188,
+                                                          child: Text(
+                                                            tab[index]
+                                                                ['rest_name'],
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
                                                           ),
                                                         ),
                                                       ),
+                                                      Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    getPadding(
+                                                                        top: 15,
+                                                                        bottom:
+                                                                            20,
+                                                                        left: 95 -
+                                                                            19),
+                                                                child: Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerRight,
+                                                                  child: RatingBar
+                                                                      .builder(
+                                                                    initialRating:
+                                                                        avgRating,
+                                                                    minRating:
+                                                                        1,
+                                                                    direction: Axis
+                                                                        .horizontal,
+                                                                    allowHalfRating:
+                                                                        true,
+                                                                    itemSize:
+                                                                        getVerticalSize(
+                                                                      20.00,
+                                                                    ),
+                                                                    unratedColor:
+                                                                        ColorConstant
+                                                                            .gray400,
+                                                                    itemCount:
+                                                                        5,
+                                                                    updateOnDrag:
+                                                                        true,
+                                                                    onRatingUpdate:
+                                                                        (rating) {},
+                                                                    itemBuilder:
+                                                                        (context,
+                                                                            _) {
+                                                                      return Icon(
+                                                                        Icons
+                                                                            .star,
+                                                                        color: ColorConstant
+                                                                            .amber500,
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ]),
+                                                      ),
+                                                    ],
+                                                  ),
                                                   Container(
-                                                  margin: getMargin(top: 5),
-                                                  child: Wrap(
-                                                      children: [
-                                                        Row(
-                                                          children:<Widget> [
-                                                            Align(
-                                                              alignment:Alignment.centerLeft,
-                                                              child: SizedBox(
-                                                                width: 188,
+                                                    margin: getMargin(top: 1),
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: SizedBox(
+                                                            width: 345,
+                                                            child: Text(
+                                                              tab[index][
+                                                                  'rest_address'],
+                                                              style: TextStyle(
+                                                                  fontSize: 12),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: getMargin(top: 4),
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: SizedBox(
+                                                            width: 10,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .percent_sharp,
+                                                              color: Colors
+                                                                  .orangeAccent,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          margin: getMargin(
+                                                              left: 15),
+                                                          child: Row(
+                                                            children: [
+                                                              Text(
+                                                                  tab[index][
+                                                                          'rest_discount_pecentage']
+                                                                      .toString(),
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            8),
                                                                 child: Text(
-                                                                  tab[index]['rest_name'],
-                                                                  style: TextStyle(fontSize: 15,
-                                                                      fontWeight: FontWeight.bold),
-                                                                ),
+                                                                    "OFF",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
                                                               ),
-                                                            ),
-                                                            Align(
-                                                              alignment:Alignment.center,
-                                                              child: Stack(
-                                                                  alignment: Alignment.center,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: getPadding(
-                                                                          top: 15,
-                                                                          bottom: 20,
-                                                                          left: 95-19
-                                                                      ),
-                                                                      child: Align(
-                                                                        alignment: Alignment.centerRight,
-                                                                        child: RatingBar.builder(
-                                                                          initialRating:avgRating,
-                                                                          minRating: 1,
-                                                                          direction: Axis.horizontal,
-                                                                          allowHalfRating: true,
-                                                                          itemSize: getVerticalSize(
-                                                                            20.00,
-                                                                          ),
-                                                                          unratedColor: ColorConstant.gray400,
-                                                                          itemCount: 5,
-                                                                          updateOnDrag: true,
-                                                                          onRatingUpdate: (rating) {},
-                                                                          itemBuilder: (context, _) {
-                                                                            return Icon(
-                                                                              Icons.star,
-                                                                              color: ColorConstant.amber500,
-                                                                            );
-                                                                          },
-                                                                        ),
-                                                                      ),
-
-                                                                    ),
-                                                                  ]),
-                                                            ),
-
-                                                          ],
-                                                        ),
-                                                        Container(
-                                                          margin: getMargin(top: 1
-                                                          ),
-                                                          child: Row(
-                                                            children: <Widget>[                                                              Align(
-                                                                alignment:Alignment.centerLeft,
-                                                                child: SizedBox(
-                                                                  width: 345,
-                                                                  child: Text(  tab[index]['rest_address'],
-                                                                    style: TextStyle(fontSize: 12),),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          margin: getMargin(top: 4),
-                                                          child: Row(
-                                                            children: <Widget>[
-                                                              Align(
-                                                                alignment:Alignment.centerLeft,
-                                                                child: SizedBox(
-                                                                  width: 10,
-                                                                  child: Icon(Icons.percent_sharp,
-                                                                    color: Colors.orangeAccent,),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                margin: getMargin(left: 15),
-                                                                child: Row(
-                                                                  children: [
-                                                                    Text(
-                                                                        tab[index]['rest_discount_pecentage'].toString(),
-                                                                        style: TextStyle(fontSize: 20,
-                                                                            fontWeight: FontWeight.bold)
-                                                                    ),
-
-                                                                    Padding(
-                                                                      padding: const EdgeInsets.only(left: 8),
-                                                                      child: Text(
-                                                                          "OFF",
-                                                                          style: TextStyle(fontSize: 20,
-                                                                              fontWeight: FontWeight.bold)
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-
-                                                              )
                                                             ],
                                                           ),
                                                         )
-                                                      ]
-                                                  ),
-                                                ),]
+                                                      ],
+                                                    ),
+                                                  )
+                                                ]),
                                               ),
-                                            ),
+                                            ]),
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
+                        ),
 
                         // Align(
                         //     alignment: Alignment.center,
@@ -737,11 +923,7 @@ print(R);
                         //         return RestaurantnearItemWidget(model);
                         //       })
                         //   ),
-                      ]
-                  )
-              )
-          )
-      ),
+                      ])))),
     );
   }
 
