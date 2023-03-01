@@ -348,6 +348,10 @@ print(R);
                                                 child: Card(
                                                   color: Colors.white,
                                                   elevation: 5,
+                                                  //--------------------------------Neeche ke do comment hata dio Card ka background hatane ke liya or Uppr ka comment
+                                                  //kardio color and elevation kon
+                                                  // color: Colors.transparent,
+                                                  // elevation: 0,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                       BorderRadius.circular(40)),
@@ -370,10 +374,13 @@ print(R);
                                                                   child: SizedBox(
                                                                     height: 145,
                                                                     width: 157,
-                                                                    child: Image.network(
-                                                                      tab[index]
-                                                                      ['rest_photo'],
-                                                                      fit: BoxFit.cover,
+                                                                    child: ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(15),
+                                                                      child: Image.network(
+                                                                        tab[index]
+                                                                        ['rest_photo'],
+                                                                        fit: BoxFit.cover,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 )
@@ -481,7 +488,7 @@ print(R);
                                                                 ),
                                                                 Container(
                                                                   margin: getMargin(
-                                                                      left: 25,top: 5),
+                                                                      left: 15,),
                                                                   child: Row(
                                                                     children: [
                                                                       Text(
@@ -556,8 +563,8 @@ print(R);
                                     return Align(
                                       alignment: Alignment.bottomLeft,
                                       child: SizedBox(
-                                        width: 800,
-                                        height: 270,
+                                        width: 760,
+                                        height: 275,
                                         child: GestureDetector(
                                           onTap: () {},
                                           child: Card(
@@ -566,7 +573,7 @@ print(R);
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:BorderRadius.circular(18)
                                             ),
-                                            margin: EdgeInsets.fromLTRB(0, 6.0, 5.0, 5.0),
+                                            margin: EdgeInsets.fromLTRB(0, 6.0, 10.0, 5.0),
                                             child: ListTile(
                                               title: Wrap(
                                                 children: [
@@ -579,12 +586,15 @@ print(R);
                                                               Align(
                                                                 alignment: Alignment.center,
                                                                 child: SizedBox(
-                                                                  height: 115,
-                                                                  width: 345,
-                                                                  child: Image.network
-                                                                    (
-                                                                      tab[index]['rest_photo'],
-                                                                    fit: BoxFit.cover,
+                                                                  height: 130,
+                                                                  width: 370,
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(15),
+                                                                    child: Image.network
+                                                                      (
+                                                                        tab[index]['rest_photo'],
+                                                                      fit: BoxFit.cover,
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               )
@@ -665,7 +675,7 @@ print(R);
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin: getMargin(top: 10),
+                                                          margin: getMargin(top: 4),
                                                           child: Row(
                                                             children: <Widget>[
                                                               Align(
