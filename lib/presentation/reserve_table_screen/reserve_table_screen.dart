@@ -24,6 +24,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
         top: false,
         bottom: false,
         child: Scaffold(
+          extendBody: true,
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
             body: Container(
@@ -349,7 +350,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                             left: 30, right: 167, bottom: 3),
                                         child: GestureDetector(
                                           onTap: () {
-                                            onTapPreORder();
+                                            onTapBottomPre_OrderButton();
                                           },
                                           child: Text(
                                             "lbl_pre_order2".tr,
@@ -396,45 +397,62 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                                                 .txtPoppinsMedium15Black900))
                                   ]))))
                     ])),
-            bottomNavigationBar: SizedBox(
-              height: 90.50,
-              width: 10,
-              child: GNav(
-                duration: Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                activeColor: Colors.white,
-                selectedIndex: 3,
-                tabs: [
-                  GButton(
-                    gap: 8,
-                    icon: Icons.home,
-                    text: "Home",
-                    onPressed: () {
-                      onTapBottomHomeButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.search,
-                    text: "Search",
-                    onPressed: () {
-                      onTapBottomSearchButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.access_time,
-                    text: "Pre-Order",
-                    onPressed: () => onTapPreORder(),
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.bookmark_border,
-                    text: "Reservation",
-                  ),
-                ],
-              ),
-            )));
+            // bottomNavigationBar:  Container(
+            //   margin: getMargin(left: 14,bottom: 15,right: 15),
+            //   padding: EdgeInsets.only(left: 10,right: 20),
+            //   decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(30),
+            //       boxShadow: [
+            //         BoxShadow(
+            //           color: Colors.grey,
+            //           blurRadius: 15.0, // soften the shadow
+            //           spreadRadius: 2.0, //extend the shadow
+            //           offset: Offset(
+            //             1.0, // Move to right 5  horizontally
+            //             4.0, // Move to bottom 5 Vertically
+            //           ),
+            //         ),
+            //       ]
+            //   ),
+            //   child: SizedBox(
+            //     height: 88,
+            //     child: GNav(
+            //       duration: Duration(milliseconds: 400),
+            //       tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+            //       activeColor: Colors.white,
+            //       //selectedIndex: _currentIndex,
+            //       haptic: true,
+            //       // backgroundColor: Colors.transparent,
+            //       tabs: [
+            //         GButton(
+            //           gap: 8,
+            //           icon: Icons.home,
+            //           text: "Home",
+            //
+            //           onPressed: () {
+            //             onTapBottomHomeButton();
+            //           },
+            //         ),
+            //         GButton(
+            //           gap: 8,
+            //           icon: Icons.search,
+            //           text: "Search",
+            //           onPressed: () {
+            //             onTapBottomSearchButton();
+            //           },
+            //         ),
+            //         GButton(
+            //           gap: 8,
+            //           icon: Icons.access_time,
+            //           text: "Pre-Order",
+            //           onPressed: () => onTapBottomPre_OrderButton(),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+    ));
   }
 
   onTapRowtable() {
@@ -457,7 +475,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
     Get.toNamed(AppRoutes.homeScreen);
   }
 
-  onTapPreORder() {
+  onTapBottomPre_OrderButton() {
     Get.toNamed(AppRoutes.orderpreScreen);
   }
 

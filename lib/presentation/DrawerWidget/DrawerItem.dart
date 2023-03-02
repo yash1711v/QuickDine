@@ -8,6 +8,8 @@ class DrawerItems {
       DrawerItem(title: 'Pre-Order', icon: Icons.add_shopping_cart_rounded);
   static const Offers =
       DrawerItem(title: 'Offers & Promos', icon: Icons.local_offer_rounded);
+  static const  reservation =
+  DrawerItem(title: 'Your Reservations', icon: Icons.food_bank_rounded);
   static const Logout = DrawerItem(title: 'Logout', icon: Icons.logout_rounded);
 
   static final List<DrawerItem> all = [
@@ -15,6 +17,7 @@ class DrawerItems {
     profile,
     Pre_Order,
     Offers,
+    reservation,
     Logout
   ];
 }

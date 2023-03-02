@@ -17,6 +17,7 @@ class _PayBillScreenState extends State<PayBillScreen> {
       top: false,
       bottom: false,
       child: Scaffold(
+        extendBody: true,
         backgroundColor: ColorConstant.whiteA700,
         body: Container(
           width: size.width,
