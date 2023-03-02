@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../Authentication/supabasecredential.dart';
+import '../../preferences/shp.dart';
 import '../../widgets/app_bar/appbar_dropdown.dart';
 import '../DrawerWidget/DrawerItem.dart';
 import '../DrawerWidget/DrawerWidget.dart';
@@ -28,6 +29,7 @@ class ExploreScreen extends StatefulWidget {
 class _ExploreScreenState extends State<ExploreScreen> {
   get controller => ExploreController();
   int _currentIndex = 1;
+  String resId="";
   final _tabStream = Supabase.instance.client
       .from('restaurant')
       .stream(primaryKey: ['id']).eq('isMember', true);
@@ -364,7 +366,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                     width: 200,
                                                     height: 1000,
                                                     child: GestureDetector(
-                                                      onTap: () {},
+                                                      onTap: () {onTapBottomReservationButton();
+                                                      setState(() {
+                                                        resId=tab[index]['id'];
+                                                      });
+                                                      shp().setresId(resId);},
                                                       child: Card(
                                                         color: Colors.white,
                                                         elevation: 5,
@@ -563,7 +569,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                             width: 760,
                                             height: 275,
                                             child: GestureDetector(
-                                              onTap: () {},
+                                              onTap: () {onTapBottomReservationButton();
+                                              setState(() {
+                                                resId=tab[index]['id'];
+                                              });
+                                              shp().setresId(resId);},
                                               child: Card(
                                                 color: Colors.white,
                                                 elevation: 5,

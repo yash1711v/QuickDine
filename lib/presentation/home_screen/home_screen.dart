@@ -500,7 +500,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               width: 200,
                                               height: 1000,
                                               child: GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  onTapBottomReservationButton();
+                                                  setState(() {
+                                                    resId=tab[index]['id'];
+                                                  });
+                                                  shp().setresId(resId);
+                                                },
                                                 child: Card(
                                                   color: Colors.white,
                                                   elevation: 5,
