@@ -412,6 +412,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                                   child: Image.network(
                                                                                     tab[index]['rest_photo'],
                                                                                     fit: BoxFit.cover,
+                                                                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                                                                      if (loadingProgress == null) { return child;}
+                                                                                      else{
+                                                                                        return Lottie.asset('assets2/123408-image-not-preview.json');
+                                                                                      }
+                                                                                    },
                                                                                   ),
                                                                                 ),
                                                                               ),
@@ -597,6 +603,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                         'rest_photo'],
                                                                     fit: BoxFit
                                                                         .cover,
+                                                                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                                                      if (loadingProgress == null) { return child;}
+                                                                      else{
+                                                                        return Lottie.asset('assets2/123408-image-not-preview.json');
+                                                                      }
+                                                                    },
                                                                   ),
                                                                 ),
                                                               ),

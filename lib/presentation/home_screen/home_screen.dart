@@ -538,11 +538,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               15),
-                                                                      child: Image
+                                                                         child: Image
                                                                           .network(
                                                                         tab[index]
                                                                             [
                                                                             'rest_photo'],
+                                                                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                                                           if (loadingProgress == null) { return child;}
+                                                                           else{
+                                                                             return Lottie.asset('assets2/123408-image-not-preview.json');
+                                                                           }
+                                                                        },
                                                                         fit: BoxFit
                                                                             .cover,
                                                                       ),
@@ -773,6 +779,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               tab[index][
                                                                   'rest_photo'],
                                                               fit: BoxFit.cover,
+                                                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                                                    if (loadingProgress == null) { return child;}
+                                                                    else{
+                                                                      return Lottie.asset('assets2/123408-image-not-preview.json');
+                                                                    }
+                                                                  },
                                                             ),
                                                           ),
                                                         ),
