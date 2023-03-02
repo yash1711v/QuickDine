@@ -25,10 +25,12 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
   String ResName="";
   String resAddress="";
   String resPhoto="";
+  String avgFile="";
   List? resList;
+  String catagories="";
   int i=0;
   List<Map<String, dynamic>> RestaurantList = [];
-
+String  avgprice="";
   void initState() {
     super.initState();
     readData();
@@ -55,11 +57,13 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
           ResName=RestaurantList[j]['rest_name'];
           resAddress=RestaurantList[j]['rest_address'];
           resPhoto=RestaurantList[j]['rest_photo'];
+          avgprice=RestaurantList[j]['avg_price_for_2people'].toString();
+          catagories=RestaurantList[j]['food_categries'].toString();
         });
       }
     }
     print("///////////////////////////");
-    print(ResName+"\n"+resAddress);
+    print(catagories);
     print("///////////////////////////");
   }
 
@@ -157,20 +161,27 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               ])),
                       Padding(
                           padding: getPadding(left: 32, top: 14),
-                          child: Text(ResName,
+                          child: Text(ResName.tr,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: AppStyle.txtPoppinsSemiBold20)),
                       Padding(
                           padding: getPadding(left: 32, top: 1),
-                          child: Text(resAddress,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtPoppinsRegular15Black9009b)),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 445-55,
+                                child: Text(resAddress.tr,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.left,
+                                    style: AppStyle.txtPoppinsRegular15Black9009b),
+                              ),
+                            ],
+                          ),),
                       Container(
                           width: getHorizontalSize(258.00),
                           margin: getMargin(left: 33, top: 1),
-                          child: Text("msg_2_000_for_2".tr,
+                          child: Text(" Rs: "+avgprice+" for 2 | ",
                               maxLines: null,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtPoppinsRegular11)),
