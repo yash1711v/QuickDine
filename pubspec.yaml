@@ -29,6 +29,9 @@ flutter:
   assets: 
     - assets/
     - assets/images/
+    - assets2/123408-image-not-preview.json
+    - assets2/featuredres.json
+    - assets2/ResNearYou.json
 
   fonts:
     - family: Poppins

@@ -7,6 +7,7 @@ class shp {
   String email = "";
   String Password = "";
   String Phone = "";
+  String restId = "";
   getUid() async {
     SharedPreferences shpui = await SharedPreferences.getInstance();
     Uid = shpui.getString("Uid")!;
@@ -16,6 +17,17 @@ class shp {
   setUid(String Id) async {
     SharedPreferences shpui = await SharedPreferences.getInstance();
     shpui.setString("Uid", Id);
+    // return Uid;
+  }
+  getresId() async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    restId = shpui.getString("resid")!;
+    return restId;
+  }
+
+  setresId(String resId) async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    shpui.setString("resid", resId);
     // return Uid;
   }
 

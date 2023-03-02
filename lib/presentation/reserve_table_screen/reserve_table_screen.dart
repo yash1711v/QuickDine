@@ -1,5 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:lottie/lottie.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../preferences/shp.dart';
 import 'controller/reserve_table_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -17,6 +21,47 @@ class ReserveTableScreen extends StatefulWidget {
 
 class _ReserveTableScreenState extends State<ReserveTableScreen> {
   get controller => ReserveTableController();
+  String resId="";
+  String ResName="";
+  String resAddress="";
+  String resPhoto="";
+  List? resList;
+  int i=0;
+  List<Map<String, dynamic>> RestaurantList = [];
+
+  void initState() {
+    super.initState();
+    readData();
+    checkidValue();
+  }
+  checkidValue() async {
+    String uid = await shp().getresId()?? "";
+    setState(() {
+      resId = uid;
+    });
+    print("----" + resId + "---------");
+  }
+  Future<void> readData() async {
+    var response2 =
+    await Supabase.instance.client.from('restaurant').select().execute();
+    resList = response2.data.toList();
+    resList!.forEach((element) {
+          RestaurantList.add(element);
+          i++;
+    });
+    for (int j = 0; j < i; j++) {
+      if (resId == RestaurantList[j]['id']) {
+        setState(() {
+          ResName=RestaurantList[j]['rest_name'];
+          resAddress=RestaurantList[j]['rest_address'];
+          resPhoto=RestaurantList[j]['rest_photo'];
+        });
+      }
+    }
+    print("///////////////////////////");
+    print(ResName+"\n"+resAddress);
+    print("///////////////////////////");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +78,14 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CustomImageView(
-                          imagePath: ImageConstant.imgRectangle11,
-                          height: getVerticalSize(313.00),
-                          width: getHorizontalSize(414.00),
-                          radius: BorderRadius.only(
-                              topLeft:
-                                  Radius.circular(getHorizontalSize(20.00)),
-                              topRight:
-                                  Radius.circular(getHorizontalSize(20.00)))),
+                      CachedNetworkImage(
+                        imageUrl: resPhoto,
+                        placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
+                        errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
+                            height: getVerticalSize(313.00),
+                            width: getHorizontalSize(414.00),
+                          fit: BoxFit.cover,
+                          ),
                       Container(
                           height: getVerticalSize(42.00),
                           width: getHorizontalSize(413.00),
@@ -113,13 +157,13 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
                               ])),
                       Padding(
                           padding: getPadding(left: 32, top: 14),
-                          child: Text("lbl_sagar_ratna".tr,
+                          child: Text(ResName,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: AppStyle.txtPoppinsSemiBold20)),
                       Padding(
                           padding: getPadding(left: 32, top: 1),
-                          child: Text("msg_the_lodhi_pragati".tr,
+                          child: Text(resAddress,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: AppStyle.txtPoppinsRegular15Black9009b)),

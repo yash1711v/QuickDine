@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
 import 'package:quickdine/Database/DatabaseServices.dart';
 import 'package:quickdine/preferences/shp.dart';
@@ -41,11 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
   get controller => HomeController();
   String id = "";
   List? myList;
-  List? resList;
   List<Map<String, dynamic>> userList = [];
-  List<Map<String, dynamic>> RestaurantList = [];
   int i = 0;
   int R = 0;
+  String resId="";
   void initState() {
     super.initState();
     readData();
@@ -55,13 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
   final _tabStream = Supabase.instance.client
       .from('restaurant')
       .stream(primaryKey: ['id']).eq('isMember', true);
+
+  //for restaurant near You
   final _tabStream2 = Supabase.instance.client.from('restaurant').stream(
       primaryKey: [
         'id'
       ]).eq("rest_address",
       '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
+
+  //for Best Offers
   final _tabStream3 =
       Supabase.instance.client.from('restaurant').stream(primaryKey: ['id']);
+
+  //for checking the data in Preferences
   checkidValue() async {
     String uid = await shp().getUid() ?? "";
     setState(() {
@@ -73,26 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> readData() async {
     var response =
         await Supabase.instance.client.from('user').select().execute();
-    var response2 =
-        await Supabase.instance.client.from('restaurant').select().execute();
+
     setState(() {
       myList = response.data.toList();
-      resList = response2.data.toList();
-      print('//////////////////////');
       myList!.forEach((element) {
         userList.add(element);
         i++;
       });
-      resList!.forEach((element) {
-        RestaurantList.add(element);
-        R++;
-      });
-      // print('//////////////////////');
-      print(R);
-      // print('...............');
-      // print(myList![1]);
-      // print(myList![0]["id"]);
-      // print('...............');
     });
     for (int j = 0; j < i; j++) {
       if (id == userList[j]['id']) {
@@ -301,8 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             stream: _tabStream3,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return Lottie.asset("assets2/featuredres.json");
                               }
                               final tab = snapshot.data!;
                               return Row(
@@ -355,8 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               margin: getMargin(
                                                                   top: 0),
                                                               child: Row(
-                                                                children: <
-                                                                    Widget>[
+                                                                children: <Widget>[
                                                                   Container(
                                                                     margin:
                                                                         getMargin(
@@ -486,8 +477,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             stream: _tabStream2,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return Lottie.asset("assets2/featuredres.json");
                               }
                               final tab = snapshot.data!;
                               return Row(
@@ -721,8 +711,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             stream: _tabStream,
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return Lottie.asset("assets2/featuredres.json");
                               }
                               final tab = snapshot.data!;
 
@@ -739,7 +728,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 760,
                                       height: 275,
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+
+                                          onTapBottomReservationButton();
+                                          setState(() {
+                                            resId=tab[index]['id'];
+                                          });
+                                          shp().setresId(resId);
+                                          print("/////////////////////////////////////////////////");
+                                          print(resId);
+                                          print("/////////////////////////////////////////////////");
+                                        },
                                         child: Card(
                                           color: Colors.white,
                                           elevation: 5,

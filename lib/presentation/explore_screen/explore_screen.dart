@@ -1,4 +1,5 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../Authentication/supabasecredential.dart';
@@ -339,8 +340,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   stream: _tabStream2,
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
+                                      return Lottie.asset("assets2/featuredres.json");
                                     }
                                     final tab = snapshot.data!;
                                     return Row(
@@ -540,8 +540,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   stream: _tabStream,
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
+                                      return Lottie.asset("assets2/featuredres.json");
                                     }
                                     final tab = snapshot.data!;
 
