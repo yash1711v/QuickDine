@@ -46,7 +46,7 @@ class CustomImageView extends StatelessWidget {
     this.radius,
     this.margin,
     this.border,
-    this.placeHolder = 'assets/images/image_not_found.png',
+    this.placeHolder = 'assets/images/img_image_not_found.png',
   });
 
   @override

@@ -132,7 +132,7 @@ class MyOrderItemWidget extends StatelessWidget {
                           child: Stack(
                             children: [
                               CustomImageView(
-                                svgPath: ImageConstant.imgCheckmark,
+                                svgPath: ImageConstant.iconMinus,
                                 height: getSize(
                                   11.00,
                                 ),

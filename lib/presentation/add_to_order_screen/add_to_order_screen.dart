@@ -161,56 +161,16 @@ class _AddToOrderScreeState extends State<AddToOrderScree> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Card(
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      elevation: 0,
-                                                      margin: getMargin(top: 2),
-                                                      color: ColorConstant
-                                                          .amber50042,
-                                                      shape: RoundedRectangleBorder(
-                                                          side: BorderSide(
-                                                              color:
-                                                                  ColorConstant
-                                                                      .amber500,
-                                                              width:
-                                                                  getHorizontalSize(
-                                                                      1.00)),
-                                                          borderRadius:
-                                                              BorderRadiusStyle
-                                                                  .roundedBorder5),
-                                                      child: Container(
-                                                          height:
-                                                              getVerticalSize(
-                                                                  56.00),
-                                                          width:
-                                                              getHorizontalSize(
-                                                                  59.00),
-                                                          padding: getPadding(
-                                                              left: 17,
-                                                              top: 16,
-                                                              right: 17,
-                                                              bottom: 16),
-                                                          decoration: AppDecoration
-                                                              .outlineAmber5004
-                                                              .copyWith(
-                                                                  borderRadius:
-                                                                      BorderRadiusStyle
-                                                                          .roundedBorder5),
-                                                          child:
-                                                              Stack(children: [
-                                                            CustomImageView(
-                                                                svgPath:
-                                                                    ImageConstant
-                                                                        .imgCheckmark,
-                                                                height: getSize(
-                                                                    24.00),
-                                                                width: getSize(
-                                                                    24.00),
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center)
-                                                          ]))),
+                                                  CustomIconButton(
+                                                      height: 58,
+                                                      width: 59,
+                                                      margin:
+                                                      getMargin(left: 35),
+                                                      shape: IconButtonShape
+                                                          .RoundedBorder5,
+                                                      child: CustomImageView(
+                                                          svgPath: ImageConstant
+                                                              .iconMinus)),
                                                   Padding(
                                                       padding: getPadding(
                                                           left: 29,

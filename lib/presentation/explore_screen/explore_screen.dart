@@ -382,7 +382,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        40)),
+                                                                        20)),
                                                         margin:
                                                             EdgeInsets.fromLTRB(
                                                                 5,
@@ -568,7 +568,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                         return Align(
                                           alignment: Alignment.bottomLeft,
                                           child: SizedBox(
-                                            width: 760,
+                                            width: 500,
                                             height: 275,
                                             child: GestureDetector(
                                               onTap: () {onTapBottomReservationButton();
@@ -602,7 +602,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                       .center,
                                                               child: SizedBox(
                                                                 height: 130,
-                                                                width: 370,
+                                                                width: 343,
                                                                 child:
                                                                     ClipRRect(
                                                                   borderRadius:

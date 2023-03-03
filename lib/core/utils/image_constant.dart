@@ -25,7 +25,7 @@ class ImageConstant {
 
   static String imgInfo = 'assets/images/img_info.svg';
 
-  static String img1078006719198053 = 'assets/images/img_1078006719198053.png';
+  static String img1078006719198053 = 'assets/images/img_gossip_illustration.png';
 
   static String imgVector = 'assets/images/img_vector.svg';
 
@@ -181,7 +181,7 @@ class ImageConstant {
 
   static String imgMail = 'assets/images/img_mail.svg';
 
-  static String img96761104219242 = 'assets/images/img_96761104219242.png';
+  static String img96761104219242 = 'assets/images/img_waiter_illustration.png';
 
   static String imgCallRed500 = 'assets/images/img_call_red_500.svg';
 
@@ -207,7 +207,7 @@ class ImageConstant {
 
   static String imgEllipse50 = 'assets/images/img_ellipse50.png';
 
-  static String imgCheckmark = 'assets/images/img_checkmark.svg';
+  static String iconMinus = 'assets/images/icon_minus.svg';
 
   static String imgStar40 = 'assets/images/img_star40.svg';
 
@@ -272,5 +272,5 @@ class ImageConstant {
 
   static String imgEllipse60 = 'assets/images/img_ellipse60.png';
 
-  static String imageNotFound = 'assets/images/image_not_found.png';
+  static String imageNotFound = 'assets/images/img_image_not_found.png';
 }

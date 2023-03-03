@@ -301,7 +301,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                 alignment: Alignment.center,
                                 children: [
                                   CustomImageView(
-                                    svgPath: ImageConstant.imgCheckmark,
+                                    svgPath: ImageConstant.iconMinus,
                                     height: getVerticalSize(
                                       20.00,
                                     ),
@@ -311,7 +311,7 @@ class _FrameNineScreenState extends State<FrameNineScreen> {
                                     alignment: Alignment.center,
                                   ),
                                   CustomImageView(
-                                    svgPath: ImageConstant.imgCheckmark,
+                                    svgPath: ImageConstant.iconMinus,
                                     height: getVerticalSize(
                                       20.00,
                                     ),

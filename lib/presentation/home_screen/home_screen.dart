@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> userList = [];
   int i = 0;
   int R = 0;
-  String resId="";
+  String resId = "";
   void initState() {
     super.initState();
     readData();
@@ -108,107 +108,101 @@ class _HomeScreenState extends State<HomeScreen> {
     //readData();
     //userList.toList(growable: true);
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: ColorConstant.whiteA700,
-        //Using this to Extend the Home Screen
-        extendBody: true,
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            centerTitle: true,
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(
-                    Icons.menu_rounded,
-                    color: Colors.black,
-                    size: 50, // Changing Drawer Icon Size
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                );
-              },
-            ),
-            title: AppbarDropdown(
-                hintText: "lbl_delhi".tr,
-                margin: getMargin(top: 10),
-                items: controller.homeModelObj.value.dropdownItemList,
-                onTap: (value) {
-                  controller.onSelected(value);
-                }),
-            actions: [
-              AppbarStack(
-                  margin: getMargin(left: 20, right: 20, top: 12),
-                  onTap: onTapProfileIcon)
-            ]),
-        body: Stack(
-          children: [
-            //buildDrawer(),
-            buildPAge(),
-          ],
-        ),
-        drawer: buildDrawer(),
-        bottomNavigationBar:
-              Container(
-                margin: getMargin(left: 14,bottom: 15,right: 15),
-                padding: EdgeInsets.only(left: 10,right: 20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 15.0, // soften the shadow
-                      spreadRadius: 2.0, //extend the shadow
-                      offset: Offset(
-                        1.0, // Move to right 5  horizontally
-                        4.0, // Move to bottom 5 Vertically
-                      ),
-                    ),
-                  ]
+      resizeToAvoidBottomInset: false,
+      backgroundColor: ColorConstant.whiteA700,
+      //Using this to Extend the Home Screen
+      extendBody: true,
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu_rounded,
+                  color: Colors.black,
+                  size: 50, // Changing Drawer Icon Size
                 ),
-                child: SizedBox(
-                  height: 88,
-                  child: GNav(
-                    duration: Duration(milliseconds: 400),
-                    tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                    activeColor: Colors.white,
-                    selectedIndex: _currentIndex,
-                    haptic: true,
-                    // backgroundColor: Colors.transparent,
-                    tabs: [
-                      GButton(
-                        gap: 8,
-                        icon: Icons.home,
-                        text: "Home",
-
-                        onPressed: () {
-                          onTapBottomHomeButton();
-                        },
-                      ),
-                      GButton(
-                        gap: 8,
-                        icon: Icons.search,
-                        text: "Search",
-                        onPressed: () {
-                          onTapBottomSearchButton();
-                        },
-                      ),
-                      GButton(
-                        gap: 8,
-                        icon: Icons.access_time,
-                        text: "Pre-Order",
-                        onPressed: () => onTapBottomPre_OrderButton(),
-                      ),
-                    ],
-                  ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
+          title: AppbarDropdown(
+              hintText: "lbl_delhi".tr,
+              margin: getMargin(top: 10),
+              items: controller.homeModelObj.value.dropdownItemList,
+              onTap: (value) {
+                controller.onSelected(value);
+              }),
+          actions: [
+            AppbarStack(
+                margin: getMargin(left: 20, right: 20, top: 12),
+                onTap: onTapProfileIcon)
+          ]),
+      body: Stack(
+        children: [
+          //buildDrawer(),
+          buildPAge(),
+        ],
+      ),
+      drawer: buildDrawer(),
+      bottomNavigationBar: Container(
+        margin: getMargin(left: 14, bottom: 15, right: 15),
+        padding: EdgeInsets.only(left: 10, right: 20),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 15.0, // soften the shadow
+                spreadRadius: 2.0, //extend the shadow
+                offset: Offset(
+                  1.0, // Move to right 5  horizontally
+                  4.0, // Move to bottom 5 Vertically
                 ),
               ),
-
-
+            ]),
+        child: SizedBox(
+          height: 88,
+          child: GNav(
+            duration: Duration(milliseconds: 400),
+            tabBackgroundColor: Colors.deepOrangeAccent.shade100,
+            activeColor: Colors.white,
+            selectedIndex: _currentIndex,
+            haptic: true,
+            // backgroundColor: Colors.transparent,
+            tabs: [
+              GButton(
+                gap: 8,
+                icon: Icons.home,
+                text: "Home",
+                onPressed: () {
+                  onTapBottomHomeButton();
+                },
+              ),
+              GButton(
+                gap: 8,
+                icon: Icons.search,
+                text: "Search",
+                onPressed: () {
+                  onTapBottomSearchButton();
+                },
+              ),
+              GButton(
+                gap: 8,
+                icon: Icons.access_time,
+                text: "Pre-Order",
+                onPressed: () => onTapBottomPre_OrderButton(),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -223,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return onTapPreORder();
             case DrawerItems.Offers:
               return onTapOffersandPromo();
-              case DrawerItems.reservation:
+            case DrawerItems.reservation:
               return onTapBottomReservationButton();
             case DrawerItems.Logout:
               return onTaplogout();
@@ -347,7 +341,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               margin: getMargin(
                                                                   top: 0),
                                                               child: Row(
-                                                                children: <Widget>[
+                                                                children: <
+                                                                    Widget>[
                                                                   Container(
                                                                     margin:
                                                                         getMargin(
@@ -503,21 +498,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 onTap: () {
                                                   onTapBottomReservationButton();
                                                   setState(() {
-                                                    resId=tab[index]['id'];
+                                                    resId = tab[index]['id'];
                                                   });
                                                   shp().setresId(resId);
                                                 },
                                                 child: Card(
                                                   color: Colors.white,
                                                   elevation: 5,
-                                                  //--------------------------------Neeche ke do comment hata dio Card ka background hatane ke liya or Uppr ka comment
-                                                  //kardio color and elevation kon
+                                                  // Neeche ke do comment hata dio Card ka background hatane ke liya or Uppr ka comment kardio color and elevation kon
                                                   // color: Colors.transparent,
                                                   // elevation: 0,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              40)),
+                                                              20)),
                                                   margin: EdgeInsets.fromLTRB(
                                                       5, 6.0, 5.0, 5.0),
                                                   child: ListTile(
@@ -544,16 +538,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       borderRadius:
                                                                           BorderRadius.circular(
                                                                               15),
-                                                                         child: Image
+                                                                      child: Image
                                                                           .network(
                                                                         tab[index]
                                                                             [
                                                                             'rest_photo'],
-                                                                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                                                           if (loadingProgress == null) { return child;}
-                                                                           else{
-                                                                             return Lottie.asset('assets2/123408-image-not-preview.json');
-                                                                           }
+                                                                        loadingBuilder: (BuildContext context,
+                                                                            Widget
+                                                                                child,
+                                                                            ImageChunkEvent?
+                                                                                loadingProgress) {
+                                                                          if (loadingProgress ==
+                                                                              null) {
+                                                                            return child;
+                                                                          } else {
+                                                                            return Lottie.asset('assets2/123408-image-not-preview.json');
+                                                                          }
                                                                         },
                                                                         fit: BoxFit
                                                                             .cover,
@@ -628,7 +628,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 ColorConstant.gray400,
                                                                             itemCount:
                                                                                 5,
-                                                                                ignoreGestures: true,
+                                                                            ignoreGestures:
+                                                                                true,
                                                                             updateOnDrag:
                                                                                 false,
                                                                             onRatingUpdate:
@@ -742,15 +743,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 275,
                                       child: GestureDetector(
                                         onTap: () {
-
                                           onTapBottomReservationButton();
                                           setState(() {
-                                            resId=tab[index]['id'];
+                                            resId = tab[index]['id'];
                                           });
                                           shp().setresId(resId);
-                                          print("/////////////////////////////////////////////////");
+                                          print(
+                                              "/////////////////////////////////////////////////");
                                           print(resId);
-                                          print("/////////////////////////////////////////////////");
+                                          print(
+                                              "/////////////////////////////////////////////////");
                                         },
                                         child: Card(
                                           color: Colors.white,
@@ -775,7 +777,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             Alignment.center,
                                                         child: SizedBox(
                                                           height: 130,
-                                                          width: 370,
+                                                          width: 342,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -786,12 +788,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               tab[index][
                                                                   'rest_photo'],
                                                               fit: BoxFit.cover,
-                                                                  loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                                                    if (loadingProgress == null) { return child;}
-                                                                    else{
-                                                                      return Lottie.asset('assets2/123408-image-not-preview.json');
-                                                                    }
-                                                                  },
+                                                              loadingBuilder:
+                                                                  (BuildContext
+                                                                          context,
+                                                                      Widget
+                                                                          child,
+                                                                      ImageChunkEvent?
+                                                                          loadingProgress) {
+                                                                if (loadingProgress ==
+                                                                    null) {
+                                                                  return child;
+                                                                } else {
+                                                                  return Lottie
+                                                                      .asset(
+                                                                          'assets2/123408-image-not-preview.json');
+                                                                }
+                                                              },
                                                             ),
                                                           ),
                                                         ),
@@ -859,7 +871,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             .gray400,
                                                                     itemCount:
                                                                         5,
-                                                                    ignoreGestures: true,
+                                                                    ignoreGestures:
+                                                                        true,
                                                                     updateOnDrag:
                                                                         false,
                                                                     onRatingUpdate:
@@ -889,7 +902,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           alignment: Alignment
                                                               .centerLeft,
                                                           child: SizedBox(
-                                                            width: 345,
+                                                            width: 340,
                                                             child: Text(
                                                               tab[index][
                                                                   'rest_address'],
@@ -1009,6 +1022,7 @@ class _HomeScreenState extends State<HomeScreen> {
   onTapBottomPre_OrderButton() {
     Get.toNamed(AppRoutes.orderpreScreen);
   }
+
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
