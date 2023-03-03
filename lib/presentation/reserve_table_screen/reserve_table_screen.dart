@@ -4,13 +4,14 @@ import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../preferences/shp.dart';
+import '../indicator/indicator.dart';
 import 'controller/reserve_table_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_drop_down.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
-
+import 'package:intl/intl.dart';
 // New Code
 class ReserveTableScreen extends StatefulWidget {
   const ReserveTableScreen({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class ReserveTableScreen extends StatefulWidget {
   State<ReserveTableScreen> createState() => _ReserveTableScreenState();
 }
 
-class _ReserveTableScreenState extends State<ReserveTableScreen> {
+class _ReserveTableScreenState extends State<ReserveTableScreen> with TickerProviderStateMixin{
   get controller => ReserveTableController();
   String resId="";
   String ResName="";
@@ -28,13 +29,20 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> {
   String avgFile="";
   List? resList;
   String catagories="";
+  String Rating="";
   int i=0;
+   late TabController _tabController;
   List<Map<String, dynamic>> RestaurantList = [];
+ late DateTime opentime;
+  late DateTime Clossingtime;
 String  avgprice="";
+  bool ontime=false;
+var time=DateTime.now();
   void initState() {
     super.initState();
     readData();
     checkidValue();
+    _tabController=TabController(length: 7, vsync: this);
   }
   checkidValue() async {
     String uid = await shp().getresId()?? "";
@@ -58,12 +66,16 @@ String  avgprice="";
           resAddress=RestaurantList[j]['rest_address'];
           resPhoto=RestaurantList[j]['rest_photo'];
           avgprice=RestaurantList[j]['avg_price_for_2people'].toString();
-          catagories=RestaurantList[j]['food_categries'].toString();
+          catagories=RestaurantList[j]['food_categries'];
+          Rating=RestaurantList[j]['avg_stars'].toString();
+         //  opentime=DateTime.parse(RestaurantList[j]['opening_time']);
+         // Clossingtime=DateTime.parse(RestaurantList[j]['closing_time']);
         });
       }
     }
     print("///////////////////////////");
-    print(catagories);
+    // print( opentime);
+    // print(ontime);
     print("///////////////////////////");
   }
 
@@ -76,382 +88,501 @@ String  avgprice="";
           extendBody: true,
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
-            body: Container(
-                width: size.width,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CachedNetworkImage(
-                        imageUrl: resPhoto,
-                        placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
-                        errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
-                            height: getVerticalSize(313.00),
-                            width: getHorizontalSize(414.00),
-                          fit: BoxFit.cover,
-                          ),
-                      Container(
-                          height: getVerticalSize(42.00),
-                          width: getHorizontalSize(413.00),
-                          margin: getMargin(left: 1),
-                          child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Container(
-                                        height: getVerticalSize(40.00),
-                                        width: getHorizontalSize(413.00),
-                                        decoration: BoxDecoration(
-                                            color: ColorConstant.blueGray100))),
-                                Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Padding(
-                                        padding: getPadding(
-                                            left: 33, top: 8, right: 26),
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              CustomTextFormField(
-                                                  width: 79,
-                                                  focusNode: FocusNode(),
-                                                  controller: controller
-                                                      .groupNinetyNineController,
-                                                  hintText: "lbl_overview".tr,
-                                                  variant: TextFormFieldVariant
-                                                      .UnderLineRed500,
-                                                  fontStyle:
-                                                      TextFormFieldFontStyle
-                                                          .PoppinsSemiBold15,
-                                                  textInputAction:
-                                                      TextInputAction.done),
-                                              Padding(
-                                                  padding: getPadding(
-                                                      left: 30, bottom: 10),
-                                                  child: Text("lbl_offers".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtPoppinsRegular15)),
-                                              Spacer(flex: 51),
-                                              Padding(
-                                                  padding:
-                                                      getPadding(bottom: 9),
-                                                  child: Text("lbl_menu".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtPoppinsRegular15)),
-                                              Spacer(flex: 48),
-                                              Padding(
-                                                  padding:
-                                                      getPadding(bottom: 10),
-                                                  child: Text("lbl_reviews".tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtPoppinsRegular15))
-                                            ])))
-                              ])),
-                      Padding(
-                          padding: getPadding(left: 32, top: 14),
-                          child: Text(ResName.tr,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: AppStyle.txtPoppinsSemiBold20)),
-                      Padding(
-                          padding: getPadding(left: 32, top: 1),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 445-55,
-                                child: Text(resAddress.tr,
-                                    overflow: TextOverflow.ellipsis,
+            body: SingleChildScrollView(
+              child: Container(
+                  width: size.width,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: resPhoto,
+                          placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
+                          errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
+                              height: getVerticalSize(313.00),
+                              width: getHorizontalSize(414.00),
+                            fit: BoxFit.cover,
+                            ),
+                        // Container(
+                        //     height: getVerticalSize(42.00),
+                        //     width: getHorizontalSize(413.00),
+                        //     margin: getMargin(left: 1),
+                        //     child: Stack(
+                        //         alignment: Alignment.bottomCenter,
+                        //         children: [
+                        //           Align(
+                        //               alignment: Alignment.topCenter,
+                        //               child: Container(
+                        //                   height: getVerticalSize(40.00),
+                        //                   width: getHorizontalSize(413.00),
+                        //                   decoration: BoxDecoration(
+                        //                       color: ColorConstant.blueGray100))),
+                        //           Align(
+                        //               alignment: Alignment.bottomCenter,
+                        //               child: Padding(
+                        //                   padding: getPadding(
+                        //                       left: 33, top: 8, right: 26),
+                        //                   child: Row(
+                        //                       mainAxisAlignment:
+                        //                           MainAxisAlignment.center,
+                        //                       crossAxisAlignment:
+                        //                           CrossAxisAlignment.start,
+                        //                       children: [
+                        //                         CustomTextFormField(
+                        //                             width: 79,
+                        //                             focusNode: FocusNode(),
+                        //                             controller: controller
+                        //                                 .groupNinetyNineController,
+                        //                             hintText: "lbl_overview".tr,
+                        //                             variant: TextFormFieldVariant
+                        //                                 .UnderLineRed500,
+                        //                             fontStyle:
+                        //                                 TextFormFieldFontStyle
+                        //                                     .PoppinsSemiBold15,
+                        //                             textInputAction:
+                        //                                 TextInputAction.done),
+                        //                         Padding(
+                        //                             padding: getPadding(
+                        //                                 left: 30, bottom: 10),
+                        //                             child: Text("lbl_offers".tr,
+                        //                                 overflow:
+                        //                                     TextOverflow.ellipsis,
+                        //                                 textAlign: TextAlign.left,
+                        //                                 style: AppStyle
+                        //                                     .txtPoppinsRegular15)),
+                        //                         Spacer(flex: 51),
+                        //                         Padding(
+                        //                             padding:
+                        //                                 getPadding(bottom: 9),
+                        //                             child: Text("lbl_menu".tr,
+                        //                                 overflow:
+                        //                                     TextOverflow.ellipsis,
+                        //                                 textAlign: TextAlign.left,
+                        //                                 style: AppStyle
+                        //                                     .txtPoppinsRegular15)),
+                        //                         Spacer(flex: 48),
+                        //                         Padding(
+                        //                             padding:
+                        //                                 getPadding(bottom: 10),
+                        //                             child: Text("lbl_reviews".tr,
+                        //                                 overflow:
+                        //                                     TextOverflow.ellipsis,
+                        //                                 textAlign: TextAlign.left,
+                        //                                 style: AppStyle
+                        //                                     .txtPoppinsRegular15))
+                        //                       ])))
+                        //         ])),
+                        Padding(
+                            padding: getPadding(left: 32, top: 14),
+                            child: Text(ResName.tr,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: AppStyle.txtPoppinsSemiBold20)),
+                        Padding(
+                            padding: getPadding(left: 25, top: 1),
+                            child:  Container(
+                                width: getHorizontalSize(350.00),
+                                margin: getMargin(left: 10, top: 1),
+                                child: Text(resAddress,
+                                    maxLines: null,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle.txtPoppinsRegular15Black9009b),
-                              ),
-                            ],
-                          ),),
-                      Container(
-                          width: getHorizontalSize(258.00),
-                          margin: getMargin(left: 33, top: 1),
-                          child: Text(" Rs: "+avgprice+" for 2 | ",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtPoppinsRegular11)),
-                      Padding(
-                          padding: getPadding(left: 37, top: 8),
-                          child: Row(children: [
-                            CustomImageView(
-                                svgPath: ImageConstant.imgClockRed500,
-                                height: getSize(20.00),
-                                width: getSize(20.00),
-                                margin: getMargin(top: 2, bottom: 2)),
-                            Padding(
-                                padding: getPadding(left: 5, top: 2),
-                                child: Text("lbl_now_open".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtPoppinsRegular15Red500)),
-                            Container(
-                                height: getSize(3.00),
-                                width: getSize(3.00),
-                                margin: getMargin(left: 6, top: 9, bottom: 12),
-                                decoration: BoxDecoration(
-                                    color: ColorConstant.black900,
-                                    borderRadius: BorderRadius.circular(
-                                        getHorizontalSize(1.00)))),
-                            CustomDropDown(
-                                width: 165,
-                                focusNode: FocusNode(),
-                                icon: Container(
-                                    margin: getMargin(left: 10),
-                                    child: CustomImageView(
-                                        svgPath: ImageConstant.imgArrowdown)),
-                                hintText: "msg_closes_at_10_00".tr,
-                                margin: getMargin(left: 6),
-                                variant: DropDownVariant.None,
-                                items: controller.reserveTableModelObj.value
-                                    .dropdownItemList,
-                                onChanged: (value) {
-                                  controller.onSelected(value);
-                                })
-                          ])),
-                      Align(
-                          alignment: Alignment.center,
-                          child: GestureDetector(
-                              onTap: () {
-                                onTapRowtable();
-                              },
-                              child: Container(
-                                  margin:
-                                      getMargin(left: 37, top: 26, right: 35),
-                                  padding: getPadding(
-                                      left: 18, top: 16, right: 18, bottom: 16),
-                                  decoration: AppDecoration.outlineBlack900071
-                                      .copyWith(
-                                          borderRadius: BorderRadiusStyle
-                                              .roundedBorder10),
-                                  child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        CustomImageView(
-                                            imagePath: ImageConstant.imgTable,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin: getMargin(bottom: 5)),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 30,
-                                                right: 156,
-                                                bottom: 3),
-                                            child: Text("lbl_reserve_table".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsRegular15))
-                                      ])))),
-                      Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                              height: getVerticalSize(59.00),
-                              width: getHorizontalSize(341.00),
-                              margin: getMargin(top: 10),
-                              child:
-                                  Stack(alignment: Alignment.center, children: [
-                                CustomImageView(
-                                    imagePath: ImageConstant.imgPayicon,
-                                    height: getVerticalSize(24.00),
-                                    width: getHorizontalSize(23.00),
-                                    alignment: Alignment.topLeft,
-                                    margin: getMargin(left: 14, top: 15)),
-                                Align(
-                                    alignment: Alignment.center,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          onTapStackpaybilltextview();
-                                        },
-                                        child: Card(
-                                            clipBehavior: Clip.antiAlias,
-                                            elevation: 0,
-                                            margin: EdgeInsets.all(0),
-                                            color: ColorConstant.amber50035,
-                                            shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                    color:
-                                                        ColorConstant.amber500,
-                                                    width: getHorizontalSize(
-                                                        1.00)),
-                                                borderRadius: BorderRadiusStyle
-                                                    .roundedBorder10),
-                                            child: Container(
-                                                height: getVerticalSize(59.00),
-                                                width:
-                                                    getHorizontalSize(341.00),
-                                                padding: getPadding(
-                                                    left: 21,
-                                                    top: 3,
-                                                    right: 21,
-                                                    bottom: 3),
-                                                decoration: AppDecoration
-                                                    .outlineAmber5002
-                                                    .copyWith(
-                                                        borderRadius:
-                                                            BorderRadiusStyle
-                                                                .roundedBorder10),
-                                                child: Stack(
-                                                    alignment:
-                                                        Alignment.bottomLeft,
-                                                    children: [
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .topLeft,
-                                                          child: Padding(
-                                                              padding:
-                                                                  getPadding(
-                                                                      left: 46,
-                                                                      top: 10),
-                                                              child: Text(
-                                                                  "lbl_pay_bill"
-                                                                      .tr,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style: AppStyle
-                                                                      .txtPoppinsRegular15))),
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .bottomLeft,
-                                                          child: Padding(
-                                                              padding:
-                                                                  getPadding(
-                                                                      left: 45),
-                                                              child: Text(
-                                                                  "msg_save_extra_10"
-                                                                      .tr,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style: AppStyle
-                                                                      .txtPoppinsRegular12Black9009b))),
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          child: Container(
-                                                              width:
-                                                                  getHorizontalSize(
-                                                                      77.00),
-                                                              margin: getMargin(
-                                                                  top: 8),
-                                                              padding:
-                                                                  getPadding(
-                                                                      left: 6,
-                                                                      top: 1,
-                                                                      right: 6,
-                                                                      bottom:
-                                                                          1),
-                                                              decoration: AppDecoration
-                                                                  .txtFillAmber500
-                                                                  .copyWith(
-                                                                      borderRadius:
-                                                                          BorderRadiusStyle
-                                                                              .txtRoundedBorder5),
-                                                              child: Text(
-                                                                  "lbl_flat_30_off2"
-                                                                      .tr,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .left,
-                                                                  style: AppStyle
-                                                                      .txtPoppinsMedium12)))
-                                                    ])))))
-                              ]))),
-                      Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                              margin: getMargin(left: 37, top: 10, right: 35),
-                              padding: getPadding(
-                                  left: 25, top: 16, right: 25, bottom: 16),
-                              decoration: AppDecoration.outlineBlack900071
-                                  .copyWith(
-                                      borderRadius:
-                                          BorderRadiusStyle.roundedBorder10),
+                                    style: AppStyle.txtPoppinsRegular11)),),
+                        Container(
+                            width: getHorizontalSize(350.00),
+                            margin: getMargin(left: 33, top: 9),
+                            child: Text(" Rs: "+avgprice+" for 2 | "+" "+catagories,
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtPoppinsRegular11)),
+                        Padding(
+                          padding: getPadding(left: 25, top: 1),
+                          child:  Container(
+                              width: getHorizontalSize(350.00),
+                              margin: getMargin(left: 10, top: 7),
                               child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomImageView(
-                                        imagePath: ImageConstant.imgVeganfood,
-                                        height: getSize(20.00),
-                                        width: getSize(20.00),
-                                        margin: getMargin(bottom: 5)),
-                                    Padding(
-                                        padding: getPadding(
-                                            left: 30, right: 167, bottom: 3),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            onTapBottomPre_OrderButton();
-                                          },
-                                          child: Text(
-                                            "lbl_pre_order2".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle.txtPoppinsRegular15,
-                                          ),
-                                        ))
-                                  ]))),
-                      Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                              onTap: () {
-                                onTapRowcallmale();
-                              },
-                              child: Container(
-                                  margin: getMargin(
-                                      left: 262,
-                                      top: 47,
-                                      right: 37 - 2.3,
-                                      bottom: 2),
-                                  padding: getPadding(
-                                      left: 11, top: 7, right: 11, bottom: 10),
-                                  decoration: AppDecoration.outlineGreen5001
-                                      .copyWith(
-                                          borderRadius: BorderRadiusStyle
-                                              .roundedBorder51),
-                                  child: Row(children: [
-                                    CustomImageView(
-                                      imagePath: ImageConstant.imgCallmale,
-                                      height: getSize(40.00),
-                                      width: getSize(40.00),
+                                children: [
+
+                                  Container(
+                                    child: Text(Rating,
                                     ),
-                                    Padding(
-                                        padding: getPadding(
-                                            left: 9,
-                                            top: 4,
-                                            right: 1,
-                                            bottom: 3),
-                                        child: Text("lbl_waiter".tr,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.left,
-                                            style: AppStyle
-                                                .txtPoppinsMedium15Black900))
-                                  ]))))
-                    ])),
+                                  ),
+                                  Container(
+                                    margin: getMargin(left: 5,bottom: 3),
+                                    child: Icon(
+                                            Icons.star_rate_rounded,
+                                            color: Colors.orange,
+                                          ),
+                                  ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: getPadding(left: 5, top: 2),
+                                              child: Text(" | ",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle.txtPoppinsRegular15Red500)),
+                                          Container(
+                                            margin:getMargin(left: 10),
+                                            child: CustomImageView(
+                                                svgPath: ImageConstant.imgClockRed500,
+                                                height: getSize(20.00),
+                                                width: getSize(20.00),
+                                                margin: getMargin(top: 2, bottom: 2)),
+                                          ),
+
+                                          Padding(
+                                              padding: getPadding(left: 5, top: 2),
+                                              child: Text("lbl_now_open".tr,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle.txtPoppinsRegular15Red500))
+                                        ],
+                                      ),
+                                    )
+                                ],
+                              )),),
+
+                            Container(
+                              margin: getMargin(top: 10),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: TabBar(
+                                  controller: _tabController,
+                                isScrollable: true ,
+                                labelPadding: EdgeInsets.only(left: 20,right: 20),
+                                labelColor: Colors.black,
+                                  unselectedLabelColor: Colors.grey,
+                                  indicator:  CircleTabIndicator(color: Colors.black, radius: 3),
+                                  tabs: [
+                                      Tab(text: 'North Indian'),
+                                      Tab(text: 'South Indian'),
+                                      Tab(text: 'Chines'),
+                                      Tab(text: 'Italian'),
+                                      Tab(text: 'Korean'),
+                                      Tab(text: 'Bevarages'),
+                                      Tab(text: 'Breads'),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        Container(
+                          width: double.maxFinite,
+                              height: 300,
+                              child: TabBarView(
+                                controller: _tabController,
+                                children: [
+                                  Text("hii"),
+                                  Text("heloo"),
+                                  Text("yupiie"),
+                                  Text("Yoo"),
+                                  Text("Buddy"),
+                                  Text("I am Yash"),
+                                  Text("Funny"),
+                                ],
+                              ),
+                        ),
+//-------------------------------------------------------------------------Reserve table--------------------------------------------------------------------------------------------------------------
+                        // Padding(
+                        //     padding: getPadding(left: 37, top: 8),
+                        //     child: Row(children: [
+                        //       CustomImageView(
+                        //           svgPath: ImageConstant.imgClockRed500,
+                        //           height: getSize(20.00),
+                        //           width: getSize(20.00),
+                        //           margin: getMargin(top: 2, bottom: 2)),
+                        //       Padding(
+                        //           padding: getPadding(left: 5, top: 2),
+                        //           child: Text("lbl_now_open".tr,
+                        //               overflow: TextOverflow.ellipsis,
+                        //               textAlign: TextAlign.left,
+                        //               style: AppStyle.txtPoppinsRegular15Red500)),
+                        //       // Container(
+                        //       //     height: getSize(3.00),
+                        //       //     width: getSize(3.00),
+                        //       //     margin: getMargin(left: 6, top: 9, bottom: 12),
+                        //       //     decoration: BoxDecoration(
+                        //       //         color: ColorConstant.black900,
+                        //       //         borderRadius: BorderRadius.circular(
+                        //       //             getHorizontalSize(1.00)))),
+                        //       // CustomDropDown(
+                        //       //     width: 165,
+                        //       //     focusNode: FocusNode(),
+                        //       //     icon: Container(
+                        //       //         margin: getMargin(left: 10),
+                        //       //         child: CustomImageView(
+                        //       //             svgPath: ImageConstant.imgArrowdown)),
+                        //       //     hintText: "msg_closes_at_10_00".tr,
+                        //       //     margin: getMargin(left: 6),
+                        //       //     variant: DropDownVariant.None,
+                        //       //     items: controller.reserveTableModelObj.value
+                        //       //         .dropdownItemList,
+                        //       //     onChanged: (value) {
+                        //       //       controller.onSelected(value);
+                        //       //     })
+                        //     ])),
+                        // Align(
+                        //     alignment: Alignment.center,
+                        //     child: GestureDetector(
+                        //         onTap: () {
+                        //           onTapRowtable();
+                        //         },
+                        //         child: Container(
+                        //             margin:
+                        //                 getMargin(left: 37, top: 26, right: 35),
+                        //             padding: getPadding(
+                        //                 left: 18, top: 16, right: 18, bottom: 16),
+                        //             decoration: AppDecoration.outlineBlack900071
+                        //                 .copyWith(
+                        //                     borderRadius: BorderRadiusStyle
+                        //                         .roundedBorder10),
+                        //             child: Row(
+                        //                 crossAxisAlignment:
+                        //                     CrossAxisAlignment.start,
+                        //                 children: [
+                        //                   CustomImageView(
+                        //                       imagePath: ImageConstant.imgTable,
+                        //                       height: getSize(20.00),
+                        //                       width: getSize(20.00),
+                        //                       margin: getMargin(bottom: 5)),
+                        //                   Padding(
+                        //                       padding: getPadding(
+                        //                           left: 30,
+                        //                           right: 156,
+                        //                           bottom: 3),
+                        //                       child: Text("lbl_reserve_table".tr,
+                        //                           overflow: TextOverflow.ellipsis,
+                        //                           textAlign: TextAlign.left,
+                        //                           style: AppStyle
+                        //                               .txtPoppinsRegular15))
+                        //                 ])))),
+
+
+                        //---------------------------------------------------------------PayBill----------------------------------------------------------------------
+                        // Align(
+                        //     alignment: Alignment.center,
+                        //     child: Container(
+                        //         height: getVerticalSize(59.00),
+                        //         width: getHorizontalSize(341.00),
+                        //         margin: getMargin(top: 10),
+                        //         child:
+                        //             Stack(alignment: Alignment.center, children: [
+                        //              CustomImageView(
+                        //               imagePath: ImageConstant.imgPayicon,
+                        //               height: getVerticalSize(24.00),
+                        //               width: getHorizontalSize(23.00),
+                        //               alignment: Alignment.topLeft,
+                        //               margin: getMargin(left: 14, top: 15)),
+                        //                Align(
+                        //                 alignment: Alignment.center,
+                        //                 child: GestureDetector(
+                        //                   onTap: () {
+                        //                     //onTapStackpaybilltextview();
+                        //                   },
+                        //                   child: Card(
+                        //                       clipBehavior: Clip.antiAlias,
+                        //                       elevation: 0,
+                        //                       margin: EdgeInsets.all(0),
+                        //                       color: ColorConstant.amber50035,
+                        //                       shape: RoundedRectangleBorder(
+                        //                           side: BorderSide(
+                        //                               color:
+                        //                                   ColorConstant.amber500,
+                        //                               width: getHorizontalSize(
+                        //                                   1.00)),
+                        //                           borderRadius: BorderRadiusStyle
+                        //                               .roundedBorder10),
+                        //                       child: Container(
+                        //                           height: getVerticalSize(59.00),
+                        //                           width:
+                        //                               getHorizontalSize(341.00),
+                        //                           padding: getPadding(
+                        //                               left: 21,
+                        //                               top: 3,
+                        //                               right: 21,
+                        //                               bottom: 3),
+                        //                           decoration: AppDecoration
+                        //                               .outlineAmber5002
+                        //                               .copyWith(
+                        //                                   borderRadius:
+                        //                                       BorderRadiusStyle
+                        //                                           .roundedBorder10),
+                        //                           child: Stack(
+                        //                               alignment:
+                        //                                   Alignment.bottomLeft,
+                        //                               children: [
+                        //                                 Align(
+                        //                                     alignment: Alignment
+                        //                                         .topLeft,
+                        //                                     child: Padding(
+                        //                                         padding:
+                        //                                             getPadding(
+                        //                                                 left: 46,
+                        //                                                 top: 10),
+                        //                                         child: Text(
+                        //                                             "lbl_pay_bill"
+                        //                                                 .tr,
+                        //                                             overflow:
+                        //                                                 TextOverflow
+                        //                                                     .ellipsis,
+                        //                                             textAlign:
+                        //                                                 TextAlign
+                        //                                                     .left,
+                        //                                             style: AppStyle
+                        //                                                 .txtPoppinsRegular15))),
+                        //                                 Align(
+                        //                                     alignment: Alignment
+                        //                                         .bottomLeft,
+                        //                                     child: Padding(
+                        //                                         padding:
+                        //                                             getPadding(
+                        //                                                 left: 45),
+                        //                                         child: Text(
+                        //                                             "msg_save_extra_10"
+                        //                                                 .tr,
+                        //                                             overflow:
+                        //                                                 TextOverflow
+                        //                                                     .ellipsis,
+                        //                                             textAlign:
+                        //                                                 TextAlign
+                        //                                                     .left,
+                        //                                             style: AppStyle
+                        //                                                 .txtPoppinsRegular12Black9009b))),
+                        //                                 Align(
+                        //                                     alignment: Alignment
+                        //                                         .topRight,
+                        //                                     child: Container(
+                        //                                         width:
+                        //                                             getHorizontalSize(
+                        //                                                 77.00),
+                        //                                         margin: getMargin(
+                        //                                             top: 8),
+                        //                                         padding:
+                        //                                             getPadding(
+                        //                                                 left: 6,
+                        //                                                 top: 1,
+                        //                                                 right: 6,
+                        //                                                 bottom:
+                        //                                                     1),
+                        //                                         decoration: AppDecoration
+                        //                                             .txtFillAmber500
+                        //                                             .copyWith(
+                        //                                                 borderRadius:
+                        //                                                     BorderRadiusStyle
+                        //                                                         .txtRoundedBorder5),
+                        //                                         child: Text(
+                        //                                             "lbl_flat_30_off2"
+                        //                                                 .tr,
+                        //                                             overflow:
+                        //                                                 TextOverflow
+                        //                                                     .ellipsis,
+                        //                                             textAlign:
+                        //                                                 TextAlign
+                        //                                                     .left,
+                        //                                             style: AppStyle
+                        //                                                 .txtPoppinsMedium12)))
+                        //                               ])))))
+                        //         ]))),
+                        // Align(
+                        //     alignment: Alignment.center,
+                        //     child: Container(
+                        //         margin: getMargin(left: 37, top: 10, right: 35),
+                        //         padding: getPadding(
+                        //             left: 25, top: 16, right: 25, bottom: 16),
+                        //         decoration: AppDecoration.outlineBlack900071
+                        //             .copyWith(
+                        //                 borderRadius:
+                        //                     BorderRadiusStyle.roundedBorder10),
+                        //         child: Row(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: [
+                        //               CustomImageView(
+                        //                   imagePath: ImageConstant.imgVeganfood,
+                        //                   height: getSize(20.00),
+                        //                   width: getSize(20.00),
+                        //                   margin: getMargin(bottom: 5)),
+                        //               Padding(
+                        //                   padding: getPadding(
+                        //                       left: 30, right: 167, bottom: 3),
+                        //                   child: GestureDetector(
+                        //                     onTap: () {
+                        //                       //onTapBottomPre_OrderButton();
+                        //                     },
+                        //                     child: Text(
+                        //                       "lbl_pre_order2".tr,
+                        //                       overflow: TextOverflow.ellipsis,
+                        //                       textAlign: TextAlign.left,
+                        //                       style: AppStyle.txtPoppinsRegular15,
+                        //                     ),
+                        //                   ))
+                        //             ]))),
+                       //---------------------------------------------- Floating Action Button-------------------------------------------------------------
+
+
+
+                        // Align(
+                        //     alignment: Alignment.centerRight,
+                        //     child: GestureDetector(
+                        //         onTap: () {
+                        //           onTapRowcallmale();
+                        //         },
+                        //         child: Container(
+                        //             margin: getMargin(
+                        //                 left: 262,
+                        //                 top: 47,
+                        //                 right: 37 - 2.3,
+                        //                 bottom: 2),
+                        //             padding: getPadding(
+                        //                 left: 11, top: 7, right: 11, bottom: 10),
+                        //             decoration: AppDecoration.outlineGreen5001
+                        //                 .copyWith(
+                        //                     borderRadius: BorderRadiusStyle
+                        //                         .roundedBorder51),
+                        //             child: Row(children: [
+                        //               CustomImageView(
+                        //                 imagePath: ImageConstant.imgCallmale,
+                        //                 height: getSize(40.00),
+                        //                 width: getSize(40.00),
+                        //               ),
+                        //               Padding(
+                        //                   padding: getPadding(
+                        //                       left: 9,
+                        //                       top: 4,
+                        //                       right: 1,
+                        //                       bottom: 3),
+                        //                   child: Text("lbl_waiter".tr,
+                        //                       overflow: TextOverflow.ellipsis,
+                        //                       textAlign: TextAlign.left,
+                        //                       style: AppStyle
+                        //                           .txtPoppinsMedium15Black900))
+                        //             ]))))
+                      ]
+                  )
+              ),
+            ),
+            floatingActionButton:  Container(
+              width: 100,
+              height: 70,
+              margin: getMargin(right: 10,bottom: 20),
+              child: FloatingActionButton(
+                onPressed: (){},
+                backgroundColor: Colors.yellow.shade700,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(100))
+                ),
+                child: Container(
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: getMargin(left: 15),
+                        child: Lottie.asset("assets2/Shopping.json",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             // bottomNavigationBar:  Container(
             //   margin: getMargin(left: 14,bottom: 15,right: 15),
             //   padding: EdgeInsets.only(left: 10,right: 20),
@@ -537,7 +668,79 @@ String  avgprice="";
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
-}
+
+ // Widget _bottomButtons() {
+ //     return _tabController.index==0?FloatingActionButton(
+ //         shape: StadiumBorder(),
+ //         onPressed: null,
+ //         backgroundColor: Colors.redAccent,
+ //         child: Icon(
+ //           Icons.message,
+ //           size: 20.0,
+ //         ))
+ //         : FloatingActionButton(
+ //       shape: StadiumBorder(),
+ //       onPressed: null,
+ //       backgroundColor: Colors.redAccent,
+ //       child: Icon(
+ //         Icons.edit,
+ //         size: 20.0,
+ //       ),
+ //     );
+   // FloatingActionButton(
+    //   onPressed: (){},
+    //   backgroundColor: Colors.orange.shade900,
+    //   shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.all(Radius.circular(30))
+    //   ),
+    //   child: Container(
+    //     child: Row(
+    //       children: [
+    //         Container(
+    //           margin: getMargin(left: 20),
+    //           child: Icon(Icons.shopping_cart,
+    //             size: 35,),
+    //         ),
+    //         Container(
+    //             margin: getMargin(left: 10),
+    //             child: Text("Menu",
+    //               style: TextStyle(
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: 21
+    //               ),
+    //             )
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // ):FloatingActionButton(
+    //   onPressed: (){},
+    //   backgroundColor: Colors.orange.shade900,
+    //   shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.all(Radius.circular(30))
+    //   ),
+    //   child: Container(
+    //     child: Row(
+    //       children: [
+    //         Container(
+    //           margin: getMargin(left: 20),
+    //           child: Icon(Icons.shopping_cart,
+    //             size: 35,),
+    //         ),
+    //         Container(
+    //             margin: getMargin(left: 10),
+    //             child: Text("Menu",
+    //               style: TextStyle(
+    //                   fontWeight: FontWeight.bold,
+    //                   fontSize: 21
+    //               ),
+    //             )
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+ }
 
 //Old Code
 // class ReserveTableScreen extends GetWidget<ReserveTableController> {
