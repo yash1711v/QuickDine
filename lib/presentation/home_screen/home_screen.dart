@@ -235,12 +235,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                            padding: getPadding(left: 7),
-                            child: Text("msg_quickk_dine_fun".tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: AppStyle.txtPoppinsMedium20)),
                         CustomSearchView(
                           width: 343,
                           focusNode: FocusNode(),

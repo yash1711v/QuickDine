@@ -1,13 +1,13 @@
-
-
 import '../../Database/DatabaseServices.dart';
 import '../../preferences/shp.dart';
 import 'controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
-import 'package:quickdine/core/utils/validation_functions.dart';
 import 'package:quickdine/widgets/custom_button.dart';
-import 'package:quickdine/widgets/custom_text_form_field.dart';
+import 'package:supabase/supabase.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'dart:io';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -78,6 +78,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String Email = "";
   String pass = "";
 
+  static String supabaseURL = "https://omadswcnxjdbrufimbwy.supabase.co";
+  static String supabaseKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tYWRzd2NueGpkYnJ1ZmltYnd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY2NjIxMzQsImV4cCI6MTk5MjIzODEzNH0.qq-CgehJSfyr0KKZQFRKSHAAkKDXB2ezFnRTq5SQ904";
+
+  final SupabaseClient client = SupabaseClient(supabaseURL, supabaseKey);
+  bool uploadState = true;
+  String publicUrl = "";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -113,23 +121,93 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: AppStyle.txtPoppinsSemiBold20,
                         ),
                       ),
-                      CustomImageView(
-                        imagePath: ImageConstant.imgEllipse60,
-                        height: getSize(
-                          124.00,
-                        ),
-                        width: getSize(
-                          124.00,
-                        ),
-                        radius: BorderRadius.circular(
-                          getHorizontalSize(
-                            62.00,
-                          ),
-                        ),
-                        margin: getMargin(
-                          top: 13,
-                        ),
-                      ),
+
+                      GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              uploadState = false;
+                            });
+
+                            // Code for uploading photo to Supabase Storage
+                            final pickedFile = await ImagePicker()
+                                .getImage(source: ImageSource.gallery);
+                            if (pickedFile != null) {
+                              final file = File(pickedFile.path);
+                              String fileName = basename(pickedFile.path);
+                              await client.storage
+                                  .from('user-photos')
+                                  .upload(fileName,
+                                      file)
+                                  .then((value) {
+                                setState(() {
+                                  uploadState = true;
+                                });
+                              });
+
+                              // Code for getting Download URL of uploaded image
+                              setState(() {
+                                publicUrl = client.storage
+                                    .from('user-photos')
+                                    .getPublicUrl(fileName);
+                              });
+                            }
+                            uploadState
+                                ? Text("Upload Complete")
+                                : CircularProgressIndicator();
+                          },
+                          child: Image.network(publicUrl)),
+
+                      // CustomImageView(
+                      //   imagePath: ImageConstant.imgEllipse60,
+                      //   height: getSize(
+                      //     124.00,
+                      //   ),
+                      //   width: getSize(
+                      //     124.00,
+                      //   ),
+                      //   radius: BorderRadius.circular(
+                      //     getHorizontalSize(
+                      //       62.00,
+                      //     ),
+                      //   ),
+                      //   margin: getMargin(
+                      //     top: 13,
+                      //   ),
+                      //   onTap: () async {
+                      //     setState(() {
+                      //       uploadState = false;
+                      //     });
+                      //     final pickedFile =
+                      //         await ImagePicker().getImage(source: ImageSource.gallery);
+                      //     if (pickedFile != null) {
+                      //       final file = File(pickedFile.path);
+                      //       String fileName = basename(pickedFile.path);
+                      //       await client.storage
+                      //           .from('user-photos')
+                      //           .upload(id + '_' + firstName + '_' + lastName, file)
+                      //           .then((value) {
+                      //         print('value -- ' + value);
+                      //         setState(() {
+                      //           uploadState = true;
+                      //         });
+                      //       });
+                      //       print('filename -- ' + fileName);
+                      //       publicUrl = client.storage
+                      //           .from('restaurant-photos')
+                      //           .getPublicUrl(fileName);
+                      //       print('filename -- ' + publicUrl);
+                      //
+                      //       // Center(
+                      //       //     child: Column(children: <Widget>[
+                      //       //       Image.network(publicUrl),
+                      //       //     ])
+                      //       // );
+                      //     }
+                      //     uploadState
+                      //         ? Text("Upload Complete")
+                      //         : CircularProgressIndicator();
+                      //   },
+                      // ),
                       Container(
                         margin: getMargin(top: 20),
                         child: SizedBox(

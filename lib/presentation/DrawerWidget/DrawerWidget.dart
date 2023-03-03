@@ -17,7 +17,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        width: 350,
+        width: 300,
         height: 1000,
         color: Colors.white,
         child: Column(
