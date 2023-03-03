@@ -628,8 +628,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 ColorConstant.gray400,
                                                                             itemCount:
                                                                                 5,
+                                                                                ignoreGestures: true,
                                                                             updateOnDrag:
-                                                                                true,
+                                                                                false,
                                                                             onRatingUpdate:
                                                                                 (rating) {},
                                                                             itemBuilder:
@@ -858,8 +859,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             .gray400,
                                                                     itemCount:
                                                                         5,
+                                                                    ignoreGestures: true,
                                                                     updateOnDrag:
-                                                                        true,
+                                                                        false,
                                                                     onRatingUpdate:
                                                                         (rating) {},
                                                                     itemBuilder:

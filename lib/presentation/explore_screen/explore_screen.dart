@@ -475,7 +475,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                                       ),
                                                                                       unratedColor: ColorConstant.gray400,
                                                                                       itemCount: 5,
-                                                                                      updateOnDrag: true,
+                                                                                      ignoreGestures: true,
+                                                                                      updateOnDrag: false,
                                                                                       onRatingUpdate: (rating) {},
                                                                                       itemBuilder: (context, _) {
                                                                                         return Icon(
@@ -540,6 +541,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                   },
                                 ),
                               ),
+                              //================================================================================Featured Restaurant===============================================================
                               Padding(
                                   padding: getPadding(left: 7, top: 19),
                                   child: Text("msg_featured_restaurants".tr,
@@ -688,8 +690,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                               ColorConstant.gray400,
                                                                           itemCount:
                                                                               5,
+                                                                          ignoreGestures: true,
                                                                           updateOnDrag:
-                                                                              true,
+                                                                              false,
                                                                           onRatingUpdate:
                                                                               (rating) {},
                                                                           itemBuilder:
