@@ -366,7 +366,82 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                     width: 200,
                                                     height: 1000,
                                                     child: GestureDetector(
-                                                      onTap: () {onTapBottomReservationButton();
+                                                      onTap: () {showDialog(
+                                                          context: context,
+                                                          builder: ((context) {
+                                                            return SimpleDialog(
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                      24)),
+                                                              title: Text(
+                                                                  "Choose What You Want"),
+                                                              children: [
+                                                                Row(
+                                                                  children: [
+                                                                    GestureDetector(
+                                                                      onTap: (){
+                                                                        onTapBottomReservationButton();
+                                                                      },
+                                                                      child: Container(
+                                                                        margin:
+                                                                        getMargin(
+                                                                            left:
+                                                                            30,
+                                                                            top:
+                                                                            20),
+                                                                        child: Icon(Icons
+                                                                            .fastfood_rounded,
+                                                                          color: Colors.yellow.shade900,
+                                                                          size: 100,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    GestureDetector(
+                                                                      onTap: (){
+                                                                        onTapDialogueReservetableButton();
+                                                                      },
+                                                                      child: Container(
+                                                                        margin:
+                                                                        getMargin(
+                                                                            left:
+                                                                            60,
+                                                                            top:
+                                                                            50),
+                                                                        child: Icon(Icons
+                                                                            .table_bar_rounded,
+                                                                          color: Colors.yellow.shade900,
+                                                                          size: 110,
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+
+                                                                Row(
+                                                                  children: [
+                                                                    Container(
+                                                                      margin:getMargin(left: 35, top: 4),
+                                                                      child: Text("Pre-Order",
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight.w700,
+                                                                            fontSize: 15
+                                                                        ),),
+                                                                    ),
+                                                                    Container(
+                                                                      margin:getMargin(left: 90, top: 4),
+                                                                      child: Text("Reserve Table",
+                                                                        style: TextStyle(
+                                                                            fontWeight: FontWeight.w700,
+                                                                            fontSize: 15
+                                                                        ),),
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            );
+                                                          }));
                                                       setState(() {
                                                         resId=tab[index]['id'];
                                                       });
@@ -401,20 +476,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                     // alignment: Alignment.center,
                                                                     child:
                                                                         Center(
-                                                                      child:
+                                                                         child:
                                                                           Row(
-                                                                        children: [
-                                                                          Align(
+                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                           children: [
+                                                                            Align(
                                                                             alignment:
                                                                                 Alignment.center,
                                                                             child:
                                                                                 SizedBox(
-                                                                              height: 145,
-                                                                              width: 157,
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(15),
-                                                                                child: ClipRRect(
+                                                                                   height: 145,
+                                                                                    width: 157,
+                                                                                 child: ClipRRect(
                                                                                   borderRadius: BorderRadius.circular(15),
+                                                                                   child: ClipRRect(
+                                                                                   borderRadius: BorderRadius.circular(15),
                                                                                   child: Image.network(
                                                                                     tab[index]['rest_photo'],
                                                                                     fit: BoxFit.cover,
@@ -571,7 +647,82 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                             width: 500,
                                             height: 275,
                                             child: GestureDetector(
-                                              onTap: () {onTapBottomReservationButton();
+                                              onTap: () {showDialog(
+                                                  context: context,
+                                                  builder: ((context) {
+                                                    return SimpleDialog(
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              24)),
+                                                      title: Text(
+                                                          "Choose What You Want"),
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                onTapBottomReservationButton();
+                                                              },
+                                                              child: Container(
+                                                                margin:
+                                                                getMargin(
+                                                                    left:
+                                                                    30,
+                                                                    top:
+                                                                    20),
+                                                                child: Icon(Icons
+                                                                    .fastfood_rounded,
+                                                                  color: Colors.yellow.shade900,
+                                                                  size: 100,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            GestureDetector(
+                                                              onTap: (){
+                                                                onTapDialogueReservetableButton();
+                                                              },
+                                                              child: Container(
+                                                                margin:
+                                                                getMargin(
+                                                                    left:
+                                                                    60,
+                                                                    top:
+                                                                    50),
+                                                                child: Icon(Icons
+                                                                    .table_bar_rounded,
+                                                                  color: Colors.yellow.shade900,
+                                                                  size: 110,
+                                                                ),
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              margin:getMargin(left: 35, top: 4),
+                                                              child: Text("Pre-Order",
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontSize: 15
+                                                                ),),
+                                                            ),
+                                                            Container(
+                                                              margin:getMargin(left: 90, top: 4),
+                                                              child: Text("Reserve Table",
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontSize: 15
+                                                                ),),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    );
+                                                  }));
                                               setState(() {
                                                 resId=tab[index]['id'];
                                               });
@@ -595,6 +746,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                         alignment:
                                                             Alignment.center,
                                                         child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                           children: [
                                                             Align(
                                                               alignment:
@@ -602,7 +754,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                       .center,
                                                               child: SizedBox(
                                                                 height: 130,
-                                                                width: 378,
+                                                                width: 365,
                                                                 child:
                                                                     ClipRRect(
                                                                   borderRadius:
@@ -899,7 +1051,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
-
+  onTapDialogueReservetableButton() {
+    Get.toNamed(AppRoutes.reserverTableDetailsScreen);
+  }
   onTapProfileIcon() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }

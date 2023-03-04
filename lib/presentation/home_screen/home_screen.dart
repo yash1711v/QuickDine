@@ -336,6 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 20),
                                                                     child: Icon(Icons
                                                                         .fastfood_rounded,
+                                                                      color: Colors.yellow.shade900,
                                                                     size: 100,
                                                                     ),
                                                                   ),
@@ -353,6 +354,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         50),
                                                                     child: Icon(Icons
                                                                         .table_bar_rounded,
+                                                                      color: Colors.yellow.shade900,
                                                                       size: 110,
                                                                     ),
                                                                   ),
@@ -410,6 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           // alignment: Alignment.center,
                                                           child: Center(
                                                             child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                               children: [
                                                                 Align(
                                                                   alignment:
@@ -629,16 +632,86 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 275,
                                       child: GestureDetector(
                                         onTap: () {
-                                          onTapBottomReservationButton();
+                                          showDialog(
+                                              context: context,
+                                              builder: ((context) {
+                                                return SimpleDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(
+                                                          24)),
+                                                  title: Text(
+                                                      "Choose What You Want"),
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            onTapBottomReservationButton();
+                                                          },
+                                                          child: Container(
+                                                            margin:
+                                                            getMargin(
+                                                                left:
+                                                                30,
+                                                                top:
+                                                                20),
+                                                            child: Icon(Icons
+                                                                .fastfood_rounded,
+                                                              color: Colors.yellow.shade900,
+                                                              size: 100,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: (){
+                                                            onTapDialogueReservetableButton();
+                                                          },
+                                                          child: Container(
+                                                            margin:
+                                                            getMargin(
+                                                                left:
+                                                                60,
+                                                                top:
+                                                                50),
+                                                            child: Icon(Icons
+                                                                .table_bar_rounded,
+                                                              color: Colors.yellow.shade900,
+                                                              size: 110,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          margin:getMargin(left: 35, top: 4),
+                                                          child: Text("Pre-Order",
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w700,
+                                                                fontSize: 15
+                                                            ),),
+                                                        ),
+                                                        Container(
+                                                          margin:getMargin(left: 90, top: 4),
+                                                          child: Text("Reserve Table",
+                                                            style: TextStyle(
+                                                                fontWeight: FontWeight.w700,
+                                                                fontSize: 15
+                                                            ),),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                );
+                                              }));
                                           setState(() {
                                             resId = tab[index]['id'];
                                           });
                                           shp().setresId(resId);
-                                          print(
-                                              "/////////////////////////////////////////////////");
-                                          print(resId);
-                                          print(
-                                              "/////////////////////////////////////////////////");
                                         },
                                         child: Card(
                                           color: Colors.white,
@@ -657,13 +730,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Align(
                                                   alignment: Alignment.center,
                                                   child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
                                                       Align(
                                                         alignment:
                                                             Alignment.center,
                                                         child: SizedBox(
                                                           height: 130,
-                                                          width: 378,
+                                                          width: 365,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -865,18 +939,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                         ),
-
-                        // Align(
-                        //     alignment: Alignment.center,
-                        //   child: ListView.builder(
-                        //       itemBuilder: (context, index) {
-                        //         RestaurantnearItemModel model = controller
-                        //             .homeModelObj
-                        //             .value
-                        //             .restaurants[index];
-                        //         return RestaurantnearItemWidget(model);
-                        //       })
-                        //   ),
                       ])))),
     );
   }
