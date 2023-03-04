@@ -51,6 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
     readData();
     checkidValue();
   }
+  static String supabaseURL = "https://omadswcnxjdbrufimbwy.supabase.co";
+  static String supabaseKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tYWRzd2NueGpkYnJ1ZmltYnd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY2NjIxMzQsImV4cCI6MTk5MjIzODEzNH0.qq-CgehJSfyr0KKZQFRKSHAAkKDXB2ezFnRTq5SQ904";
+
+  final SupabaseClient client = SupabaseClient(supabaseURL, supabaseKey);
+  bool uploadState = false;
+  String publicUrl = "";
 
   final _tabStream = Supabase.instance.client
       .from('restaurant')

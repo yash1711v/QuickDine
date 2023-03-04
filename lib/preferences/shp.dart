@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class shp {
   late String Uid = "";
+   String profileLink = "";
   String firstName = "";
   String LastName = "";
   String email = "";
@@ -89,5 +90,15 @@ class shp {
     SharedPreferences shpui = await SharedPreferences.getInstance();
     shpui.setString("phone", phone);
     // return Uid;
+  }
+  setProfileink(String profileLink) async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    shpui.setString("profileLink", profileLink);
+    // return Uid;
+  }
+  getProfileink() async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    profileLink = shpui.getString("profileLink")!;
+    return profileLink;
   }
 }

@@ -1,3 +1,5 @@
+import 'package:lottie/lottie.dart';
+
 import '../../Database/DatabaseServices.dart';
 import '../../preferences/shp.dart';
 import 'controller/profile_controller.dart';
@@ -54,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String email = await shp().getemail() ?? "";
     String password = await shp().getPassword() ?? "";
     String uid = await shp().getUid();
-
+    String PhotoLink=await shp().getProfileink();
     setState(() {
       this.firstName = firstName;
       this.lastName = lastName;
@@ -62,6 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       this.email = email;
       this.password = password;
       this.id = uid;
+      this.publicUrl=PhotoLink;
 
       _firstNameController.text = firstName;
       _lastNameController.text = lastName;
@@ -69,7 +72,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _emailController.text = email;
       _passwordController.text = password;
     });
-    print("----" + password + "---------");
   }
 
   String fname = "";
@@ -83,9 +85,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tYWRzd2NueGpkYnJ1ZmltYnd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY2NjIxMzQsImV4cCI6MTk5MjIzODEzNH0.qq-CgehJSfyr0KKZQFRKSHAAkKDXB2ezFnRTq5SQ904";
 
   final SupabaseClient client = SupabaseClient(supabaseURL, supabaseKey);
-  bool uploadState = true;
+  bool uploadState = false;
   String publicUrl = "";
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -124,10 +125,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                       GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              uploadState = false;
-                            });
-
                             // Code for uploading photo to Supabase Storage
                             final pickedFile = await ImagePicker()
                                 .getImage(source: ImageSource.gallery);
@@ -140,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       file)
                                   .then((value) {
                                 setState(() {
-                                  uploadState = true;
+
                                 });
                               });
 
@@ -149,13 +146,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 publicUrl = client.storage
                                     .from('user-photos')
                                     .getPublicUrl(fileName);
+                                uploadState = true;
                               });
                             }
                             uploadState
                                 ? Text("Upload Complete")
                                 : CircularProgressIndicator();
                           },
-                          child: Image.network(publicUrl)),
+                          child:   Stack(
+                            fit: StackFit.expand,
+                             children: [CircleAvatar(
+                               // backgroundColor: Colors.white,
+                               backgroundImage:
+                               uploadState==true?NetworkImage(publicUrl):AssetImage("assets2/user.png") as ImageProvider,
+                               radius: 60,
+
+                             ),
+                               //-------------------------------------------This is to add the button on it
+                               // Positioned(
+                               //     right: -16,
+                               //     bottom: 0,
+                               //     child: SizedBox(
+                               //         height: 46,
+                               //         width: 46,
+                               //         child: FlatButton(
+                               //           shape: RoundedRectangleBorder(
+                               //             borderRadius: BorderRadius.circular(50),
+                               //             side: BorderSide(color: Colors.white),
+                               //           ),
+                               //           color: Color(0xFFF5F6F9),
+                               //           onPressed: () {},
+                               //           // TODO: Icon not centered.
+                               //           child: Center(child: Icon(Icons.camera_alt_outlined)),
+                               //         )))
+
+                             ],
+                          ),
+                          ),
 
                       // CustomImageView(
                       //   imagePath: ImageConstant.imgEllipse60,

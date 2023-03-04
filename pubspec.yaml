@@ -39,6 +39,7 @@ flutter:
     - assets2/Foodod.json
     - assets2/OrdeerPng.png
     - assets2/elegant.png
+    - assets2/user.png
 
   fonts:
     - family: Poppins

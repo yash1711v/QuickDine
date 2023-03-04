@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
 import 'package:quickdine/Database/DatabaseServices.dart';
 import 'package:quickdine/UserModel/SupabaseUser.dart';
+import 'package:quickdine/preferences/shp.dart';
 import 'package:supabase/supabase.dart';
 import 'package:toast/toast.dart';
-
+import 'package:path/path.dart';
 import 'controller/signup_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -70,10 +74,12 @@ class _SignupScreenState extends State<SignupScreen> {
           _PhoneNumbercontroler.text,
           _emailControler.text,
           _PassControler.text,
-          error.id);
+          error.id,
+          publicUrl
+      );
       if (error != null) {
         print(error.email);
-        Navigator.of(context).pushNamed(AppRoutes.signinScreen);
+        Get.toNamed(AppRoutes.signinScreen);
         Toast.show("Login SuccessFull Please Login ", backgroundColor: Colors.grey,);
       }
       else {
@@ -85,6 +91,13 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  static String supabaseURL = "https://omadswcnxjdbrufimbwy.supabase.co";
+  static String supabaseKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tYWRzd2NueGpkYnJ1ZmltYnd5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY2NjIxMzQsImV4cCI6MTk5MjIzODEzNH0.qq-CgehJSfyr0KKZQFRKSHAAkKDXB2ezFnRTq5SQ904";
+
+  final SupabaseClient client = SupabaseClient(supabaseURL, supabaseKey);
+  bool uploadState = false;
+  String publicUrl = "";
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
@@ -102,18 +115,75 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Container(
                           width: size.width,
                           padding: getPadding(
-                              left: 25, top: 12, right: 25, bottom: 12),
+                              left: 25, top: 30, right: 25, bottom: 12),
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                CustomImageView(
-                                    imagePath: ImageConstant.imgImage4,
-                                    height: getVerticalSize(140.00),
-                                    width: getHorizontalSize(156.00),
-                                    radius: BorderRadius.circular(
-                                        getHorizontalSize(40.00)),
-                                    margin: getMargin(top: 84)),
+                                Container(
+                                  height: 150,
+                                  width: 200,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      // Code for uploading photo to Supabase Storage
+                                      final pickedFile = await ImagePicker()
+                                          .getImage(source: ImageSource.gallery);
+                                      if (pickedFile != null) {
+                                        final file = File(pickedFile.path);
+                                        String fileName = basename(pickedFile.path);
+                                        await client.storage
+                                            .from('user-photos')
+                                            .upload(fileName,
+                                            file)
+                                            .then((value) {
+                                          setState(() {
+
+                                          });
+                                        });
+
+                                        // Code for getting Download URL of uploaded image
+                                        setState(() {
+                                          publicUrl = client.storage
+                                              .from('user-photos')
+                                              .getPublicUrl(fileName);
+                                          uploadState = true;
+                                        });
+                                      }
+                                      uploadState
+                                          ? Text("Upload Complete")
+                                          : CircularProgressIndicator();
+                                    },
+                                    child:   Stack(
+                                      fit: StackFit.expand,
+                                      children: [CircleAvatar(
+                                        // backgroundColor: Colors.white,
+                                        backgroundImage:
+                                        uploadState==true?NetworkImage(publicUrl):AssetImage("assets2/user.png") as ImageProvider,
+                                        radius: 60,
+
+                                      ),
+                                        //-------------------------------------------This is to add the button on it
+                                        // Positioned(
+                                        //     right: -16,
+                                        //     bottom: 0,
+                                        //     child: SizedBox(
+                                        //         height: 46,
+                                        //         width: 46,
+                                        //         child: FlatButton(
+                                        //           shape: RoundedRectangleBorder(
+                                        //             borderRadius: BorderRadius.circular(50),
+                                        //             side: BorderSide(color: Colors.white),
+                                        //           ),
+                                        //           color: Color(0xFFF5F6F9),
+                                        //           onPressed: () {},
+                                        //           // TODO: Icon not centered.
+                                        //           child: Center(child: Icon(Icons.camera_alt_outlined)),
+                                        //         )))
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
                                 Container(
                                   margin: getMargin(top: 20),
                                   child: SizedBox(
