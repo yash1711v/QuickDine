@@ -245,196 +245,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           alignment: Alignment.center,
                           prefix: Container(
                             margin: getMargin(
-                                left: 18, top: 0, right: 22, bottom: 13),
+                                left: 18, top: 1, right: 22, bottom: 0),
                             child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.search_rounded, size: 20),
                             ),
                           ),
                           prefixConstraints:
-                              BoxConstraints(maxHeight: getVerticalSize(40.00)),
-                        ),
-                        Padding(
-                            padding: getPadding(left: 8, top: 20, right: 25),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text("lbl_best_offers".tr,
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: AppStyle.txtPoppinsMedium20),
-                                  GestureDetector(
-                                      onTap: () {
-                                        onTapTxtSeeall();
-                                      },
-                                      child: Padding(
-                                          padding:
-                                              getPadding(top: 6, bottom: 4),
-                                          child: Text("lbl_see_all".tr,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.left,
-                                              style: AppStyle
-                                                  .txtPoppinsRegular12)))
-                                ])),
-                        Container(
-                          child: StreamBuilder<List<Map<String, dynamic>>>(
-                            stream: _tabStream3,
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return Lottie.asset("assets2/featuredres.json");
-                              }
-                              final tab = snapshot.data!;
-                              return Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 170,
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: tab.length,
-                                        scrollDirection: Axis.horizontal,
-                                        //physics: NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: SizedBox(
-                                              width: 140,
-                                              height: 200,
-                                              child: GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  child: Card(
-                                                    // color: Colors.amberAccent,
-                                                    // elevation: 5,
-                                                    //--------------------------------Neeche ke do comment hata dio Card ka background hatane ke liya or Uppr ka comment
-                                                    //kardio color and elevation kon
-                                                    color: Colors.transparent,
-                                                    elevation: 0,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                            side: BorderSide(
-                                                              color: Colors
-                                                                  .orangeAccent,
-                                                              width: 5,
-                                                            ),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        11)),
-                                                    margin: EdgeInsets.fromLTRB(
-                                                        5, 6.0, 5.0, 5.0),
-                                                    child: ListTile(
-                                                      title: Wrap(children: [
-                                                        Container(
-                                                          margin:
-                                                              getMargin(top: 0),
-                                                          child:
-                                                              Wrap(children: [
-                                                            Container(
-                                                              margin: getMargin(
-                                                                  top: 0),
-                                                              child: Row(
-                                                                children: <
-                                                                    Widget>[
-                                                                  Container(
-                                                                    margin:
-                                                                        getMargin(
-                                                                      left: 10,
-                                                                      top: 20,
-                                                                    ),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Center(
-                                                                          child:
-                                                                              SizedBox(
-                                                                            width:
-                                                                                70,
-                                                                            child:
-                                                                                Text("FLAT", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  margin:
-                                                                      getMargin(
-                                                                          left:
-                                                                              3,
-                                                                          top:
-                                                                              3),
-                                                                  child: Text(
-                                                                    tab[index][
-                                                                            'rest_discount_pecentage']
-                                                                        .toString(),
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            55,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  margin:
-                                                                      getMargin(
-                                                                          left:
-                                                                              0,
-                                                                          top:
-                                                                              25),
-                                                                  child: Icon(
-                                                                    Icons
-                                                                        .percent_sharp,
-                                                                    color: Colors
-                                                                        .orange,
-                                                                    size: 30,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Container(
-                                                              margin: getMargin(
-                                                                  left: 5),
-                                                              child: Row(
-                                                                children: [
-                                                                  Container(
-                                                                    margin: getMargin(
-                                                                        left: 3,
-                                                                        top: 3),
-                                                                    child: Text(
-                                                                      "Instant Discount",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              11,
-                                                                          fontWeight:
-                                                                              FontWeight.w700),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ]),
-                                                        ),
-                                                      ]),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                              BoxConstraints(maxHeight: getVerticalSize(50.00)),
                         ),
                         //Restaurant Near You
                         Padding(
@@ -490,7 +308,81 @@ class _HomeScreenState extends State<HomeScreen> {
                                               height: 1000,
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  onTapBottomReservationButton();
+
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: ((context) {
+                                                        return SimpleDialog(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          24)),
+                                                          title: Text(
+                                                              "Choose What You Want"),
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: (){
+                                                                    onTapBottomReservationButton();
+                                                                           },
+                                                                  child: Container(
+                                                                    margin:
+                                                                        getMargin(
+                                                                            left:
+                                                                                30,
+                                                                            top:
+                                                                                20),
+                                                                    child: Icon(Icons
+                                                                        .fastfood_rounded,
+                                                                    size: 100,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: (){
+                                                                    onTapDialogueReservetableButton();
+                                                                  },
+                                                                  child: Container(
+                                                                    margin:
+                                                                    getMargin(
+                                                                        left:
+                                                                        60,
+                                                                        top:
+                                                                        50),
+                                                                    child: Icon(Icons
+                                                                        .table_bar_rounded,
+                                                                      size: 110,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+
+                                                            Row(
+                                                              children: [
+                                                                Container(
+                                                                  margin:getMargin(left: 35, top: 4),
+                                                                  child: Text("Pre-Order",
+                                                                  style: TextStyle(
+                                                                    fontWeight: FontWeight.w700,
+                                                                    fontSize: 15
+                                                                  ),),
+                                                                ),
+                                                                Container(
+                                                                  margin:getMargin(left: 90, top: 4),
+                                                                  child: Text("Reserve Table",
+                                                                    style: TextStyle(
+                                                                        fontWeight: FontWeight.w700,
+                                                                        fontSize: 15
+                                                                    ),),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        );
+                                                      }));
                                                   setState(() {
                                                     resId = tab[index]['id'];
                                                   });
@@ -507,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           BorderRadius.circular(
                                                               20)),
                                                   margin: EdgeInsets.fromLTRB(
-                                                      5, 6.0, 5.0, 5.0),
+                                                      5, 6.0, 0.0, 5.0),
                                                   child: ListTile(
                                                     title: Wrap(children: [
                                                       Container(
@@ -771,7 +663,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             Alignment.center,
                                                         child: SizedBox(
                                                           height: 130,
-                                                          width: 342,
+                                                          width: 378,
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1019,6 +911,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   onTapBottomReservationButton() {
     Get.toNamed(AppRoutes.reserveTableScreen);
+  }
+  onTapDialogueReservetableButton() {
+    Get.toNamed(AppRoutes.reserverTableDetailsScreen);
   }
 
   onTapMenuIconButtonInTopAppBar() {

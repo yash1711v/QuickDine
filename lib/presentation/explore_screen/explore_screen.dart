@@ -387,7 +387,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                             EdgeInsets.fromLTRB(
                                                                 5,
                                                                 6.0,
-                                                                5.0,
+                                                                0.0,
                                                                 5.0),
                                                         child: ListTile(
                                                           title: Wrap(
@@ -602,7 +602,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                       .center,
                                                               child: SizedBox(
                                                                 height: 130,
-                                                                width: 343,
+                                                                width: 378,
                                                                 child:
                                                                     ClipRRect(
                                                                   borderRadius:

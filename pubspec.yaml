@@ -33,8 +33,12 @@ flutter:
     - assets2/123408-image-not-preview.json
     - assets2/featuredres.json
     - assets2/ResNearYou.json
-    - assets2/rupee.png
     - assets2/Shopping.json
+    - assets2/OrderFood.json
+    - assets2/Reserve Table.json
+    - assets2/Foodod.json
+    - assets2/OrdeerPng.png
+    - assets2/elegant.png
 
   fonts:
     - family: Poppins
