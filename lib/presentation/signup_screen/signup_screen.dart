@@ -74,8 +74,7 @@ class _SignupScreenState extends State<SignupScreen> {
           _PhoneNumbercontroler.text,
           _emailControler.text,
           _PassControler.text,
-          error.id,
-          publicUrl
+          error.id
       );
       if (error != null) {
         print(error.email);
@@ -147,6 +146,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                               .from('user-photos')
                                               .getPublicUrl(fileName);
                                           uploadState = true;
+                                          setState(() {
+                                            shp().setProfileink(publicUrl);
+                                          });
                                         });
                                       }
                                       uploadState

@@ -8,7 +8,7 @@ import '../UserModel/usermodel.dart';
 class DatabaseServices {
   final _collection = Supabase.instance.client.from('user');
   Future updateuserData(String firstName, String lastName, String phoneNumber,
-      String emailID, String password, String uid,String Photo) async {
+      String emailID, String password, String uid) async {
     return await _collection.insert([
       {
         'first_name': firstName,
@@ -17,7 +17,6 @@ class DatabaseServices {
         'email_Id': emailID,
         'Password': password,
         'id': uid,
-        'rest_photo':Photo
       }
     ]);
   }

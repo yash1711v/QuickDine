@@ -65,7 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       this.password = password;
       this.id = uid;
       this.publicUrl=PhotoLink;
-
       _firstNameController.text = firstName;
       _lastNameController.text = lastName;
       _phoneNumberController.text = phone;
@@ -89,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String publicUrl = "";
   @override
   Widget build(BuildContext context) {
+    print(publicUrl);
     return SafeArea(
       top: false,
       bottom: false,
@@ -123,66 +123,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
 
-                      GestureDetector(
-                          onTap: () async {
-                            // Code for uploading photo to Supabase Storage
-                            final pickedFile = await ImagePicker()
-                                .getImage(source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              final file = File(pickedFile.path);
-                              String fileName = basename(pickedFile.path);
-                              await client.storage
-                                  .from('user-photos')
-                                  .upload(fileName,
-                                      file)
-                                  .then((value) {
-                                setState(() {
-
-                                });
-                              });
-
-                              // Code for getting Download URL of uploaded image
-                              setState(() {
-                                publicUrl = client.storage
+                      Container(
+                        height: 150,
+                        width: 200,
+                        child: GestureDetector(
+                            onTap: () async {
+                              // Code for uploading photo to Supabase Storage
+                              final pickedFile = await ImagePicker()
+                                  .getImage(source: ImageSource.gallery);
+                              if (pickedFile != null) {
+                                final file = File(pickedFile.path);
+                                String fileName = basename(pickedFile.path);
+                                await client.storage
                                     .from('user-photos')
-                                    .getPublicUrl(fileName);
-                                uploadState = true;
-                              });
-                            }
-                            uploadState
-                                ? Text("Upload Complete")
-                                : CircularProgressIndicator();
-                          },
-                          child:   Stack(
-                            fit: StackFit.expand,
-                             children: [CircleAvatar(
-                               // backgroundColor: Colors.white,
-                               backgroundImage:
-                               uploadState==true?NetworkImage(publicUrl):AssetImage("assets2/user.png") as ImageProvider,
-                               radius: 60,
+                                    .upload(fileName,
+                                        file)
+                                    .then((value) {
+                                  setState(() {
 
-                             ),
-                               //-------------------------------------------This is to add the button on it
-                               // Positioned(
-                               //     right: -16,
-                               //     bottom: 0,
-                               //     child: SizedBox(
-                               //         height: 46,
-                               //         width: 46,
-                               //         child: FlatButton(
-                               //           shape: RoundedRectangleBorder(
-                               //             borderRadius: BorderRadius.circular(50),
-                               //             side: BorderSide(color: Colors.white),
-                               //           ),
-                               //           color: Color(0xFFF5F6F9),
-                               //           onPressed: () {},
-                               //           // TODO: Icon not centered.
-                               //           child: Center(child: Icon(Icons.camera_alt_outlined)),
-                               //         )))
+                                  });
+                                });
 
-                             ],
-                          ),
-                          ),
+                                // Code for getting Download URL of uploaded image
+                                setState(() {
+                                  publicUrl = client.storage
+                                      .from('user-photos')
+                                      .getPublicUrl(fileName);
+                                  uploadState = true;
+                                });
+                              }
+                              uploadState
+                                  ? Text("Upload Complete")
+                                  : CircularProgressIndicator();
+                            },
+                            child:   Stack(
+                              fit: StackFit.expand,
+                               children: [CircleAvatar(
+                                 // backgroundColor: Colors.white,
+                                 backgroundImage:NetworkImage(publicUrl),
+                                 radius: 60,
+
+                               ),
+                                 //-------------------------------------------This is to add the button on it
+                                 // Positioned(
+                                 //     right: -16,
+                                 //     bottom: 0,
+                                 //     child: SizedBox(
+                                 //         height: 46,
+                                 //         width: 46,
+                                 //         child: FlatButton(
+                                 //           shape: RoundedRectangleBorder(
+                                 //             borderRadius: BorderRadius.circular(50),
+                                 //             side: BorderSide(color: Colors.white),
+                                 //           ),
+                                 //           color: Color(0xFFF5F6F9),
+                                 //           onPressed: () {},
+                                 //           // TODO: Icon not centered.
+                                 //           child: Center(child: Icon(Icons.camera_alt_outlined)),
+                                 //         )))
+
+                               ],
+                            ),
+                            ),
+                      ),
 
                       // CustomImageView(
                       //   imagePath: ImageConstant.imgEllipse60,
