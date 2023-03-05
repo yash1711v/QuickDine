@@ -391,6 +391,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                   children: [
                                                                     GestureDetector(
                                                                       onTap: (){
+                                                                        Navigator.pop(context);
                                                                         onTapBottomReservationButton();
                                                                       },
                                                                       child: Container(
@@ -409,6 +410,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                     ),
                                                                     GestureDetector(
                                                                       onTap: (){
+                                                                        Navigator.pop(context);
                                                                         onTapDialogueReservetableButton();
                                                                       },
                                                                       child: Container(
@@ -499,8 +501,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                                                  child: ClipRRect(
                                                                                   borderRadius: BorderRadius.circular(15),
                                                                                    child: ClipRRect(
-                                                                                   borderRadius: BorderRadius.circular(15),
-                                                                                  child: Image.network(
+                                                                                    borderRadius: BorderRadius.circular(15),
+                                                                                    child: Image.network(
                                                                                     tab[index]['rest_photo'],
                                                                                     fit: BoxFit.cover,
                                                                                     loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
@@ -672,6 +674,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                           children: [
                                                             GestureDetector(
                                                               onTap: (){
+                                                                Navigator.pop(context);
                                                                 onTapBottomReservationButton();
                                                               },
                                                               child: Container(
@@ -690,6 +693,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                                             ),
                                                             GestureDetector(
                                                               onTap: (){
+                                                                Navigator.pop(context);
                                                                 onTapDialogueReservetableButton();
                                                               },
                                                               child: Container(

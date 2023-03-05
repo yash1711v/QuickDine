@@ -287,7 +287,6 @@ void getCurrentLocation() async{
                                               height: 1000,
                                               child: GestureDetector(
                                                 onTap: () {
-
                                                   showDialog(
                                                       context: context,
                                                       builder: ((context) {
@@ -304,6 +303,7 @@ void getCurrentLocation() async{
                                                               children: [
                                                                 GestureDetector(
                                                                   onTap: (){
+                                                                    Navigator.pop(context);
                                                                     onTapBottomReservationButton();
                                                                            },
                                                                   child: Container(
@@ -322,6 +322,7 @@ void getCurrentLocation() async{
                                                                 ),
                                                                 GestureDetector(
                                                                   onTap: (){
+                                                                    Navigator.pop(context);
                                                                     onTapDialogueReservetableButton();
                                                                   },
                                                                   child: Container(
@@ -581,7 +582,9 @@ void getCurrentLocation() async{
                             },
                           ),
                         ),
-//From Here Featured RestUarant Cards Are Visible
+
+
+//------------------------------------------------------------------From Here Featured RestUarant Cards Are Visible--------------------------------------------------------------------------------------
                         Padding(
                             padding: getPadding(left: 7, top: 19),
                             child: Text("msg_featured_restaurants".tr,
@@ -627,6 +630,7 @@ void getCurrentLocation() async{
                                                       children: [
                                                         GestureDetector(
                                                           onTap: (){
+                                                            Navigator.pop(context);
                                                             onTapBottomReservationButton();
                                                           },
                                                           child: Container(
@@ -645,6 +649,7 @@ void getCurrentLocation() async{
                                                         ),
                                                         GestureDetector(
                                                           onTap: (){
+                                                            Navigator.pop(context);
                                                             onTapDialogueReservetableButton();
                                                           },
                                                           child: Container(
