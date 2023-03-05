@@ -19,7 +19,7 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
   get controller => OrderHistoryController();
   @override
   Widget build(BuildContext context) {
-    var _currentIndex;
+    var _currentIndex=0;
     return SafeArea(
       top: false,
       bottom: false,
@@ -78,26 +78,8 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
               ),
             ),
           ),
-          bottomNavigationBar:  Container(
-            margin: getMargin(left: 14,bottom: 15,right: 15),
-            padding: EdgeInsets.only(left: 10,right: 20),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 15.0, // soften the shadow
-                    spreadRadius: 2.0, //extend the shadow
-                    offset: Offset(
-                      1.0, // Move to right 5  horizontally
-                      4.0, // Move to bottom 5 Vertically
-                    ),
-                  ),
-                ]
-            ),
-            child: BottomNavBbbar(currentindex: _currentIndex),
-          ),),
+          bottomNavigationBar:  BottomNavBbbar(currentindex: _currentIndex)
+      ),
     );
   }
 

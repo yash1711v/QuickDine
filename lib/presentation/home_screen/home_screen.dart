@@ -15,6 +15,8 @@ import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/app_bar/appbar_dropdown.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+import 'package:permission_handler/permission_handler.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -94,6 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
         shp().setPassword(userList[j]['Password']);
         //print(userList[j]['Password']);
         shp().setPhone(userList[j]['phone_no']);
+        shp().setProfileink(userList[j]['profile_photo']);
+        print(userList[j]['profile_photo']);
       }
     }
   }
@@ -214,7 +218,7 @@ void getCurrentLocation() async{
                           alignment: Alignment.center,
                           prefix: Container(
                             margin: getMargin(
-                                left: 18, top: 1, right: 22, bottom: 0),
+                                left: 18, top: 1, right: 22),
                             child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.search_rounded, size: 20),
@@ -222,12 +226,12 @@ void getCurrentLocation() async{
                           ),
                           prefixConstraints:
                               BoxConstraints(maxHeight: getVerticalSize(50.00)),
-                          suffix: Container(
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.mic, size: 20),
-                            ),
-                          ),
+                          // suffix: Container(
+                          //   child: IconButton(
+                          //     onPressed: () {},
+                          //     icon: Icon(Icons.mic, size: 20),
+                          //   ),
+                          // ),
                         ),
                         //Restaurant Near You
                         Padding(

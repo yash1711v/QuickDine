@@ -129,30 +129,34 @@ class _HelpScreenState extends State<HelpScreen> {
                   ),
                 ),
                 Container(
+                  width: 350,
+                  height: 200,
                   margin: getMargin(top: 24),
-                  child: TextField(
-                    obscureText: false,
-                    // keyboardType: TextInputType.name,
-                    maxLines: null,
-                    expands: true,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 0,
-                        ), //<-- SEE HERE
-                        borderRadius:
-                        BorderRadius.circular(15.0),
+                  child: SizedBox(
+                    child: TextField(
+                      obscureText: false,
+                      // keyboardType: TextInputType.name,
+                      maxLines: null,
+                      expands: true,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 0,
+                          ), //<-- SEE HERE
+                          borderRadius:
+                          BorderRadius.circular(15.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              width: 5,
+                              color: Colors.deepOrange
+                                  .shade100), //<-- SEE HERE
+                          borderRadius:
+                          BorderRadius.circular(15.0),
+                        ),
+                        //errorText: "Please enter valid text",
+                        hintText: "lbl_message".tr,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            width: 5,
-                            color: Colors.deepOrange
-                                .shade100), //<-- SEE HERE
-                        borderRadius:
-                        BorderRadius.circular(15.0),
-                      ),
-                      //errorText: "Please enter valid text",
-                      hintText: "lbl_message".tr,
                     ),
                   ),
                 ),

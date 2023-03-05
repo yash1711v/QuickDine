@@ -66,15 +66,16 @@ class _SignupScreenState extends State<SignupScreen> {
     else {
       final response = await SupabaseCredential.supabaseClient.auth
           .signUp(email: _emailControler.text, password: _PassControler.text);
-
       error = response.user!;
+
       await DatabaseServices().updateuserData(
           _FirstName.text,
           _lastname.text,
           _PhoneNumbercontroler.text,
           _emailControler.text,
           _PassControler.text,
-          error.id
+          error.id,
+          publicUrl
       );
       if (error != null) {
         print(error.email);
@@ -147,7 +148,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                               .getPublicUrl(fileName);
                                           uploadState = true;
                                           setState(() {
-                                            shp().setProfileink(publicUrl);
+                                            //shp().setProfileink(publicUrl);
+                                            print(publicUrl.toString());
                                           });
                                         });
                                       }

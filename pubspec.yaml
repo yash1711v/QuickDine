@@ -27,6 +27,8 @@ dependencies:
   geocoding: ^2.0.5
   highlight_text: ^0.7.2
   avatar_glow: ^1.2.0
+  speech_to_text: ^6.1.1
+  permission_handler: ^10.2.0
 dev_dependencies: 
   flutter_test:
     sdk: flutter

@@ -71,6 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       _phoneNumberController.text = phone;
       _emailController.text = email;
       _passwordController.text = password;
+      print("///////////////////////");
+      print(PhotoLink);
+      print("///////////////////////");
     });
   }
 
@@ -90,6 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     print(publicUrl);
+    var _currentIndex=2;
     return SafeArea(
       top: false,
       bottom: false,
@@ -187,58 +191,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             ),
                       ),
-
-                      // CustomImageView(
-                      //   imagePath: ImageConstant.imgEllipse60,
-                      //   height: getSize(
-                      //     124.00,
-                      //   ),
-                      //   width: getSize(
-                      //     124.00,
-                      //   ),
-                      //   radius: BorderRadius.circular(
-                      //     getHorizontalSize(
-                      //       62.00,
-                      //     ),
-                      //   ),
-                      //   margin: getMargin(
-                      //     top: 13,
-                      //   ),
-                      //   onTap: () async {
-                      //     setState(() {
-                      //       uploadState = false;
-                      //     });
-                      //     final pickedFile =
-                      //         await ImagePicker().getImage(source: ImageSource.gallery);
-                      //     if (pickedFile != null) {
-                      //       final file = File(pickedFile.path);
-                      //       String fileName = basename(pickedFile.path);
-                      //       await client.storage
-                      //           .from('user-photos')
-                      //           .upload(id + '_' + firstName + '_' + lastName, file)
-                      //           .then((value) {
-                      //         print('value -- ' + value);
-                      //         setState(() {
-                      //           uploadState = true;
-                      //         });
-                      //       });
-                      //       print('filename -- ' + fileName);
-                      //       publicUrl = client.storage
-                      //           .from('restaurant-photos')
-                      //           .getPublicUrl(fileName);
-                      //       print('filename -- ' + publicUrl);
-                      //
-                      //       // Center(
-                      //       //     child: Column(children: <Widget>[
-                      //       //       Image.network(publicUrl),
-                      //       //     ])
-                      //       // );
-                      //     }
-                      //     uploadState
-                      //         ? Text("Upload Complete")
-                      //         : CircularProgressIndicator();
-                      //   },
-                      // ),
                       Container(
                         margin: getMargin(top: 20),
                         child: SizedBox(
@@ -460,12 +412,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         Phone.toString(),
                                         email,
                                         pass,
-                                        id);
-                                    // shp().setFirstname(fname);
-                                    // shp().setLastName(lname);
-                                    // shp().setPhone(Phone);
-                                    // shp().setemail(Email);
-                                    // shp().setPassword(pass);
+                                        id,
+                                      publicUrl,
+                                    );
+                                    shp().setFirstname(fname);
+                                    shp().setLastName(lname);
+                                    shp().setPhone(Phone);
+                                    shp().setemail(Email);
+                                    shp().setPassword(pass);
+                                    shp().setProfileink(publicUrl);
                                   });
                                 },
                               ),
@@ -482,7 +437,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
           ),
         ),
-
+          bottomNavigationBar:  BottomNavBbbar(currentindex: _currentIndex=2)
       ),
     );
   }
