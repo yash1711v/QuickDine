@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../bttmNav.dart';
 import 'controller/orderpre_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -436,42 +437,7 @@ class _OrderpreScreenState extends State<OrderpreScreen> {
                   ),
                 ]
             ),
-            child: SizedBox(
-              height: 88,
-              child: GNav(
-                duration: Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                activeColor: Colors.white,
-                selectedIndex: _currentIndex,
-                haptic: true,
-                // backgroundColor: Colors.transparent,
-                tabs: [
-                  GButton(
-                    gap: 8,
-                    icon: Icons.home,
-                    text: "Home",
-
-                    onPressed: () {
-                      onTapBottomHomeButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.search,
-                    text: "Search",
-                    onPressed: () {
-                      onTapBottomSearchButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.access_time,
-                    text: "Pre-Order",
-                    onPressed: () => onTapBottomPre_OrderButton(),
-                  ),
-                ],
-              ),
-            ),
+            child: BottomNavBbbar(currentindex: _currentIndex)
           ),
         ));
   }

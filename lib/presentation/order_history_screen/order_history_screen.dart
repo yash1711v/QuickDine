@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../bttmNav.dart';
 import '../order_history_screen/widgets/order_history_item_widget.dart';
 import 'controller/order_history_controller.dart';
 import 'models/order_history_item_model.dart';
@@ -18,6 +19,7 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
   get controller => OrderHistoryController();
   @override
   Widget build(BuildContext context) {
+    var _currentIndex;
     return SafeArea(
       top: false,
       bottom: false,
@@ -94,41 +96,7 @@ class _OrderHistoryScreen extends State<OrderHistoryScreen> {
                   ),
                 ]
             ),
-            child: SizedBox(
-              height: 88,
-              child: GNav(
-                duration: Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                activeColor: Colors.white,
-                haptic: true,
-                // backgroundColor: Colors.transparent,
-                tabs: [
-                  GButton(
-                    gap: 8,
-                    icon: Icons.home,
-                    text: "Home",
-
-                    onPressed: () {
-                      onTapBottomHomeButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.search,
-                    text: "Search",
-                    onPressed: () {
-                      onTapBottomSearchButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.access_time,
-                    text: "Pre-Order",
-                    onPressed: () => onTapBottomPre_OrderButton(),
-                  ),
-                ],
-              ),
-            ),
+            child: BottomNavBbbar(currentindex: _currentIndex),
           ),),
     );
   }

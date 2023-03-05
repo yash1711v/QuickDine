@@ -1,8 +1,11 @@
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../Authentication/supabasecredential.dart';
+import '../../bttmNav.dart';
 import '../../preferences/shp.dart';
 import '../../widgets/app_bar/appbar_dropdown.dart';
 import '../DrawerWidget/DrawerItem.dart';
@@ -27,18 +30,40 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
+  void initState() {
+    getCurrentLocation();
+  }
   get controller => ExploreController();
   int _currentIndex = 1;
   String resId="";
   final _tabStream = Supabase.instance.client
       .from('restaurant')
       .stream(primaryKey: ['id']).eq('isMember', true);
+  String loca="";
   String Location = 'Ghaziabad';
   final _tabStream2 = Supabase.instance.client.from('restaurant').stream(
       primaryKey: [
         'id'
       ]).eq("rest_address",
       '3rd, K-23, Rakesh Marg, Pocket F, Nehru Nagar III, Nehru Nagar, Ghaziabad, Uttar Pradesh 201001');
+  //Code For Getting Current Location
+  void getCurrentLocation() async{
+    var position=await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark placeMark=placemarks[0];
+    String? name = placeMark.name;
+    String? subLocality = placeMark.subLocality;
+    String? locality = placeMark.locality;
+    String? administrativeArea = placeMark.administrativeArea;
+    String? postalCode = placeMark.postalCode;
+    String? country = placeMark.country;
+    String address = "${name}, ${subLocality}, ${locality}, ${administrativeArea} ${postalCode}, ${country}";
+    print(locality);
+    setState(() {
+      loca=locality!;
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,37 +74,43 @@ class _ExploreScreenState extends State<ExploreScreen> {
             resizeToAvoidBottomInset: false,
             backgroundColor: ColorConstant.whiteA700,
             appBar: AppBar(
-                backgroundColor: Colors.white,
-                elevation: 0,
-                centerTitle: true,
-                leading: Builder(
-                  builder: (BuildContext context) {
-                    return IconButton(
-                      icon: const Icon(
-                        Icons.menu_rounded,
-                        color: Colors.black,
-                        size: 50, // Changing Drawer Icon Size
-                      ),
-                      onPressed: () {
-                        Scaffold.of(context).openDrawer();
-                      },
-                      tooltip: MaterialLocalizations.of(context)
-                          .openAppDrawerTooltip,
-                    );
-                  },
+              backgroundColor: Colors.white,
+              elevation: 0,
+              centerTitle: true,
+              leading: Builder(
+                builder: (BuildContext context) {
+                  return IconButton(
+                    icon: const Icon(
+                      Icons.menu_rounded,
+                      color: Colors.black,
+                      size: 50, // Changing Drawer Icon Size
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  );
+                },
+              ),
+              title: Container(
+                child: Row(
+                  children: [
+                    Container(
+                      margin: getMargin(left: 80),
+                      child: Icon(Icons.location_on,
+                        color: Colors.black,),
+                    ),
+                    Text(loca,
+                      style: TextStyle(
+                          color: Colors.black
+                      ),),
+                  ],
                 ),
-                title: AppbarDropdown(
-                    hintText: "lbl_delhi".tr,
-                    margin: getMargin(top: 10),
-                    items: controller.exploreModelObj.value.dropdownItemList,
-                    onTap: (value) {
-                      controller.onSelected(value);
-                    }),
-                actions: [
-                  AppbarStack(
-                      margin: getMargin(left: 20, right: 20, top: 12),
-                      onTap: onTapProfileIcon)
-                ]),
+              ),
+              actions: [
+                Lottie.asset('assets2/Shopping.json')
+              ],
+            ),
             body: SizedBox(
                 width: size.width,
                 child: SingleChildScrollView(
@@ -89,47 +120,25 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                  height: getVerticalSize(30.00),
-                                  width: getHorizontalSize(351.00),
-                                  margin: getMargin(left: 7),
-                                  child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                                "msg_quickk_dine_fun".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium20)),
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                                "msg_quickk_dine_fun".tr,
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtPoppinsMedium20))
-                                      ])),
                               CustomSearchView(
-                                  width: 343,
-                                  focusNode: FocusNode(),
-                                  controller: controller.searchButtonController,
-                                  hintText: "msg_search_for_restaurants".tr,
-                                  margin: getMargin(top: 22),
-                                  alignment: Alignment.center,
-                                  prefix: Container(
-                                      margin: getMargin(
-                                          left: 18,
-                                          top: 12,
-                                          right: 22,
-                                          bottom: 13),
-                                      child: CustomImageView(
-                                          svgPath: ImageConstant.imgSearch)),
-                                  prefixConstraints: BoxConstraints(
-                                      maxHeight: getVerticalSize(40.00))),
+                                width: 343,
+                                focusNode: FocusNode(),
+                                controller: controller.searchButtonController,
+                                hintText: "Search For Restaurant,Cousins",
+                                //"msg_search_for_restaurants".tr,
+                                margin: getMargin(top: 22),
+                                alignment: Alignment.center,
+                                prefix: Container(
+                                  margin: getMargin(
+                                      left: 18, top: 1, right: 22, bottom: 0),
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.search_rounded, size: 20),
+                                  ),
+                                ),
+                                prefixConstraints:
+                                BoxConstraints(maxHeight: getVerticalSize(50.00)),
+                              ),
                               Padding(
                                   padding:
                                       getPadding(left: 3, top: 23, right: 25),
@@ -948,90 +957,29 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               ),
                             ])))),
             drawer: buildDrawer(),
-            bottomNavigationBar: Container(
-              margin: getMargin(left: 14,bottom: 15,right: 15),
-              padding: EdgeInsets.only(left: 10,right: 20),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 15.0, // soften the shadow
-                      spreadRadius: 2.0, //extend the shadow
-                      offset: Offset(
-                        1.0, // Move to right 5  horizontally
-                        4.0, // Move to bottom 5 Vertically
-                      ),
-                    ),
-                  ]
-              ),
-              child: SizedBox(
-                height: 88,
-                child: GNav(
-                  duration: Duration(milliseconds: 400),
-                  tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                  activeColor: Colors.white,
-                  selectedIndex: _currentIndex,
-                  haptic: true,
-                  // backgroundColor: Colors.transparent,
-                  tabs: [
-                    GButton(
-                      gap: 8,
-                      icon: Icons.home,
-                      text: "Home",
-
-                      onPressed: () {
-                        onTapBottomHomeButton();
-                      },
-                    ),
-                    GButton(
-                      gap: 8,
-                      icon: Icons.search,
-                      text: "Search",
-                      onPressed: () {
-                        onTapBottomSearchButton();
-                      },
-                    ),
-                    GButton(
-                      gap: 8,
-                      icon: Icons.access_time,
-                      text: "Pre-Order",
-                      onPressed: () =>  onTapBottomPre_OrderButton() ,
-                    ),
-                    // GButton(
-                    //     gap: 8,
-                    //     icon: Icons.bookmark_border,
-                    //     text: "Reservation",
-                    //     onPressed: () {
-                    //       onTapBottomReservationButton();
-                    //     }),
-                  ],
-                ),
-              ),
+            bottomNavigationBar: BottomNavBbbar(currentindex: _currentIndex),
             ),
-        )
     );
   }
 
   Widget buildDrawer() => DrawerWidget(
-        onSelectedItem: (item) {
-          switch (item) {
-            case DrawerItems.Info:
-              return onTapInfo();
-            case DrawerItems.profile:
-              return onTapProfile();
-            case DrawerItems.Pre_Order:
-              return onTapBottomPre_OrderButton();
-            case DrawerItems.Offers:
-              return onTapOffersandPromo();
-            case DrawerItems.reservation:
-              return onTapBottomReservationButton();
-            case DrawerItems.Logout:
-              return onTaplogout();
-          }
-        },
-      );
+    onSelectedItem: (item) {
+      switch (item) {
+        case DrawerItems.Info:
+          return onTapInfo();
+        case DrawerItems.profile:
+          return onTapProfile();
+        case DrawerItems.Pre_Order:
+          return  onTapYourORder();
+        case DrawerItems.Offers:
+          return onHelp();
+        case DrawerItems.reservation:
+          return onTapBottomReservationButton();
+        case DrawerItems.Logout:
+          return onTaplogout();
+      }
+    },
+  );
   onTapProfileIcon1() {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
@@ -1043,7 +991,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
   onTapBottomHomeButton() {
     Get.toNamed(AppRoutes.homeScreen);
   }
-
+  onTapYourORder() {
+    Get.toNamed(AppRoutes.orderHistoryScreen);
+  }
+  onHelp() {
+    Get.toNamed(AppRoutes.helpScreen);
+  }
   onTapBottomPre_OrderButton() {
     Get.toNamed(AppRoutes.orderpreScreen);
   }

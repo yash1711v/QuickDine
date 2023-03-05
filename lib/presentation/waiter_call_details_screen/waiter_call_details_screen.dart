@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 
+import '../../bttmNav.dart';
 import 'controller/waiter_call_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:quickdine/core/app_export.dart';
@@ -17,6 +18,7 @@ class WaiterCallDetailsScreen extends StatefulWidget {
 class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    var _currentIndex=0;
     return SafeArea(
       top: false,
       bottom: false,
@@ -354,61 +356,8 @@ class _WaiterCallDetailsScreenState extends State<WaiterCallDetailsScreen> {
               ],
             ),
           ),
-          bottomNavigationBar:  Container(
-            margin: getMargin(left: 14,bottom: 15,right: 15),
-            padding: EdgeInsets.only(left: 10,right: 20),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 15.0, // soften the shadow
-                    spreadRadius: 2.0, //extend the shadow
-                    offset: Offset(
-                      1.0, // Move to right 5  horizontally
-                      4.0, // Move to bottom 5 Vertically
-                    ),
-                  ),
-                ]
-            ),
-            child: SizedBox(
-              height: 88,
-              child: GNav(
-                duration: Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-                activeColor: Colors.white,
-                //selectedIndex: _currentIndex,
-                haptic: true,
-                // backgroundColor: Colors.transparent,
-                tabs: [
-                  GButton(
-                    gap: 8,
-                    icon: Icons.home,
-                    text: "Home",
-
-                    onPressed: () {
-                      onTapBottomHomeButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.search,
-                    text: "Search",
-                    onPressed: () {
-                      onTapBottomSearchButton();
-                    },
-                  ),
-                  GButton(
-                    gap: 8,
-                    icon: Icons.access_time,
-                    text: "Pre-Order",
-                    onPressed: () => onTapBottomPre_OrderButton(),
-                  ),
-                ],
-              ),
-            ),
-          ),),
+          bottomNavigationBar:  BottomNavBbbar(currentindex: _currentIndex=0)
+          ),
     );
   }
 

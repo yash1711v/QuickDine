@@ -1,35 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quickdine/Authentication/supabasecredential.dart';
-import 'package:quickdine/Database/DatabaseServices.dart';
 import 'package:quickdine/preferences/shp.dart';
 import 'package:quickdine/presentation/DrawerWidget/DrawerItem.dart';
-import 'package:quickdine/presentation/DrawerWidget/DrawerItemModelClass.dart';
-import 'package:quickdine/presentation/explore_screen/explore_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-import '../../UserModel/SupabaseUser.dart';
-import '../../UserModel/usermodel.dart';
+import 'package:geolocator/geolocator.dart';
+import '../../bttmNav.dart';
 import '../DrawerWidget/DrawerWidget.dart';
-import '../home_screen/widgets/listrectanglefiftyfive_item_widget.dart';
-import '../home_screen/widgets/restaurantnear_item_widget.dart';
 import 'controller/home_controller.dart';
-import 'models/listrectanglefiftyfive_item_model.dart';
-import 'models/restaurantnear_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/widgets/app_bar/appbar_dropdown.dart';
-import 'package:quickdine/widgets/app_bar/appbar_image.dart';
-import 'package:quickdine/widgets/app_bar/appbar_stack.dart';
-import 'package:quickdine/widgets/app_bar/custom_app_bar.dart';
-import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_search_view.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-
+import 'package:geocoding/geocoding.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -38,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 0;
+  late int _currentIndex ;
   get controller => HomeController();
   String id = "";
   List? myList;
@@ -46,10 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   int i = 0;
   int R = 0;
   String resId = "";
+  String loca="";
   void initState() {
     super.initState();
     readData();
     checkidValue();
+    _currentIndex= 0;
+    getCurrentLocation();
   }
   static String supabaseURL = "https://omadswcnxjdbrufimbwy.supabase.co";
   static String supabaseKey =
@@ -92,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
       myList!.forEach((element) {
         userList.add(element);
         i++;
+
       });
     });
     for (int j = 0; j < i; j++) {
@@ -108,10 +97,28 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
+  //Code For Getting Current Location
+void getCurrentLocation() async{
+    var position=await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark placeMark=placemarks[0];
+    String? name = placeMark.name;
+    String? subLocality = placeMark.subLocality;
+    String? locality = placeMark.locality;
+    String? administrativeArea = placeMark.administrativeArea;
+    String? postalCode = placeMark.postalCode;
+    String? country = placeMark.country;
+    String address = "${name}, ${subLocality}, ${locality}, ${administrativeArea} ${postalCode}, ${country}";
+      print(locality);
+      setState(() {
+        loca=locality!;
+      });
 
+}
   @override
   Widget build(BuildContext context) {
     print(userList);
+    print(loca);
     //readData();
     //userList.toList(growable: true);
     return Scaffold(
@@ -138,18 +145,25 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          title: AppbarDropdown(
-              hintText: "lbl_delhi".tr,
-              margin: getMargin(top: 10),
-              items: controller.homeModelObj.value.dropdownItemList,
-              onTap: (value) {
-                controller.onSelected(value);
-              }),
-          actions: [
-            AppbarStack(
-                margin: getMargin(left: 20, right: 20, top: 12),
-                onTap: onTapProfileIcon)
-          ]),
+          title: Container(
+            child: Row(
+              children: [
+                Container(
+                  margin: getMargin(left: 80),
+                  child: Icon(Icons.location_on,
+                  color: Colors.black,),
+                ),
+                Text(loca,
+                style: TextStyle(
+                  color: Colors.black
+                ),),
+              ],
+            ),
+          ),
+        actions: [
+          Lottie.asset('assets2/Shopping.json')
+        ],
+    ),
       body: Stack(
         children: [
           //buildDrawer(),
@@ -157,59 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: buildDrawer(),
-      bottomNavigationBar: Container(
-        margin: getMargin(left: 14, bottom: 15, right: 15),
-        padding: EdgeInsets.only(left: 10, right: 20),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 15.0, // soften the shadow
-                spreadRadius: 2.0, //extend the shadow
-                offset: Offset(
-                  1.0, // Move to right 5  horizontally
-                  4.0, // Move to bottom 5 Vertically
-                ),
-              ),
-            ]),
-        child: SizedBox(
-          height: 88,
-          child: GNav(
-            duration: Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-            activeColor: Colors.white,
-            selectedIndex: _currentIndex,
-            haptic: true,
-            // backgroundColor: Colors.transparent,
-            tabs: [
-              GButton(
-                gap: 8,
-                icon: Icons.home,
-                text: "Home",
-                onPressed: () {
-                  onTapBottomHomeButton();
-                },
-              ),
-              GButton(
-                gap: 8,
-                icon: Icons.search,
-                text: "Search",
-                onPressed: () {
-                  onTapBottomSearchButton();
-                },
-              ),
-              GButton(
-                gap: 8,
-                icon: Icons.access_time,
-                text: "Pre-Order",
-                onPressed: () => onTapBottomPre_OrderButton(),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavBbbar(currentindex: _currentIndex),
     );
   }
 
@@ -221,9 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
             case DrawerItems.profile:
               return onTapProfile();
             case DrawerItems.Pre_Order:
-              return onTapPreORder();
+              return  onTapYourORder();
             case DrawerItems.Offers:
-              return onTapOffersandPromo();
+              return onHelp();
             case DrawerItems.reservation:
               return onTapBottomReservationButton();
             case DrawerItems.Logout:
@@ -260,6 +222,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           prefixConstraints:
                               BoxConstraints(maxHeight: getVerticalSize(50.00)),
+                          suffix: Container(
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.mic, size: 20),
+                            ),
+                          ),
                         ),
                         //Restaurant Near You
                         Padding(
@@ -973,9 +941,11 @@ class _HomeScreenState extends State<HomeScreen> {
   onTapBottomHomeButton() async {
     Get.toNamed(AppRoutes.homeScreen);
   }
-
-  onTapBottomPre_OrderButton() {
-    Get.toNamed(AppRoutes.orderpreScreen);
+  onTapYourORder() {
+    Get.toNamed(AppRoutes.orderHistoryScreen);
+  }
+  onHelp() {
+    Get.toNamed(AppRoutes.helpScreen);
   }
 
   onTapBottomReservationButton() {
@@ -997,9 +967,6 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.toNamed(AppRoutes.profileSettingScreen);
   }
 
-  onTapPreORder() {
-    Get.toNamed(AppRoutes.orderpreScreen);
-  }
 
   onTapOffersandPromo() {
     Get.toNamed(AppRoutes.promoScreen);
@@ -1013,115 +980,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// class HomeScreen extends GetWidget<HomeController> {
-//   int _currentIndex=0;
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//         top: false,
-//         bottom: false,
-//         child: Scaffold(
-//             resizeToAvoidBottomInset: false,
-//             backgroundColor: ColorConstant.whiteA700,
-//              appBar: AppBar(
-//                backgroundColor: Colors.white,
-//                elevation: 0,
-//                centerTitle: true,
-//                  leading: Builder(
-//                    builder: (BuildContext context) {
-//                      return IconButton(
-//                        icon: const Icon(
-//                          Icons.menu_rounded,
-//                          color: Colors.black,
-//                          size: 50, // Changing Drawer Icon Size
-//                        ),
-//                        onPressed: () {
-//                          Scaffold.of(context).openDrawer();
-//                        },
-//                        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-//
-//                      );
-//                    },
-//                  ),
-//                title: AppbarDropdown(
-//                      hintText: "lbl_delhi".tr,
-//                      margin: getMargin(top: 10),
-//                      items: controller.homeModelObj.value.dropdownItemList,
-//                      onTap: (value) {
-//                        controller.onSelected(value);
-//                      }
-//                      ),
-//                  actions: [
-//                      AppbarStack(
-//                          margin: getMargin(left: 20, right: 20,top: 12),
-//                          onTap: onTapProfileIcon
-//                      )
-//                    ]
-//              ),
-//              //CustomAppBar(
-//             //     height: getVerticalSize(50.00),
-//             //     leadingWidth: 60,
-//             //     // leading: AppbarImage(
-//             //     //     height: getSize(24.00),
-//             //     //     width: getSize(24.00),
-//             //     //     svgPath: ImageConstant.imgMenu,
-//             //     //     margin: getMargin(left: 18, top: 7, bottom: 0),
-//             //     //   onTap: (){
-//             //     //       onTapMenuIconButtonInTopAppBar();
-//             //     //   },
-//             //     // ),
-//             //     centerTitle: true,
-//             //     title: AppbarDropdown(
-//             //         hintText: "lbl_delhi".tr,
-//             //         margin: getMargin(top: 10),
-//             //         items: controller.homeModelObj.value.dropdownItemList,
-//             //         onTap: (value) {
-//             //           controller.onSelected(value);
-//             //         }),
-//             //     actions: [
-//             //       AppbarStack(
-//             //           margin: getMargin(left: 20, right: 20,top: 5),
-//             //           onTap: onTapProfileIcon
-//             //       )
-//             //     ]),
-//             body: Stack(
-//               children: [
-//                 buildDrawer(),
-//                 buildPAge(),
-//               ],
-//             ),
-//           drawer: buildDrawer(),
-//           bottomNavigationBar:  SizedBox(height: 90.50, width: 10,
-//             child: GNav(
-//               duration: Duration(milliseconds: 400),
-//               tabBackgroundColor: Colors.deepOrangeAccent.shade100,
-//               activeColor: Colors.white,
-//               selectedIndex: _currentIndex,
-//               tabs: [
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.home,
-//                   text: "Home",
-//                   onPressed: (){onTapBottomHomeButton();
-//                   },
-//                 ),
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.search,
-//                   text: "Search",
-//                   onPressed: (){onTapBottomSearchButton();},
-//                 ),
-//                 GButton(
-//                   gap: 8,
-//                   icon: Icons.access_time,
-//                   text: "Pre-Order",),
-//                 GButton(
-//                     gap: 8,
-//                     icon: Icons.bookmark_border,
-//                     text: "Reservation",
-//                     onPressed: (){onTapBottomReservationButton();}),
-//               ],
-//             ),)
-//         ),
-//     );
-//   }
+

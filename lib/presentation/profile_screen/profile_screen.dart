@@ -1,6 +1,7 @@
 import 'package:lottie/lottie.dart';
 
 import '../../Database/DatabaseServices.dart';
+import '../../bttmNav.dart';
 import '../../preferences/shp.dart';
 import 'controller/profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -481,6 +482,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
           ),
         ),
+
       ),
     );
   }
