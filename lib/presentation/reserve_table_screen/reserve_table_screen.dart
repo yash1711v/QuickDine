@@ -28,21 +28,29 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> with TickerProv
   String resPhoto="";
   String avgFile="";
   List? resList;
+  List? FoodList;
+    Map<String,String>FoodItems={
+
+    };
+//FoodCatogary List
+  List<String> Catagories=[];
   String catagories="";
   String Rating="";
   int i=0;
    late TabController _tabController;
   List<Map<String,dynamic>> RestaurantList = [];
+  late Set<Map<String,String>> catogaries;
  late DateTime opentime;
   late DateTime Clossingtime;
-String  avgprice="";
+  String  avgprice="";
   bool ontime=false;
 var time=DateTime.now();
   void initState() {
-    super.initState();
     readData();
+    super.initState();
     checkidValue();
-    _tabController=TabController(length: 7, vsync: this);
+
+ 
   }
   checkidValue() async {
     String uid = await shp().getresId()?? "";
@@ -72,15 +80,45 @@ var time=DateTime.now();
          // Clossingtime=DateTime.parse(RestaurantList[j]['closing_time']);
         });
       }
+
     }
-    print("///////////////////////////");
-    // print( opentime);
-    // print(ontime);
-    print("///////////////////////////");
+    var response3 =await Supabase.instance.client.from('food_item').select().execute();
+    FoodList=response3.data.toList();
+    int j=0;
+    FoodList!.forEach((element) {
+          j++;
+    });
+    print(j);
+    int k=0;
+    for(int i=0;i<j;i++){
+      print("///////////////////////////");
+     setState(() {
+       FoodItems.addIf(FoodList![i]['restid']==resId, FoodList![i]['foodname'], FoodList![i]['cuisine']);
+     });
+      // print(FoodItems.entries);
+      // print("///////////////////////////");
+      // print("///////////////////////////");
+    }
+    Set<String> cat={};
+      print(FoodItems.entries);
+    print(FoodItems.length);
+    FoodItems.forEach((key, value) {
+      print(key+":"+value);
+      cat.add(value);
+    });
+   setState(() {
+     cat.forEach((element) {
+       Catagories.add(element);
+     });
+   });
+   Catagories.sort();
+    print(Catagories);
+
   }
 
   @override
   Widget build(BuildContext context) {
+    _tabController=TabController(length: Catagories.length,vsync: this);
     return SafeArea(
         top: false,
         bottom: false,
@@ -95,14 +133,38 @@ var time=DateTime.now();
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: resPhoto,
-                          placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
-                          errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
-                              height: getVerticalSize(313.00),
-                              width: getHorizontalSize(414.00),
-                            fit: BoxFit.cover,
+                        Stack(
+                          children: [
+
+                            CachedNetworkImage(
+                            imageUrl: resPhoto,
+                            placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
+                            errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
+                                height: getVerticalSize(313.00),
+                                width: getHorizontalSize(414.00),
+                              fit: BoxFit.cover,
+                              ),
+                            Container(
+                              margin: getMargin(top: 20),
+                              child: IconButton(
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                icon:Icon(Icons.arrow_back_ios),
+                                //replace with our own icon data.
+                              ),
                             ),
+                            Container(
+                              margin: getMargin(top: 20,left: 370),
+                              child: IconButton(
+                                onPressed: (){
+                                },
+                                icon:Icon(Icons.search_rounded),
+                                //replace with our own icon data.
+                              ),
+                            ),
+                          ]
+                        ),
                         Padding(
                             padding: getPadding(left: 32, top: 14),
                             child: Text(ResName.tr,
@@ -185,15 +247,12 @@ var time=DateTime.now();
                                 labelColor: Colors.black,
                                   unselectedLabelColor: Colors.grey,
                                   indicator:  CircleTabIndicator(color: Colors.black, radius: 3),
-                                  tabs: [
-                                      Tab(text: 'North Indian'),
-                                      Tab(text: 'South Indian'),
-                                      Tab(text: 'Chines'),
-                                      Tab(text: 'Italian'),
-                                      Tab(text: 'Korean'),
-                                      Tab(text: 'Bevarages'),
-                                      Tab(text: 'Breads'),
-                                  ],
+                                  tabs: List<Widget>.generate( Catagories.length, (index) {
+                                    print(Catagories[index]);
+                                    return new Tab(text: Catagories[index],);
+                                  })
+
+                                  // ],
                                 ),
                               ),
                             ),
@@ -209,7 +268,6 @@ var time=DateTime.now();
                                   Text("Yoo"),
                                   Text("Buddy"),
                                   Text("I am Yash"),
-                                  Text("Funny"),
                                 ],
                               ),
                         ),

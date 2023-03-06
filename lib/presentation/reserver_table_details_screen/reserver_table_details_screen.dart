@@ -30,6 +30,16 @@ class _ReserverTableDetailsScreenState
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Container(
+                        margin: getMargin(top: 2,right: 350),
+                        child: IconButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          icon:Icon(Icons.arrow_back_ios),
+                          //replace with our own icon data.
+                        ),
+                      ),
                       SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           padding: getPadding(left: 41, top: 31),

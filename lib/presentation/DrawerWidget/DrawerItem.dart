@@ -3,7 +3,6 @@ import 'DrawerItemModelClass.dart';
 
 class DrawerItems {
   static const Info = DrawerItem(title: 'Who we are', icon: Icons.info);
-  static const profile = DrawerItem(title: 'Profile', icon: Icons.person);
   static const Pre_Order =
       DrawerItem(title: 'Your Order', icon: Icons.shopping_cart);
   static const Offers =
@@ -14,7 +13,6 @@ class DrawerItems {
 
   static final List<DrawerItem> all = [
     Info,
-    profile,
     Pre_Order,
     Offers,
     reservation,

@@ -68,6 +68,7 @@ class BottomNavBbbar extends StatelessWidget {
 
 onTapBottomSearchButton() async {
   Get.toNamed(AppRoutes.exploreScreen);
+
 }
 
 onTapBottomHomeButton() async {

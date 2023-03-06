@@ -184,8 +184,6 @@ void getCurrentLocation() async{
           switch (item) {
             case DrawerItems.Info:
               return onTapInfo();
-            case DrawerItems.profile:
-              return onTapProfile();
             case DrawerItems.Pre_Order:
               return  onTapYourORder();
             case DrawerItems.Offers:

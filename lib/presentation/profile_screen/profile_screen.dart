@@ -100,342 +100,355 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: ColorConstant.whiteA700,
-        body: SingleChildScrollView(
-          child: Padding(
-            child: Container(
-              child: Form(
-                key: _formKey,
-                child: Container(
-                  width: size.width,
-                  padding: getPadding(
-                    left: 27,
-                    top: 24,
-                    right: 27,
-                    bottom: 24,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: getPadding(
-                          top: 19,
+        body: Stack(
+          children: [SingleChildScrollView(
+            child: Padding(
+              child: Container(
+                child: Form(
+                  key: _formKey,
+                  child: Container(
+                    width: size.width,
+                    padding: getPadding(
+                      left: 27,
+                      top: 24,
+                      right: 27,
+                      bottom: 24,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: getPadding(
+                            top: 19,
+                          ),
+                          child: Text(
+                            "lbl_profile".tr,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                            style: AppStyle.txtPoppinsSemiBold20,
+                          ),
                         ),
-                        child: Text(
-                          "lbl_profile".tr,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                          style: AppStyle.txtPoppinsSemiBold20,
-                        ),
-                      ),
 
-                      Container(
-                        height: 150,
-                        width: 200,
-                        child: GestureDetector(
-                            onTap: () async {
-                              // Code for uploading photo to Supabase Storage
-                              final pickedFile = await ImagePicker()
-                                  .getImage(source: ImageSource.gallery);
-                              if (pickedFile != null) {
-                                final file = File(pickedFile.path);
-                                String fileName = basename(pickedFile.path);
-                                await client.storage
-                                    .from('user-photos')
-                                    .upload(fileName,
-                                        file)
-                                    .then((value) {
-                                  setState(() {
-
-                                  });
-                                });
-
-                                // Code for getting Download URL of uploaded image
-                                setState(() {
-                                  publicUrl = client.storage
+                        Container(
+                          height: 150,
+                          width: 200,
+                          child: GestureDetector(
+                              onTap: () async {
+                                // Code for uploading photo to Supabase Storage
+                                final pickedFile = await ImagePicker()
+                                    .getImage(source: ImageSource.gallery);
+                                if (pickedFile != null) {
+                                  final file = File(pickedFile.path);
+                                  String fileName = basename(pickedFile.path);
+                                  await client.storage
                                       .from('user-photos')
-                                      .getPublicUrl(fileName);
-                                  uploadState = true;
-                                });
-                              }
-                              uploadState
-                                  ? Text("Upload Complete")
-                                  : CircularProgressIndicator();
-                            },
-                            child:   Stack(
-                              fit: StackFit.expand,
-                               children: [CircleAvatar(
-                                 // backgroundColor: Colors.white,
-                                 backgroundImage:NetworkImage(publicUrl),
-                                 radius: 60,
-
-                               ),
-                                 //-------------------------------------------This is to add the button on it
-                                 // Positioned(
-                                 //     right: -16,
-                                 //     bottom: 0,
-                                 //     child: SizedBox(
-                                 //         height: 46,
-                                 //         width: 46,
-                                 //         child: FlatButton(
-                                 //           shape: RoundedRectangleBorder(
-                                 //             borderRadius: BorderRadius.circular(50),
-                                 //             side: BorderSide(color: Colors.white),
-                                 //           ),
-                                 //           color: Color(0xFFF5F6F9),
-                                 //           onPressed: () {},
-                                 //           // TODO: Icon not centered.
-                                 //           child: Center(child: Icon(Icons.camera_alt_outlined)),
-                                 //         )))
-
-                               ],
-                            ),
-                            ),
-                      ),
-                      Container(
-                        margin: getMargin(top: 20),
-                        child: SizedBox(
-                          width: 360,
-                          child: TextField(
-                            controller: _firstNameController,
-                            obscureText: false,
-                            focusNode: _firstNameNode,
-                            // keyboardType: TextInputType.name,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0,
-                                ), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 5,
-                                    color: Colors
-                                        .deepOrange.shade100), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              //errorText: "Please enter valid text",
-                              hintText: 'First name',
-                              labelText: 'First name',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: getMargin(top: 24),
-                        child: SizedBox(
-                          width: 360,
-                          child: TextField(
-                            obscureText: false,
-                            controller: _lastNameController,
-                            focusNode: _lastNameNode,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0,
-                                ), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 5,
-                                    color: Colors
-                                        .deepOrange.shade100), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              hintText: 'Last name',
-                              labelText: 'Last name',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: getMargin(top: 24),
-                        child: SizedBox(
-                          width: 360,
-                          child: TextField(
-                            //controller: controller.phoneNumberTextController,
-                            // keyboardType: TextInputType.phone,
-                            obscureText: false,
-                            maxLines: 1,
-                            maxLength: 10,
-                            controller: _phoneNumberController,
-                            focusNode: _phoneNumberNode,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0,
-                                ), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 5,
-                                    color: Colors
-                                        .deepOrange.shade100), //<-- SEE HERE
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              //errorText: "Please enter valid text",
-                              hintText: 'Mobile No.',
-                              labelText: 'Mobile No.',
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: getMargin(top: 24),
-                        child: SizedBox(
-                          width: 360,
-                          child: TextField(
-                            controller: _emailController,
-                            // keyboardType: TextInputType.name,
-                            obscureText: false,
-                            focusNode: _emailNode,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0,
-                                  ), //<-- SEE HERE
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 5,
-                                      color: Colors
-                                          .deepOrange.shade100), //<-- SEE HERE
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                //errorText: "Please enter valid text",
-                                hintText: 'example@abc.com',
-                                labelText: 'Email Address',
-                                prefixIcon: Icon(
-                                  Icons.mail,
-                                  color: Colors.deepOrange,
-                                )),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: getMargin(top: 24),
-                        child: SizedBox(
-                          width: 360,
-                          child: TextField(
-                            controller: _passwordController,
-                            obscureText: _isVisible,
-                            // keyboardType: TextInputType.visiblePassword,
-                            focusNode: _passwordNode,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 0,
-                                  ), //<-- SEE HERE
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 5,
-                                      color: Colors
-                                          .deepOrange.shade100), //<-- SEE HERE
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                //errorText: "Please enter valid text",
-                                hintText: 'Password',
-                                labelText: 'Password',
-                                prefixIcon: Icon(
-                                  Icons.lock,
-                                  color: Colors.deepOrange,
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
+                                      .upload(fileName,
+                                          file)
+                                      .then((value) {
                                     setState(() {
-                                      _isVisible = !_isVisible;
+
+                                    });
+                                  });
+
+                                  // Code for getting Download URL of uploaded image
+                                  setState(() {
+                                    publicUrl = client.storage
+                                        .from('user-photos')
+                                        .getPublicUrl(fileName);
+                                    uploadState = true;
+                                  });
+                                }
+                                uploadState
+                                    ? Text("Upload Complete")
+                                    : CircularProgressIndicator();
+                              },
+                              child:   Stack(
+                                fit: StackFit.expand,
+                                 children: [CircleAvatar(
+                                   // backgroundColor: Colors.white,
+                                   backgroundImage:NetworkImage(publicUrl),
+                                   radius: 60,
+
+                                 ),
+                                   //-------------------------------------------This is to add the button on it
+                                   // Positioned(
+                                   //     right: -16,
+                                   //     bottom: 0,
+                                   //     child: SizedBox(
+                                   //         height: 46,
+                                   //         width: 46,
+                                   //         child: FlatButton(
+                                   //           shape: RoundedRectangleBorder(
+                                   //             borderRadius: BorderRadius.circular(50),
+                                   //             side: BorderSide(color: Colors.white),
+                                   //           ),
+                                   //           color: Color(0xFFF5F6F9),
+                                   //           onPressed: () {},
+                                   //           // TODO: Icon not centered.
+                                   //           child: Center(child: Icon(Icons.camera_alt_outlined)),
+                                   //         )))
+
+                                 ],
+                              ),
+                              ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 20),
+                          child: SizedBox(
+                            width: 360,
+                            child: TextField(
+                              controller: _firstNameController,
+                              obscureText: false,
+                              focusNode: _firstNameNode,
+                              // keyboardType: TextInputType.name,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  ), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 5,
+                                      color: Colors
+                                          .deepOrange.shade100), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                //errorText: "Please enter valid text",
+                                hintText: 'First name',
+                                labelText: 'First name',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 24),
+                          child: SizedBox(
+                            width: 360,
+                            child: TextField(
+                              obscureText: false,
+                              controller: _lastNameController,
+                              focusNode: _lastNameNode,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  ), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 5,
+                                      color: Colors
+                                          .deepOrange.shade100), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                hintText: 'Last name',
+                                labelText: 'Last name',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 24),
+                          child: SizedBox(
+                            width: 360,
+                            child: TextField(
+                              //controller: controller.phoneNumberTextController,
+                              // keyboardType: TextInputType.phone,
+                              obscureText: false,
+                              maxLines: 1,
+                              maxLength: 10,
+                              controller: _phoneNumberController,
+                              focusNode: _phoneNumberNode,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 0,
+                                  ), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 5,
+                                      color: Colors
+                                          .deepOrange.shade100), //<-- SEE HERE
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                //errorText: "Please enter valid text",
+                                hintText: 'Mobile No.',
+                                labelText: 'Mobile No.',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 24),
+                          child: SizedBox(
+                            width: 360,
+                            child: TextField(
+                              controller: _emailController,
+                              // keyboardType: TextInputType.name,
+                              obscureText: false,
+                              focusNode: _emailNode,
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0,
+                                    ), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 5,
+                                        color: Colors
+                                            .deepOrange.shade100), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  //errorText: "Please enter valid text",
+                                  hintText: 'example@abc.com',
+                                  labelText: 'Email Address',
+                                  prefixIcon: Icon(
+                                    Icons.mail,
+                                    color: Colors.deepOrange,
+                                  )),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 24),
+                          child: SizedBox(
+                            width: 360,
+                            child: TextField(
+                              controller: _passwordController,
+                              obscureText: _isVisible,
+                              // keyboardType: TextInputType.visiblePassword,
+                              focusNode: _passwordNode,
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 0,
+                                    ), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 5,
+                                        color: Colors
+                                            .deepOrange.shade100), //<-- SEE HERE
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  //errorText: "Please enter valid text",
+                                  hintText: 'Password',
+                                  labelText: 'Password',
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: Colors.deepOrange,
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isVisible = !_isVisible;
+                                      });
+                                    },
+                                    icon: Icon(_isVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
+                                  )),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: getPadding(
+                              top: 53,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                  height: 72,
+                                  width: 350,
+                                  text: "lbl_save".tr,
+                                  variant: ButtonVariant.OutlineRed500_1,
+                                  shape: ButtonShape.RoundedBorder10,
+                                  padding: ButtonPadding.PaddingAll19,
+                                  fontStyle: ButtonFontStyle.PoppinsBold18,
+                                  onTap: () async {
+                                    setState(() {
+                                      if (_firstNameController.text == null) {
+                                        fname = firstName;
+                                      } else {
+                                        fname = _firstNameController.text;
+                                      }
+                                      if (_lastNameController.text == null) {
+                                        lname = lastName;
+                                      } else {
+                                        lname = _lastNameController.text;
+                                      }
+                                      if (_emailController.text == null) {
+                                        Email = email;
+                                      } else {
+                                        Email = _emailController.text;
+                                      }
+                                      if (_passwordController.text == null) {
+                                        pass = password;
+                                      } else {
+                                        pass = _passwordController.text;
+                                      }
+                                      if (_phoneNumberController.text == null) {
+                                        Phone = phone.toString();
+                                      } else {
+                                        Phone = _phoneNumberController.text;
+                                      }
+                                    });
+                                    Future.delayed(Duration(seconds: 1),
+                                        () async {
+                                      await DatabaseServices().InsertuserData(
+                                          fname,
+                                          lname,
+                                          Phone.toString(),
+                                          email,
+                                          pass,
+                                          id,
+                                        publicUrl,
+                                      );
+                                      shp().setFirstname(fname);
+                                      shp().setLastName(lname);
+                                      shp().setPhone(Phone);
+                                      shp().setemail(Email);
+                                      shp().setPassword(pass);
+                                      shp().setProfileink(publicUrl);
                                     });
                                   },
-                                  icon: Icon(_isVisible
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  padding: EdgeInsets.fromLTRB(20, 0, 15, 0),
-                                )),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: getPadding(
-                            top: 53,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomButton(
-                                height: 72,
-                                width: 350,
-                                text: "lbl_save".tr,
-                                variant: ButtonVariant.OutlineRed500_1,
-                                shape: ButtonShape.RoundedBorder10,
-                                padding: ButtonPadding.PaddingAll19,
-                                fontStyle: ButtonFontStyle.PoppinsBold18,
-                                onTap: () async {
-                                  setState(() {
-                                    if (_firstNameController.text == null) {
-                                      fname = firstName;
-                                    } else {
-                                      fname = _firstNameController.text;
-                                    }
-                                    if (_lastNameController.text == null) {
-                                      lname = lastName;
-                                    } else {
-                                      lname = _lastNameController.text;
-                                    }
-                                    if (_emailController.text == null) {
-                                      Email = email;
-                                    } else {
-                                      Email = _emailController.text;
-                                    }
-                                    if (_passwordController.text == null) {
-                                      pass = password;
-                                    } else {
-                                      pass = _passwordController.text;
-                                    }
-                                    if (_phoneNumberController.text == null) {
-                                      Phone = phone.toString();
-                                    } else {
-                                      Phone = _phoneNumberController.text;
-                                    }
-                                  });
-                                  Future.delayed(Duration(seconds: 1),
-                                      () async {
-                                    await DatabaseServices().InsertuserData(
-                                        fname,
-                                        lname,
-                                        Phone.toString(),
-                                        email,
-                                        pass,
-                                        id,
-                                      publicUrl,
-                                    );
-                                    shp().setFirstname(fname);
-                                    shp().setLastName(lname);
-                                    shp().setPhone(Phone);
-                                    shp().setemail(Email);
-                                    shp().setPassword(pass);
-                                    shp().setProfileink(publicUrl);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
             ),
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
           ),
+            Container(
+              margin: getMargin(top: 25),
+              child: IconButton(
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+                icon:Icon(Icons.arrow_back_ios),
+                //replace with our own icon data.
+              ),
+            )
+          ]
         ),
           bottomNavigationBar:  BottomNavBbbar(currentindex: _currentIndex=2)
       ),
