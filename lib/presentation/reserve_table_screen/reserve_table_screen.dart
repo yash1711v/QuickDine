@@ -1,9 +1,12 @@
+import 'dart:collection';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../preferences/shp.dart';
+import '../FoodCd/Foodcd.dart';
 import '../indicator/indicator.dart';
 import 'controller/reserve_table_controller.dart';
 import 'package:flutter/material.dart';
@@ -44,13 +47,14 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> with TickerProv
   late DateTime Clossingtime;
   String  avgprice="";
   bool ontime=false;
-var time=DateTime.now();
+  late List<Tab> tabname;
+  var sortedByValueMap;
+  var time=DateTime.now();
   void initState() {
     readData();
     super.initState();
     checkidValue();
 
- 
   }
   checkidValue() async {
     String uid = await shp().getresId()?? "";
@@ -91,7 +95,7 @@ var time=DateTime.now();
     print(j);
     int k=0;
     for(int i=0;i<j;i++){
-      print("///////////////////////////");
+     // print("///////////////////////////");
      setState(() {
        FoodItems.addIf(FoodList![i]['restid']==resId, FoodList![i]['foodname'], FoodList![i]['cuisine']);
      });
@@ -100,10 +104,10 @@ var time=DateTime.now();
       // print("///////////////////////////");
     }
     Set<String> cat={};
-      print(FoodItems.entries);
-    print(FoodItems.length);
+     // print(FoodItems.entries);
+    //print(FoodItems.length);
     FoodItems.forEach((key, value) {
-      print(key+":"+value);
+     // print(key+":"+value);
       cat.add(value);
     });
    setState(() {
@@ -112,7 +116,12 @@ var time=DateTime.now();
      });
    });
    Catagories.sort();
-    print(Catagories);
+    setState(() {
+      sortedByValueMap = new SplayTreeMap<String, String>.from(
+          FoodItems, (k1, k2) => FoodItems[k1]!.compareTo(FoodItems[k2]!));
+    });
+    //print(sortedByValueMap);
+    //print(Catagories);
 
   }
 
@@ -261,14 +270,9 @@ var time=DateTime.now();
                               height: 300,
                               child: TabBarView(
                                 controller: _tabController,
-                                children: [
-                                  Text("hii"),
-                                  Text("heloo"),
-                                  Text("yupiie"),
-                                  Text("Yoo"),
-                                  Text("Buddy"),
-                                  Text("I am Yash"),
-                                ],
+                                children:  List<Widget>.generate(Catagories.length, (index) {
+                                         return FoodCards(CuisineNAme: Catagories[index]);
+                                         })
                               ),
                         ),
                       ]
