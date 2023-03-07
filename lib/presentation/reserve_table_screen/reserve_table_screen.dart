@@ -15,294 +15,306 @@ import 'package:quickdine/widgets/custom_bottom_bar.dart';
 import 'package:quickdine/widgets/custom_drop_down.dart';
 import 'package:quickdine/widgets/custom_text_form_field.dart';
 import 'package:intl/intl.dart';
+
 // New Code
 class ReserveTableScreen extends StatefulWidget {
   const ReserveTableScreen({Key? key}) : super(key: key);
-
   @override
   State<ReserveTableScreen> createState() => _ReserveTableScreenState();
 }
 
-class _ReserveTableScreenState extends State<ReserveTableScreen> with TickerProviderStateMixin{
+class _ReserveTableScreenState extends State<ReserveTableScreen>
+    with TickerProviderStateMixin {
   get controller => ReserveTableController();
-  String resId="";
-  String ResName="";
-  String resAddress="";
-  String resPhoto="";
-  String avgFile="";
+  String resId = "";
+  String ResName = "";
+  String resAddress = "";
+  String resPhoto = "";
+  String avgFile = "";
   List? resList;
   List? FoodList;
-    Map<String,String>FoodItems={
-
-    };
+  Map<String, String> FoodItems = {};
 //FoodCatogary List
-  List<String> Catagories=[];
-  String catagories="";
-  String Rating="";
-  int i=0;
-   late TabController _tabController;
-  List<Map<String,dynamic>> RestaurantList = [];
-  late Set<Map<String,String>> catogaries;
- late DateTime opentime;
+  List<String> Catagories = [];
+  String catagories = "";
+  String Rating = "";
+  int i = 0;
+  late TabController _tabController;
+  List<Map<String, dynamic>> RestaurantList = [];
+  late Set<Map<String, String>> catogaries;
+  late DateTime opentime;
   late DateTime Clossingtime;
-  String  avgprice="";
-  bool ontime=false;
+  String avgprice = "";
+  bool ontime = false;
   late List<Tab> tabname;
   var sortedByValueMap;
-  var time=DateTime.now();
+  var time = DateTime.now();
   void initState() {
     readData();
     super.initState();
     checkidValue();
-
   }
+
   checkidValue() async {
-    String uid = await shp().getresId()?? "";
+    String uid = await shp().getresId() ?? "";
     setState(() {
       resId = uid;
     });
     print("----" + resId + "---------");
   }
+
   Future<void> readData() async {
     var response2 =
-    await Supabase.instance.client.from('restaurant').select().execute();
+        await Supabase.instance.client.from('restaurant').select().execute();
     resList = response2.data.toList();
     resList!.forEach((element) {
-          RestaurantList.add(element);
-          i++;
+      RestaurantList.add(element);
+      i++;
     });
     for (int j = 0; j < i; j++) {
       if (resId == RestaurantList[j]['id']) {
         setState(() {
-          ResName=RestaurantList[j]['rest_name'];
-          resAddress=RestaurantList[j]['rest_address'];
-          resPhoto=RestaurantList[j]['rest_photo'];
-          avgprice=RestaurantList[j]['avg_price_for_2people'].toString();
-          catagories=RestaurantList[j]['food_categries'];
-          Rating=RestaurantList[j]['avg_stars'].toString();
-         //  opentime=DateTime.parse(RestaurantList[j]['opening_time']);
-         // Clossingtime=DateTime.parse(RestaurantList[j]['closing_time']);
+          ResName = RestaurantList[j]['rest_name'];
+          resAddress = RestaurantList[j]['rest_address'];
+          resPhoto = RestaurantList[j]['rest_photo'];
+          avgprice = RestaurantList[j]['avg_price_for_2people'].toString();
+          catagories = RestaurantList[j]['food_categries'];
+          Rating = RestaurantList[j]['avg_stars'].toString();
+          //  opentime=DateTime.parse(RestaurantList[j]['opening_time']);
+          // Clossingtime=DateTime.parse(RestaurantList[j]['closing_time']);
         });
       }
-
     }
-    var response3 =await Supabase.instance.client.from('food_item').select().execute();
-    FoodList=response3.data.toList();
-    int j=0;
+    var response3 =
+        await Supabase.instance.client.from('food_item').select().execute();
+    FoodList = response3.data.toList();
+    int j = 0;
     FoodList!.forEach((element) {
-          j++;
+      j++;
     });
     print(j);
-    int k=0;
-    for(int i=0;i<j;i++){
-     // print("///////////////////////////");
-     setState(() {
-       FoodItems.addIf(FoodList![i]['restid']==resId, FoodList![i]['foodname'], FoodList![i]['cuisine']);
-     });
+    int k = 0;
+    for (int i = 0; i < j; i++) {
+      // print("///////////////////////////");
+      setState(() {
+        FoodItems.addIf(FoodList![i]['restid'] == resId,
+            FoodList![i]['foodname'], FoodList![i]['cuisine']);
+      });
       // print(FoodItems.entries);
       // print("///////////////////////////");
       // print("///////////////////////////");
     }
-    Set<String> cat={};
-     // print(FoodItems.entries);
+    Set<String> cat = {};
+    // print(FoodItems.entries);
     //print(FoodItems.length);
     FoodItems.forEach((key, value) {
-     // print(key+":"+value);
+      // print(key+":"+value);
       cat.add(value);
     });
-   setState(() {
-     cat.forEach((element) {
-       Catagories.add(element);
-     });
-   });
-   Catagories.sort();
+    setState(() {
+      cat.forEach((element) {
+        Catagories.add(element);
+      });
+    });
+    Catagories.sort();
     setState(() {
       sortedByValueMap = new SplayTreeMap<String, String>.from(
           FoodItems, (k1, k2) => FoodItems[k1]!.compareTo(FoodItems[k2]!));
     });
     //print(sortedByValueMap);
     //print(Catagories);
-
   }
 
   @override
   Widget build(BuildContext context) {
-    _tabController=TabController(length: Catagories.length,vsync: this);
+    _tabController = TabController(length: Catagories.length, vsync: this);
     return SafeArea(
         top: false,
         bottom: false,
         child: Scaffold(
           extendBody: true,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: ColorConstant.whiteA700,
-            body: SingleChildScrollView(
-              child: Container(
-                  width: size.width,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-
-                            CachedNetworkImage(
-                            imageUrl: resPhoto,
-                            placeholder: (context, url) =>  Lottie.asset('assets2/123408-image-not-preview.json'),
-                            errorWidget: (context, url, error) => Lottie.asset('assets2/123408-image-not-preview.json'),
-                                height: getVerticalSize(313.00),
-                                width: getHorizontalSize(414.00),
-                              fit: BoxFit.cover,
-                              ),
-                            Container(
-                              margin: getMargin(top: 20),
-                              child: IconButton(
-                                onPressed: (){
-                                  Navigator.pop(context);
-                                },
-                                icon:Icon(Icons.arrow_back_ios),
-                                //replace with our own icon data.
-                              ),
-                            ),
-                            Container(
-                              margin: getMargin(top: 20,left: 370),
-                              child: IconButton(
-                                onPressed: (){
-                                },
-                                icon:Icon(Icons.search_rounded),
-                                //replace with our own icon data.
-                              ),
-                            ),
-                          ]
+          resizeToAvoidBottomInset: false,
+          backgroundColor: ColorConstant.whiteA700,
+          body: SingleChildScrollView(
+            child: Container(
+                width: size.width,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Stack(children: [
+                        CachedNetworkImage(
+                          imageUrl: resPhoto,
+                          placeholder: (context, url) => Lottie.asset(
+                              'assets2/123408-image-not-preview.json'),
+                          errorWidget: (context, url, error) => Lottie.asset(
+                              'assets2/123408-image-not-preview.json'),
+                          height: getVerticalSize(313.00),
+                          width: getHorizontalSize(414.00),
+                          fit: BoxFit.cover,
                         ),
-                        Padding(
-                            padding: getPadding(left: 32, top: 14),
-                            child: Text(ResName.tr,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: AppStyle.txtPoppinsSemiBold20)),
-                        Padding(
-                            padding: getPadding(left: 25, top: 1),
-                            child:  Container(
-                                width: getHorizontalSize(350.00),
-                                margin: getMargin(left: 10, top: 1),
-                                child: Text(resAddress,
-                                    maxLines: null,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle.txtPoppinsRegular11)),),
                         Container(
+                          margin: getMargin(top: 20),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            //replace with our own icon data.
+                          ),
+                        ),
+                        Container(
+                          margin: getMargin(top: 20, left: 370),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.search_rounded),
+                            //replace with our own icon data.
+                          ),
+                        ),
+                      ]),
+                      Padding(
+                          padding: getPadding(left: 32, top: 14),
+                          child: Text(ResName.tr,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: AppStyle.txtPoppinsSemiBold20)),
+                      Padding(
+                        padding: getPadding(left: 25, top: 1),
+                        child: Container(
                             width: getHorizontalSize(350.00),
-                            margin: getMargin(left: 33, top: 9),
-                            child: Text(" Rs: "+avgprice+" for 2 | "+" "+catagories,
+                            margin: getMargin(left: 10, top: 1),
+                            child: Text(resAddress,
                                 maxLines: null,
                                 textAlign: TextAlign.left,
                                 style: AppStyle.txtPoppinsRegular11)),
-                        Padding(
-                          padding: getPadding(left: 25, top: 1),
-                          child:  Container(
-                              width: getHorizontalSize(350.00),
-                              margin: getMargin(left: 10, top: 7),
-                              child: Row(
-                                children: [
-
-                                  Container(
-                                    child: Text(Rating,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: getMargin(left: 5,bottom: 3),
-                                    child: Icon(
-                                            Icons.star_rate_rounded,
-                                            color: Colors.orange,
-                                          ),
-                                  ),
-                                    Container(
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                              padding: getPadding(left: 5, top: 2),
-                                              child: Text(" | ",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: AppStyle.txtPoppinsRegular15Red500)),
-                                          Container(
-                                            margin:getMargin(left: 10),
-                                            child: CustomImageView(
-                                                svgPath: ImageConstant.imgClockRed500,
-                                                height: getSize(20.00),
-                                                width: getSize(20.00),
-                                                margin: getMargin(top: 2, bottom: 2)),
-                                          ),
-
-                                          Padding(
-                                              padding: getPadding(left: 5, top: 2),
-                                              child: Text("lbl_now_open".tr,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: AppStyle.txtPoppinsRegular15Red500))
-                                        ],
-                                      ),
-                                    )
-                                ],
-                              )),),
-
-                            Container(
-                              margin: getMargin(top: 10),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: TabBar(
-                                  controller: _tabController,
-                                isScrollable: true ,
-                                labelPadding: EdgeInsets.only(left: 20,right: 20),
-                                labelColor: Colors.black,
-                                  unselectedLabelColor: Colors.grey,
-                                  indicator:  CircleTabIndicator(color: Colors.black, radius: 3),
-                                  tabs: List<Widget>.generate( Catagories.length, (index) {
-                                    print(Catagories[index]);
-                                    return new Tab(text: Catagories[index],);
-                                  })
-
-                                  // ],
-                                ),
-                              ),
-                            ),
-                        Container(
-                          width: double.maxFinite,
-                              height: 300,
-                              child: TabBarView(
-                                controller: _tabController,
-                                children:  List<Widget>.generate(Catagories.length, (index) {
-                                         return FoodCards(CuisineNAme: Catagories[index]);
-                                         })
-                              ),
-                        ),
-                      ]
-                  )
-              ),
-            ),
-            floatingActionButton:  Container(
-              width: 100,
-              height: 70,
-              margin: getMargin(right: 10,bottom: 20),
-              child: FloatingActionButton(
-                onPressed: (){},
-                backgroundColor: Colors.yellow.shade700,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(100))
-                ),
-                child: Container(
-                  child: Row(
-                    children: [
+                      ),
                       Container(
-                        margin: getMargin(left: 15),
-                        child: Lottie.asset("assets2/Shopping.json",
+                          width: getHorizontalSize(350.00),
+                          margin: getMargin(left: 33, top: 9),
+                          child: Text(
+                              " Rs: " +
+                                  avgprice +
+                                  " for 2 | " +
+                                  " " +
+                                  catagories,
+                              maxLines: null,
+                              textAlign: TextAlign.left,
+                              style: AppStyle.txtPoppinsRegular11)),
+                      Padding(
+                        padding: getPadding(left: 25, top: 1),
+                        child: Container(
+                            width: getHorizontalSize(350.00),
+                            margin: getMargin(left: 10, top: 7),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    Rating,
+                                  ),
+                                ),
+                                Container(
+                                  margin: getMargin(left: 5, bottom: 3),
+                                  child: Icon(
+                                    Icons.star_rate_rounded,
+                                    color: Colors.orange,
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                          padding: getPadding(left: 5, top: 2),
+                                          child: Text(" | ",
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              style: AppStyle
+                                                  .txtPoppinsRegular15Red500)),
+                                      Container(
+                                        margin: getMargin(left: 10),
+                                        child: CustomImageView(
+                                            svgPath:
+                                                ImageConstant.imgClockRed500,
+                                            height: getSize(20.00),
+                                            width: getSize(20.00),
+                                            margin:
+                                                getMargin(top: 2, bottom: 2)),
+                                      ),
+                                      Padding(
+                                          padding: getPadding(left: 5, top: 2),
+                                          child: Text("lbl_now_open".tr,
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.left,
+                                              style: AppStyle
+                                                  .txtPoppinsRegular15Red500))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
+                      ),
+                      Container(
+                        margin: getMargin(top: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TabBar(
+                              controller: _tabController,
+                              isScrollable: true,
+                              labelPadding:
+                                  EdgeInsets.only(left: 20, right: 20),
+                              labelColor: Colors.black,
+                              unselectedLabelColor: Colors.grey,
+                              indicator: CircleTabIndicator(
+                                  color: Colors.black, radius: 3),
+                              tabs: List<Widget>.generate(Catagories.length,
+                                  (index) {
+                                print(Catagories[index]);
+                                return new Tab(
+                                  text: Catagories[index],
+                                );
+                              })
+
+                              // ],
+                              ),
                         ),
                       ),
-                    ],
-                  ),
+                      Container(
+                        width: double.maxFinite,
+                        height: 500,
+                        child: TabBarView(
+                            controller: _tabController,
+                            children: List<Widget>.generate(Catagories.length,
+                                (index) {
+                              return FoodCards(CuisineNAme: Catagories[index]);
+                            })),
+                      ),
+                    ])),
+          ),
+          floatingActionButton: Container(
+            width: 67,
+            height: 50,
+            color: Colors.transparent,
+            margin: getMargin(right: 15, bottom: 0),
+            child: FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: Colors.yellow.shade700,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25))),
+              child: Container(
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: getMargin(left: 10),
+                      child: Lottie.asset(
+                        "assets2/Shopping.json",
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-    ));
+          ),
+        ));
   }
 
   onTapRowtable() {
@@ -333,78 +345,78 @@ class _ReserveTableScreenState extends State<ReserveTableScreen> with TickerProv
     Get.toNamed(AppRoutes.reserveTableScreen);
   }
 
- // Widget _bottomButtons() {
- //     return _tabController.index==0?FloatingActionButton(
- //         shape: StadiumBorder(),
- //         onPressed: null,
- //         backgroundColor: Colors.redAccent,
- //         child: Icon(
- //           Icons.message,
- //           size: 20.0,
- //         ))
- //         : FloatingActionButton(
- //       shape: StadiumBorder(),
- //       onPressed: null,
- //       backgroundColor: Colors.redAccent,
- //       child: Icon(
- //         Icons.edit,
- //         size: 20.0,
- //       ),
- //     );
-   // FloatingActionButton(
-    //   onPressed: (){},
-    //   backgroundColor: Colors.orange.shade900,
-    //   shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(30))
-    //   ),
-    //   child: Container(
-    //     child: Row(
-    //       children: [
-    //         Container(
-    //           margin: getMargin(left: 20),
-    //           child: Icon(Icons.shopping_cart,
-    //             size: 35,),
-    //         ),
-    //         Container(
-    //             margin: getMargin(left: 10),
-    //             child: Text("Menu",
-    //               style: TextStyle(
-    //                   fontWeight: FontWeight.bold,
-    //                   fontSize: 21
-    //               ),
-    //             )
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // ):FloatingActionButton(
-    //   onPressed: (){},
-    //   backgroundColor: Colors.orange.shade900,
-    //   shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.all(Radius.circular(30))
-    //   ),
-    //   child: Container(
-    //     child: Row(
-    //       children: [
-    //         Container(
-    //           margin: getMargin(left: 20),
-    //           child: Icon(Icons.shopping_cart,
-    //             size: 35,),
-    //         ),
-    //         Container(
-    //             margin: getMargin(left: 10),
-    //             child: Text("Menu",
-    //               style: TextStyle(
-    //                   fontWeight: FontWeight.bold,
-    //                   fontSize: 21
-    //               ),
-    //             )
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
- }
+  // Widget _bottomButtons() {
+  //     return _tabController.index==0?FloatingActionButton(
+  //         shape: StadiumBorder(),
+  //         onPressed: null,
+  //         backgroundColor: Colors.redAccent,
+  //         child: Icon(
+  //           Icons.message,
+  //           size: 20.0,
+  //         ))
+  //         : FloatingActionButton(
+  //       shape: StadiumBorder(),
+  //       onPressed: null,
+  //       backgroundColor: Colors.redAccent,
+  //       child: Icon(
+  //         Icons.edit,
+  //         size: 20.0,
+  //       ),
+  //     );
+  // FloatingActionButton(
+  //   onPressed: (){},
+  //   backgroundColor: Colors.orange.shade900,
+  //   shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.all(Radius.circular(30))
+  //   ),
+  //   child: Container(
+  //     child: Row(
+  //       children: [
+  //         Container(
+  //           margin: getMargin(left: 20),
+  //           child: Icon(Icons.shopping_cart,
+  //             size: 35,),
+  //         ),
+  //         Container(
+  //             margin: getMargin(left: 10),
+  //             child: Text("Menu",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 21
+  //               ),
+  //             )
+  //         ),
+  //       ],
+  //     ),
+  //   ),
+  // ):FloatingActionButton(
+  //   onPressed: (){},
+  //   backgroundColor: Colors.orange.shade900,
+  //   shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.all(Radius.circular(30))
+  //   ),
+  //   child: Container(
+  //     child: Row(
+  //       children: [
+  //         Container(
+  //           margin: getMargin(left: 20),
+  //           child: Icon(Icons.shopping_cart,
+  //             size: 35,),
+  //         ),
+  //         Container(
+  //             margin: getMargin(left: 10),
+  //             child: Text("Menu",
+  //               style: TextStyle(
+  //                   fontWeight: FontWeight.bold,
+  //                   fontSize: 21
+  //               ),
+  //             )
+  //         ),
+  //       ],
+  //     ),
+  //   ),
+  // );
+}
 
 //Old Code
 // class ReserveTableScreen extends GetWidget<ReserveTableController> {
