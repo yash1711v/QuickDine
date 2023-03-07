@@ -149,10 +149,10 @@ int count=0;
                               setState(() {
                                 if(count1>0){
                                   count1=count1-1;
-                                  if(count1!=0){
-                                    Cou=0;
-                                    Cou=FoodList![loca[index]]['price']*count1;
-                                  }
+                                  // if(count1!=0){
+                                  //   Cou=0;
+                                  //   Cou=FoodList![loca[index]]['price']*count1;
+                                  // }
                                 }
                               });
                             },
@@ -183,10 +183,12 @@ int count=0;
                             width: 59,
                             onTap: (){
                              setState(() {
-                               if(count1<10){count1=count1+1;
-                               Cou=0;
-                               Cou=FoodList![loca[index]]['price']*count1;
+                               if(count1<10){
+                                 count1=count1+1;
                                }
+                               // Cou=0;
+                               // Cou=FoodList![loca[index]]['price']*count1;
+                               // }
                              });
                             },
                             margin:
