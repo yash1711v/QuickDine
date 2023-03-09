@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quickdine/core/app_export.dart';
 import 'package:quickdine/preferences/shp.dart';
+import 'package:quickdine/presentation/Provider/ItemCardStateProvider.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/src/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../widgets/custom_icon_button.dart';
+import '../reserve_table_screen/controller/reserve_table_controller.dart';
 
   class FoodCards extends StatefulWidget {
   //const FoodCards({Key? key}) : super(key: key);
@@ -16,16 +19,13 @@ import '../../widgets/custom_icon_button.dart';
 }
 
 class _FoodCardsState extends State<FoodCards> {
+  get controller => ReserveTableController();
   var ResID;
   List? Items;
   List? FoodList;
-String name="";
-String Price="";
-int Quant=0;
 int count=0;
   int j=0;
-  int count1=0;
-  int Cou=0;
+
   void initState() {
     readData();
     super.initState();
@@ -52,8 +52,6 @@ int count=0;
       if(FoodList![i]['restid']==ResID && FoodList![i]['cuisine']==widget.CuisineNAme){
         print(FoodList![i]['id'].toString()+" "+FoodList![i]['foodname']);
         setState(() {
-          name=FoodList![i]['foodname'];
-          Price=FoodList![i]['price'];
           count++;
         });
       }
@@ -65,7 +63,9 @@ int count=0;
 
   @override
   Widget build(BuildContext context) {
-
+    int Count1=0;
+   //final cart=Provider.of<CardProvider>(context);
+   final cart=new CardProvider();
     return ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -79,6 +79,7 @@ int count=0;
                 loca.add(i);
             }
           }
+          //count1=0;
           return Container(
             height: 150,
             decoration: BoxDecoration(
@@ -86,6 +87,7 @@ int count=0;
             ),
             child: Stack(
               children: [Card(
+
                 color: Colors.white,
                 elevation: 5,
                   child: Stack(
@@ -98,7 +100,9 @@ int count=0;
                                           .circular(
                                           15),
                                       child: Image.network(
+
                                           FoodList![loca[index]]['food_photo'],
+                                        filterQuality:FilterQuality.high,
                                         fit: BoxFit.cover,
                                         loadingBuilder: (BuildContext context,Widget child, ImageChunkEvent?
                                         loadingProgress){
@@ -106,24 +110,24 @@ int count=0;
                                             return child;
                                           } else {
                                             return Lottie
-                                                .asset(
-                                                'assets2/123408-image-not-preview.json');
+                                                .asset('assets2/123408-image-not-preview.json');
                                           }
                                         },
-                                        height: 120,
-                                        width: 100,
-
+                                        height: 140,
+                                        width: 110,
                                       ),
                                     ),
-
                                 ),
                                Container(
-                                   margin: getMargin(left: 15,bottom: 50),
-                                   child: Text(
-                                       FoodList![loca[index]]['foodname'],
-                                     style: TextStyle(
-                                       fontSize: 15,
-                                       fontWeight: FontWeight.bold
+                                   margin: getMargin(left: 15,bottom: 100),
+                                   child: SizedBox(
+                                     width: 250,
+                                     child: Text(
+                                         FoodList![loca[index]]['foodname'],
+                                       style: TextStyle(
+                                         fontSize: 20,
+                                         fontWeight: FontWeight.bold
+                                       ),
                                      ),
                                    ),
                                ),
@@ -131,77 +135,66 @@ int count=0;
                       ],
                     ),
                       Container(
-                        margin: getMargin(left: 122,top: 70),
+                        margin: getMargin(left: 132,top: 50),
                         child: Text(
                           "INR:"+" "+FoodList![loca[index]]['price'],
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: getMargin(left: 190,top: 35),
-                        child: CustomIconButton(
-                            height: 58,
-                            width: 59,
-                            onTap: (){
-                              setState(() {
-                                if(count1>0){
-                                  count1=count1-1;
-                                  // if(count1!=0){
-                                  //   Cou=0;
-                                  //   Cou=FoodList![loca[index]]['price']*count1;
-                                  // }
-                                }
-                              });
-                            },
-                            margin:
-                            getMargin(left: 35),
-                            shape: IconButtonShape
-                                .RoundedBorder5,
-                            child: CustomImageView(
-                                svgPath: ImageConstant
-                                    .iconMinus)),
-                      ),
-
-                      Container(
-                        margin: getMargin(left: 300,top: 55,),
-                        child: Text(
-                         count1.toString(),
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold
                           ),
                         ),
                       ),
+                      Container(
+                        margin: getMargin(left: 335,top: 45),
+                        child:  IconButton(onPressed: () {
+                           Count1=Count1+1;
+                             shp().setCount(Count1.toString());
+                         }, icon: Icon(Icons.add_shopping_cart,
+                          size: 40,
+                          color: Colors.yellow.shade900,
+                        ),)),
 
-                       Container(
-                        margin: getMargin(left: 300,top: 35),
-                        child: CustomIconButton(
-                            height: 58,
-                            width: 59,
-                            onTap: (){
-                             setState(() {
-                               if(count1<10){
-                                 count1=count1+1;
-                               }
-                               // Cou=0;
-                               // Cou=FoodList![loca[index]]['price']*count1;
-                               // }
-                             });
-                            },
-                            margin:
-                            getMargin(left: 35),
-                            shape: IconButtonShape
-                                .RoundedBorder5,
-                            child: CustomImageView(
-                                svgPath: ImageConstant
-                                    .imgPlusBlack900)),
-                      ),
+                      //
+                      // Container(
+                      //   margin: getMargin(left: 300,top: 80),
+                      //   child: Text(
+                      //    count1.toString(),
+                      //     style: TextStyle(
+                      //         fontSize: 20,
+                      //         fontWeight: FontWeight.bold
+                      //     ),
+                      //   ),
+                      //
+                      // ),
+
+                      //  Container(
+                      //   margin: getMargin(left: 300,top: 65),
+                      //   child: CustomIconButton(
+                      //       height: 58,
+                      //       width: 59,
+                      //       onTap: (){
+                      //        setState(() {
+                      //          if(count1<10){
+                      //            count1=count1+1;
+                      //            print(count1);
+                      //          }
+                      //          // Cou=0;
+                      //          // Cou=FoodList![loca[index]]['price']*count1;
+                      //          // }
+                      //        });
+                      //       },
+                      //       margin:
+                      //       getMargin(left: 35),
+                      //       shape: IconButtonShape
+                      //           .RoundedBorder5,
+                      //       child: CustomImageView(
+                      //           svgPath: ImageConstant
+                      //               .imgPlusBlack900)),
+                      // ),
 
                     ]
                   ),
+
                 ),
 
               ]),

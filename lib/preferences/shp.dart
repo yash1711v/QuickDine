@@ -101,4 +101,17 @@ class shp {
     profileLink = shpui.getString("profileLink")!;
     return profileLink;
   }
+
+  String Count="";
+  setCount(String count) async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    shpui.setString("Count", count);
+    // return Uid;
+  }
+  getCount() async {
+    SharedPreferences shpui = await SharedPreferences.getInstance();
+    Count = shpui.getString("Count")!;
+    print(Count);
+    return Count;
+  }
 }

@@ -9,12 +9,16 @@ class ReserveTableController extends GetxController {
   Rx<ReserveTableModel> reserveTableModelObj = ReserveTableModel().obs;
 
   SelectionPopupModel? selectedDropDownValue;
+  var count=0.obs;
 
   @override
   void onReady() {
     super.onReady();
   }
-
+    void AddcOUNT(){
+      count.value=count.value;
+      print(count.value);
+    }
   @override
   void onClose() {
     super.onClose();

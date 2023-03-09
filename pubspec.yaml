@@ -8,7 +8,6 @@ dependencies:
   flutter: 
     sdk: flutter
   get: ^4.6.5
-  provider: ^6.0.0
   upi_india: ^3.0.1
   shared_preferences: ^2.0.18
   connectivity_plus: ^2.3.6
@@ -29,6 +28,8 @@ dependencies:
   avatar_glow: ^1.2.0
   speech_to_text: ^6.1.1
   permission_handler: ^10.2.0
+  provider: ^6.0.5
+  path_provider: ^2.0.2
 dev_dependencies: 
   flutter_test:
     sdk: flutter
@@ -47,6 +48,7 @@ flutter:
     - assets2/OrdeerPng.png
     - assets2/elegant.png
     - assets2/user.png
+    - assets2/add-to-cart.json
 
   fonts:
     - family: Poppins

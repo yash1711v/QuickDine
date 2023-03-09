@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:quickdine/presentation/Provider/ItemCardStateProvider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/app_export.dart';
@@ -20,22 +22,27 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
 
+  // This widget is the root  of your application
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        visualDensity: VisualDensity.standard,
-      ),
-      translations: AppLocalization(),
-      locale: Get.deviceLocale, //for setting localization strings
-      fallbackLocale: Locale('en', 'US'),
-      title: 'QuickDine',
-      initialBinding: InitialBindings(),
-      initialRoute: AppRoutes.splashScreen,
-      getPages: AppRoutes.pages,
+    return ChangeNotifierProvider(create: (context) => CardProvider(),
+        child: Builder(builder: (BuildContext context) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              visualDensity: VisualDensity.standard,
+            ),
+            translations: AppLocalization(),
+            locale: Get.deviceLocale,
+            //for setting localization strings
+            fallbackLocale: Locale('en', 'US'),
+            title: 'QuickDine',
+            initialBinding: InitialBindings(),
+            initialRoute: AppRoutes.splashScreen,
+            getPages: AppRoutes.pages,
+          );
+        })
     );
   }
 }
