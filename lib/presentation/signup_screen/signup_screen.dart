@@ -66,7 +66,9 @@ class _SignupScreenState extends State<SignupScreen> {
     else {
       final response
       = await SupabaseCredential.supabaseClient.auth
-          .signUp(email: _emailControler.text, password: _PassControler.text).catchError((e){
+          .signUp(email: _emailControler.text, password: _PassControler.text).then((value) {
+        Get.toNamed(AppRoutes.signinScreen);
+      }).catchError((e){
           Toast.show(e.message, backgroundColor: Colors.grey,);
          print(e.message);
        });

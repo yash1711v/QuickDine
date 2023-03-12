@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../preferences/shp.dart';
+import '../../routes/app_routes.dart';
 import '../../widgets/custom_icon_button.dart';
 import '../../widgets/custom_image_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -136,7 +137,7 @@ class _BottomState extends State<Bottom> {
               outerColor: Colors.white,
               text: "Slide To Pay",
               onSubmit: (){
-
+                Get.toNamed(AppRoutes.myOrderScreen);
               },
             ),
         ),
