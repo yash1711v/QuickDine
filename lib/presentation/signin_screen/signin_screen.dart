@@ -47,7 +47,10 @@ class _SigninScreenState extends State<SigninScreen> {
     });
     AuthResponse response = await SupabaseCredential.supabaseClient.auth
         .signInWithPassword(
-            email: _emailControler.text, password: _PassControler.text);
+            email: _emailControler.text, password: _PassControler.text).catchError((e){
+      Toast.show(e.message, backgroundColor: Colors.grey,);
+      print(e.message);
+    });
     User? error = response.user;
     setState(() {
       uid = new SupabaseUser(uid: response.user!.id);

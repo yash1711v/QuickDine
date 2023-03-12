@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../preferences/shp.dart';
 import '../FoodCd/Foodcd.dart';
+import '../FoodCd/bottomSheet.dart';
 import '../indicator/indicator.dart';
 import 'controller/reserve_table_controller.dart';
 import 'package:flutter/material.dart';
@@ -131,6 +132,24 @@ class _ReserveTableScreenState extends State<ReserveTableScreen>
   Widget build(BuildContext context) {
     _tabController = TabController(length: Catagories.length, vsync: this);
     String Count=shp().getCount().toString()??"";
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          shape: const RoundedRectangleBorder( // <-- SEE HERE
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(25.0),
+            ),
+          ),
+          enableDrag: true,
+          backgroundColor: Colors.orangeAccent[100],
+          builder: (context){
+            return  Container(
+                height: 450,
+                padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
+                child: Bottom());
+          });
+    }
     return SafeArea(
         top: false,
         bottom: false,
@@ -254,44 +273,56 @@ class _ReserveTableScreenState extends State<ReserveTableScreen>
                                     ],
                                   ),
                                 ),
-                                Stack(
-                                    children: [Container(
-                                      width: 67,
-                                      height: 50,
-                                      color: Colors.transparent,
-                                      margin: getMargin(left: 112, bottom: 0),
-                                      child: FloatingActionButton(
-                                        onPressed: () {},
-                                        backgroundColor: Colors.transparent,
-                                        elevation: 0,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(Radius.circular(25))),
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                margin: getMargin(left: 10),
-                                                child: Lottie.asset(
-                                                  "assets2/Shopping.json",
+                                GestureDetector(
+                                  onTap: (){
+                                    _showSettingsPanel();
+                                  },
+                                  child: Stack(
+                                      children: [Container(
+                                        width: 67,
+                                        height: 50,
+                                        color: Colors.transparent,
+                                        margin: getMargin(left: 112, bottom: 0),
+                                        child: FloatingActionButton(
+                                          onPressed: () {
+                                            _showSettingsPanel();
+                                          },
+                                          backgroundColor: Colors.transparent,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(25))),
+                                          child: Container(
+                                            color: Colors.transparent,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  margin: getMargin(left: 10),
+                                                  child: Lottie.asset(
+                                                    "assets2/Shopping.json",
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                      Container(
-                                        margin: getMargin(top: 35,left: 155),
-                                        child: CircleAvatar(
-                                          backgroundColor: Colors.red,
-                                          radius: 10,
-                                          child: Text(
-                                              Count
+                                        GestureDetector(
+                                          onTap: (){
+                                            _showSettingsPanel();
+                                          },
+                                          child: Container(
+                                            margin: getMargin(top: 35,left: 155),
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.red,
+                                              radius: 10,
+                                              child: Text(
+                                                  ""
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ]
+                                        )
+                                      ]
+                                  ),
                                 ),
                               ],
                             )),

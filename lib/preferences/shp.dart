@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class shp {
@@ -102,16 +104,24 @@ class shp {
     return profileLink;
   }
 
-  String Count="";
-  setCount(String count) async {
+  List Count=[[],[]];
+  setCount(List count) async {
     SharedPreferences shpui = await SharedPreferences.getInstance();
-    shpui.setString("Count", count);
+    shpui.setString("Count", jsonEncode(count));
     // return Uid;
   }
   getCount() async {
     SharedPreferences shpui = await SharedPreferences.getInstance();
-    Count = shpui.getString("Count")!;
-    print(Count);
+    Count = jsonDecode(shpui.getString("Count")!);
+    Set<String> cat = {};
+    Count.forEach((element) {
+      cat.add(element);
+    });
+    Count.clear();
+    cat.forEach((element) {
+      Count.add(element);
+    });
+    // Count.sort();
     return Count;
   }
 }

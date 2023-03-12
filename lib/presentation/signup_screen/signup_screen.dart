@@ -64,8 +64,12 @@ class _SignupScreenState extends State<SignupScreen> {
       Toast.show("Enter a valid Email ID", backgroundColor: Colors.grey,);
     }
     else {
-      final response = await SupabaseCredential.supabaseClient.auth
-          .signUp(email: _emailControler.text, password: _PassControler.text);
+      final response
+      = await SupabaseCredential.supabaseClient.auth
+          .signUp(email: _emailControler.text, password: _PassControler.text).catchError((e){
+          Toast.show(e.message, backgroundColor: Colors.grey,);
+         print(e.message);
+       });
       error = response.user!;
 
       await DatabaseServices().updateuserData(
