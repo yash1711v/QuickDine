@@ -97,7 +97,7 @@ class _BottomState extends State<Bottom> {
     print("Food List Item id present in the PArticular Cart Item: "+item.toString()+"Length: "+item!.length.toString());
    print("Fitems Length: "+fitems!.length.toString());
   }
-  int counter=0;
+
   @override
   Widget build(BuildContext context) {
 
@@ -119,89 +119,7 @@ class _BottomState extends State<Bottom> {
                  children: [
                    GestureDetector(
                      onTap: (){},
-                       child: Card(
-                         color: Colors.white,
-                         elevation: 5,
-                         child: Stack(
-                             children: [Row(
-                               children: [
-                                 Container(
-                                   margin: getMargin(left: 8,top: 8,bottom: 8),
-                                   child:  ClipRRect(
-                                     borderRadius:  BorderRadius
-                                         .circular(
-                                         15),
-                                     child: Image.network(
-
-                                       fitems![index]['food_photo'],
-                                       filterQuality:FilterQuality.high,
-                                       fit: BoxFit.cover,
-                                       loadingBuilder: (BuildContext context,Widget child, ImageChunkEvent?
-                                       loadingProgress){
-                                         if (loadingProgress ==null) {
-                                           return child;
-                                         } else {
-                                           return Lottie
-                                               .asset('assets2/123408-image-not-preview.json');
-                                         }
-                                       },
-                                       height: 70,
-                                       width: 60,
-                                     ),
-                                   ),
-                                 ),
-                                 Container(
-                                   margin: getMargin(left:15,bottom: 20),
-                                   child: SizedBox(
-                                     width:  110,
-                                     child: Text(
-                                       fitems![index]['foodname'],
-                                       style: TextStyle(
-                                           fontSize: 15,
-                                           fontWeight: FontWeight.bold
-                                       ),
-                                     ),
-                                   ),
-                                 ),
-
-                               ],
-                             ),
-                               Container(
-                                 margin: getMargin(left: 85,top: 55),
-                                 child: Text(
-                                   "INR:"+" "+fitems![index]['price'],
-                                   style: TextStyle(
-                                       fontSize: 15,
-                                       fontWeight: FontWeight.bold
-                                   ),
-                                 ),
-                               ),
-                               Container(
-                                   margin: getMargin(left: 175,top: 25),
-                                   child: IconButton(icon: Icon(Icons.minimize), onPressed: () {
-                                     setState(() {
-                                      if(counter>0) {counter--;}
-                                     });
-                                   },)
-                               ),
-                              Container(
-                                    margin: getMargin(left: 225,top: 50),
-                                    child: Text("$counter")
-                                ),
-                                Container(
-                                 margin: getMargin(left: 240,top: 30),
-                                 child: IconButton(icon: Icon(Icons.add), onPressed: () {
-                                        //controller.AddcOUNT();
-                                        setState(() {
-                                          if(counter<10){ counter++; }
-                                        });
-                                        },)
-                               ),
-
-                             ]
-                         ),
-
-                       ),
+                       child:  crd(fitems: fitems, index: index,),
                    )
                  ],
                ),
@@ -209,16 +127,120 @@ class _BottomState extends State<Bottom> {
             }
         ),
       ),
-        Container(
-          margin: getMargin(bottom: 580),
-          child: SlideAction(
-            innerColor: Colors.yellow.shade900,
-            outerColor: Colors.white,
-            text: "Slide To Pay",
-            onSubmit: (){
 
-            },
+
+        Container(
+          padding: getPadding(bottom: 530),
+          child: SlideAction(
+              innerColor: Colors.yellow.shade900,
+              outerColor: Colors.white,
+              text: "Slide To Pay",
+              onSubmit: (){
+
+              },
+            ),
+        ),
+           ]);
+  }
+
+
+}
+class crd extends StatefulWidget {
+  //const crd({Key? key}) : super(key: key);
+  List?  fitems=[];
+  int index=0;
+    crd({required this.index,required this.fitems});
+
+  @override
+  State<crd> createState() => _crdState();
+}
+
+class _crdState extends State<crd> {
+  int counter=0;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      elevation: 5,
+      child: Stack(
+          children: [Row(
+            children: [
+              Container(
+                margin: getMargin(left: 8,top: 8,bottom: 8),
+                child:  ClipRRect(
+                  borderRadius:  BorderRadius
+                      .circular(
+                      15),
+                  child: Image.network(
+
+                    widget.fitems![widget.index]['food_photo'],
+                    filterQuality:FilterQuality.high,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (BuildContext context,Widget child, ImageChunkEvent?
+                    loadingProgress){
+                      if (loadingProgress ==null) {
+                        return child;
+                      } else {
+                        return Lottie
+                            .asset('assets2/123408-image-not-preview.json');
+                      }
+                    },
+                    height: 70,
+                    width: 60,
+                  ),
+                ),
+              ),
+              Container(
+                margin: getMargin(left:15,bottom: 20),
+                child: SizedBox(
+                  width:  110,
+                  child: Text(
+                    widget.fitems![widget.index]['foodname'],
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              ),
+
+            ],
           ),
-        ),    ]);
+            Container(
+              margin: getMargin(left: 85,top: 55),
+              child: Text(
+                "INR:"+" "+widget.fitems![widget.index]['price'],
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+            Container(
+                margin: getMargin(left: 175,top: 25),
+                child: IconButton(icon: Icon(Icons.minimize), onPressed: () {
+                  setState(() {
+                    if(counter>0) {counter--;}
+                  });
+                },)
+            ),
+            Container(
+                margin: getMargin(left: 225,top: 50),
+                child: Text("$counter")
+            ),
+            Container(
+                margin: getMargin(left: 240,top: 30),
+                child: IconButton(icon: Icon(Icons.add), onPressed: () {
+                  //controller.AddcOUNT();
+                  setState(() {
+                    if(counter<10){ counter++; }
+                  });
+                },)
+            ),
+
+          ]
+      ),
+
+    );
   }
 }
