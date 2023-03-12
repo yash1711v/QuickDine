@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quickdine/presentation/FoodCd/Controler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../preferences/shp.dart';
-
+import '../../widgets/custom_icon_button.dart';
+import '../../widgets/custom_image_view.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 class Bottom extends StatefulWidget {
-  const Bottom({Key? key}) : super(key: key);
+  Bottom({Key? key}) : super(key: key);
 
   @override
   State<Bottom> createState() => _BottomState();
@@ -16,7 +20,7 @@ class Bottom extends StatefulWidget {
 class _BottomState extends State<Bottom> {
   List? item=[];
   String ResID="";
-
+  final BottomsSheetCon controller=Get.put(BottomsSheetCon());
   List? fitems=[];
   void initState() {
     //readData();
@@ -93,129 +97,128 @@ class _BottomState extends State<Bottom> {
     print("Food List Item id present in the PArticular Cart Item: "+item.toString()+"Length: "+item!.length.toString());
    print("Fitems Length: "+fitems!.length.toString());
   }
+  int counter=0;
   @override
   Widget build(BuildContext context) {
 
+    return Stack(
+      children: [Container(
+        margin: getMargin(top: 90),
+        child: ListView.builder(
+            // shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: fitems!.length,
+            itemBuilder: (BuildContext context, int index){
+             return Container(
+               height: 100,
+               width: 150,
+               decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(25)
+               ),
+               child:Stack(
+                 children: [
+                   GestureDetector(
+                     onTap: (){},
+                       child: Card(
+                         color: Colors.white,
+                         elevation: 5,
+                         child: Stack(
+                             children: [Row(
+                               children: [
+                                 Container(
+                                   margin: getMargin(left: 8,top: 8,bottom: 8),
+                                   child:  ClipRRect(
+                                     borderRadius:  BorderRadius
+                                         .circular(
+                                         15),
+                                     child: Image.network(
 
-    return ListView.builder(
-        // shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemCount: fitems!.length,
-        itemBuilder: (BuildContext context, int index){
-         return Container(
-           height: 100,
-           width: 150,
-           decoration: BoxDecoration(
-               borderRadius: BorderRadius.circular(25)
-           ),
-           child:Stack(
-             children: [
-               GestureDetector(
-                 onTap: (){},
-                   child: Card(
-                     color: Colors.white,
-                     elevation: 5,
-                     child: Stack(
-                         children: [Row(
-                           children: [
-                             Container(
-                               margin: getMargin(left: 8,top: 8,bottom: 8),
-                               child:  ClipRRect(
-                                 borderRadius:  BorderRadius
-                                     .circular(
-                                     15),
-                                 child: Image.network(
-
-                                   fitems![index]['food_photo'],
-                                   filterQuality:FilterQuality.high,
-                                   fit: BoxFit.cover,
-                                   loadingBuilder: (BuildContext context,Widget child, ImageChunkEvent?
-                                   loadingProgress){
-                                     if (loadingProgress ==null) {
-                                       return child;
-                                     } else {
-                                       return Lottie
-                                           .asset('assets2/123408-image-not-preview.json');
-                                     }
-                                   },
-                                   height: 70,
-                                   width: 60,
+                                       fitems![index]['food_photo'],
+                                       filterQuality:FilterQuality.high,
+                                       fit: BoxFit.cover,
+                                       loadingBuilder: (BuildContext context,Widget child, ImageChunkEvent?
+                                       loadingProgress){
+                                         if (loadingProgress ==null) {
+                                           return child;
+                                         } else {
+                                           return Lottie
+                                               .asset('assets2/123408-image-not-preview.json');
+                                         }
+                                       },
+                                       height: 70,
+                                       width: 60,
+                                     ),
+                                   ),
                                  ),
-                               ),
+                                 Container(
+                                   margin: getMargin(left:15,bottom: 20),
+                                   child: SizedBox(
+                                     width:  110,
+                                     child: Text(
+                                       fitems![index]['foodname'],
+                                       style: TextStyle(
+                                           fontSize: 15,
+                                           fontWeight: FontWeight.bold
+                                       ),
+                                     ),
+                                   ),
+                                 ),
+
+                               ],
                              ),
-                             Container(
-                               margin: getMargin(left:15,bottom: 20),
-                               child: SizedBox(
-                                 width:  110,
+                               Container(
+                                 margin: getMargin(left: 85,top: 55),
                                  child: Text(
-                                   fitems![index]['foodname'],
+                                   "INR:"+" "+fitems![index]['price'],
                                    style: TextStyle(
                                        fontSize: 15,
                                        fontWeight: FontWeight.bold
                                    ),
                                  ),
                                ),
-                             ),
-
-                           ],
-                         ),
-                           Container(
-                             margin: getMargin(left: 85,top: 55),
-                             child: Text(
-                               "INR:"+" "+fitems![index]['price'],
-                               style: TextStyle(
-                                   fontSize: 20,
-                                   fontWeight: FontWeight.bold
+                               Container(
+                                   margin: getMargin(left: 175,top: 25),
+                                   child: IconButton(icon: Icon(Icons.minimize), onPressed: () {
+                                     setState(() {
+                                      if(counter>0) {counter--;}
+                                     });
+                                   },)
                                ),
-                             ),
-                           ),
-                           //
-                           // Container(
-                           //   margin: getMargin(left: 300,top: 80),
-                           //   child: Text(
-                           //    count1.toString(),
-                           //     style: TextStyle(
-                           //         fontSize: 20,
-                           //         fontWeight: FontWeight.bold
-                           //     ),
-                           //   ),
-                           //
-                           // ),
+                              Container(
+                                    margin: getMargin(left: 225,top: 50),
+                                    child: Text("$counter")
+                                ),
+                                Container(
+                                 margin: getMargin(left: 240,top: 30),
+                                 child: IconButton(icon: Icon(Icons.add), onPressed: () {
+                                        //controller.AddcOUNT();
+                                        setState(() {
+                                          if(counter<10){ counter++; }
+                                        });
+                                        },)
+                               ),
 
-                           //  Container(
-                           //   margin: getMargin(left: 300,top: 65),
-                           //   child: CustomIconButton(
-                           //       height: 58,
-                           //       width: 59,
-                           //       onTap: (){
-                           //        setState(() {
-                           //          if(count1<10){
-                           //            count1=count1+1;
-                           //            print(count1);
-                           //          }
-                           //          // Cou=0;
-                           //          // Cou=FoodList![loca[index]]['price']*count1;
-                           //          // }
-                           //        });
-                           //       },
-                           //       margin:
-                           //       getMargin(left: 35),
-                           //       shape: IconButtonShape
-                           //           .RoundedBorder5,
-                           //       child: CustomImageView(
-                           //           svgPath: ImageConstant
-                           //               .imgPlusBlack900)),
-                           // ),
+                             ]
+                         ),
 
-                         ]
-                     ),
+                       ),
+                   )
+                 ],
+               ),
+             );
+            }
+        ),
+      ),
+        Container(
+          margin: getMargin(bottom: 580),
+          child: SlideAction(
+            innerColor: Colors.yellow.shade900,
+            outerColor: Colors.white,
+            text: "Slide To Pay",
+            onSubmit: (){
 
-                   ),
-               )
-             ],
-           ),
-         );
-        }
-    );
+            },
+          ),
+        ),    ]);
   }
 }

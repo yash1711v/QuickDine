@@ -145,7 +145,7 @@ class _ReserveTableScreenState extends State<ReserveTableScreen>
           backgroundColor: Colors.orangeAccent[100],
           builder: (context){
             return  Container(
-                height: 450,
+                height: 650,
                 padding: EdgeInsets.fromLTRB(50.0, 30.0, 50.0, 10.0),
                 child: Bottom());
           });
