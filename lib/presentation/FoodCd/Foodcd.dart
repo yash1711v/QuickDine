@@ -48,7 +48,7 @@ class _FoodCardsState extends State<FoodCards> {
       }
     });
     items!.sort();
-      print(  items.toString());
+      print(items.toString());
   }
   Future<void> readData() async {
     var response3 =await Supabase.instance.client.from('food_item').select().execute();
@@ -92,6 +92,7 @@ class _FoodCardsState extends State<FoodCards> {
                 loca.add(i);
             }
           }
+
           //count1=0;
           return Container(
             height: 150,
@@ -253,13 +254,11 @@ class _FoodCardsState extends State<FoodCards> {
                         ),
                         Container(
                           margin: getMargin(left: 335,top: 45),
-                          child:  Order? Icon(Icons.done,
+                          child:  Order? Icon(Icons.remove_shopping_cart_rounded,
                             size: 40,
                               color:Colors.yellow.shade900,
                           ):IconButton(onPressed: () {
-                             //Count1=Count1+1;
-                           // print(FoodList![loca[index]]['id'].toString());
-                            List? newcount=[];
+
                             setState(() {
                               itemid?.add(FoodList![loca[index]]['id'].toString());
                               for(int i=0;i<itemid!.length;i++){items!.add(itemid![i]);}
