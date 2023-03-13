@@ -104,7 +104,7 @@ class _BottomState extends State<Bottom> {
 
     return Stack(
       children: [Container(
-        margin: getMargin(top: 90),
+        margin: getMargin(top: 110),
         child: ListView.builder(
             // shrinkWrap: true,
           scrollDirection: Axis.vertical,
