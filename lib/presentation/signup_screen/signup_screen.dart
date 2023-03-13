@@ -49,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
     _PassControler = TextEditingController();
     _isVisible = true;
   }
-
+  late var response;
   Future<void> _singUp() async {
     setState(() {
       _isLoading = true;
@@ -63,17 +63,16 @@ class _SignupScreenState extends State<SignupScreen> {
     if (!emailValid) {
       Toast.show("Enter a valid Email ID", backgroundColor: Colors.grey,);
     }
+
     else {
-      final response
-      = await SupabaseCredential.supabaseClient.auth
-          .signUp(email: _emailControler.text, password: _PassControler.text).then((value) {
-        Get.toNamed(AppRoutes.signinScreen);
-      }).catchError((e){
+
+    response = await SupabaseCredential.supabaseClient.auth
+          .signUp(email: _emailControler.text, password: _PassControler.text).catchError((e){
           Toast.show(e.message, backgroundColor: Colors.grey,);
          print(e.message);
        });
-      error = response.user!;
 
+      error=response.user!;
       await DatabaseServices().updateuserData(
           _FirstName.text,
           _lastname.text,
@@ -82,7 +81,9 @@ class _SignupScreenState extends State<SignupScreen> {
           _PassControler.text,
           error.id,
           publicUrl
-      );
+      ).then((value)=>print("Successfull")).catchError((e){
+          print(e.toString());
+      });
       if (error != null) {
         print(error.email);
         Get.toNamed(AppRoutes.signinScreen);
@@ -104,6 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final SupabaseClient client = SupabaseClient(supabaseURL, supabaseKey);
   bool uploadState = false;
   String publicUrl = "";
+
   @override
   Widget build(BuildContext context) {
     ToastContext().init(context);
